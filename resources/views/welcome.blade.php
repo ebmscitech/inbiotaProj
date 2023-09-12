@@ -44,7 +44,7 @@
                 <div class="col-md-6">
                   <div class="detail-box">
                     <h1>
-                      Natural Product Trusted Data Source 
+                      Natural Product Trusted Data Source
                     </h1>
                     <p> Inbiota is a database software which gathers plants data with compound contained in it. A breaktrough for natural product research using AI to help finding data </p>
                     <div class="btn-box">
