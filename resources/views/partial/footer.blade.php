@@ -50,21 +50,21 @@
               Links
             </h4>
             <div class="info_links">
-              <a class="active" href="index.html">
-                <img src="images/nav-bullet.png" alt="">
+              <a class="active" href="/">
+                <img src="{{asset('/InbiotaHtmlCss/images/nav-bullet.png')}}" alt="">
                 Home
               </a>
-              <a class="" href="about.html">
-                <img src="images/nav-bullet.png" alt="">
-                About
+              <a class="" href="/docs">
+                <img src="{{asset('/InbiotaHtmlCss/images/nav-bullet.png')}}" alt="">
+                Docs
               </a>
-              <a class="" href="service.html">
-                <img src="images/nav-bullet.png" alt="">
-                Services
+              <a class="" href="/contact">
+                <img src="{{asset('/InbiotaHtmlCss/images/nav-bullet.png')}}" alt="">
+                Contact
               </a>
-              <a class="" href="contact.html">
-                <img src="images/nav-bullet.png" alt="">
-                Contact Us
+              <a class="" href="/signin">
+                <img src="{{asset('/InbiotaHtmlCss/images/nav-bullet.png')}}" alt="">
+                Sign In
               </a>
             </div>
           </div>

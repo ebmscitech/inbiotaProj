@@ -82,7 +82,7 @@
               </h2>
             </div>
             <p>
-              Inbiota adalah  </p>
+              Inbiota is a database software which gathers plants data with compound contained in it. A breaktrough for natural product research using AI to help finding data</p>
             <a href="/docs">
               Read More
             </a>
@@ -112,7 +112,7 @@
       <div class="row">
         <div class="col-md-8 col-lg-6 mx-auto">
           <div class="form_container">
-            <form action="">
+            <form method="" action="">
               <div>
                 <input type="text" placeholder="Your Name" />
               </div>

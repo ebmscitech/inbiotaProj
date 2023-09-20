@@ -13,11 +13,15 @@
                 About Us
               </h2>
             </div>
-            <p>
-              Words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks </p>
-            <a href="">
-              Read More
-            </a>
+            <p>Inbiota is a database software which gathers plants data with compound contained in it. A breaktrough for natural product research using AI to help finding data</p>
+    
+            <!-- Hidden content with a unique ID -->
+            <div id="more" class="read-more">
+                <p>Additional content goes here...</p>
+            </div>
+
+            <!-- "Read More" link -->
+            <p class="read-more-button" onclick="toggleReadMore()">Read More</p>
           </div>
         </div>
         <div class="col-md-6 ">
@@ -31,4 +35,19 @@
   </section>
 
   <!-- end about section -->
+  <script>
+    // JavaScript function to toggle the hidden content
+    function toggleReadMore() {
+        var moreText = document.getElementById("more");
+        var buttonText = document.querySelector(".read-more-button");
+
+        if (moreText.style.display === "none") {
+            moreText.style.display = "block";
+            buttonText.innerHTML = "Read Less";
+        } else {
+            moreText.style.display = "none";
+            buttonText.innerHTML = "Read More";
+        }
+    }
+</script>
 @endsection

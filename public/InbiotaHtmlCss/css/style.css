@@ -1036,3 +1036,14 @@ a:focus {
   color: inherit;
 }
 /*# sourceMappingURL=style.css.map */
+
+/* Style for the "Read More" link */
+ .read-more {
+  display: none; /* Initially hide the content */
+}
+
+/* Style for the link to toggle the hidden content */
+.read-more-button {
+  cursor: pointer;
+  color: blue;
+}

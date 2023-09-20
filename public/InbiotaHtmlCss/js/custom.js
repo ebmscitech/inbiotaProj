@@ -44,3 +44,4 @@ $('.team_carousel').owlCarousel({
         }
     }
 })
+
