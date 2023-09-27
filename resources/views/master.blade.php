@@ -36,11 +36,14 @@
 
   <div class="hero_area">
     @include('partial.nav')
+    @yield('contentX')
   </div>
 
   @yield('content1')
   
   @yield('content2')
+
+  @yield('content3')
 
   @include('partial.footer')
 
