@@ -3,7 +3,7 @@
 <section class="info_section layout_padding2">
     <div class="container">
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-4">
           <div class="info_contact">
             <h4>
               Address
@@ -44,7 +44,7 @@
             </a>
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
           <div class="info_link_box">
             <h4>
               Links
@@ -69,17 +69,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-3">
-          <div class="info_detail">
-            <h4>
-              Info
-            </h4>
-            <p>
-              
-            </p>
-          </div>
-        </div>
-        <div class="col-md-3 mb-0">
+        <div class="col-md-4 mb-0">
           <h4>
             Subscribe
           </h4>
