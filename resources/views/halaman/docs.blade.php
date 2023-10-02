@@ -21,7 +21,7 @@
             </div>
 
             <!-- "Read More" link -->
-            <p class="read-more-button" onclick="toggleReadMore()">Read More</p>
+            <button class="read-more-button" onclick="toggleReadMore()">Read More</button>
           </div>
         </div>
         <div class="col-md-6 ">

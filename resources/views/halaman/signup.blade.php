@@ -12,12 +12,12 @@
       <div class="row">
         <div class="col-md-8 col-lg-6 mx-auto">
           <div class="form_container">
-            <form action="">
+            <form action="" method="post">
               <div>
-                <input type="text" placeholder="Email" />
+                <input type="text" name="email" placeholder="Email" />
               </div>
               <div>
-                <input type="text" placeholder="Password" />
+                <input type="text" name="password" placeholder="Password" />
               </div>
               <div>
                 <input type="text" placeholder="Confirm Password" />

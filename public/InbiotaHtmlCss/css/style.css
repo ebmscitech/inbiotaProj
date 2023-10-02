@@ -1044,6 +1044,22 @@ a:focus {
 
 /* Style for the link to toggle the hidden content */
 .read-more-button {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   cursor: pointer;
-  color: blue;
+  border: none;
+  text-transform: uppercase;
+  display: inline-block;
+  padding: 15px 65px;
+  background-color: #ff4646;
+  color: #ffffff;
+  border-radius: 0;
+  border: 1px solid #ff4646;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  font-weight: bold;
 }

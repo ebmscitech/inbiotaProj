@@ -73,8 +73,9 @@
           <h4>
             Subscribe
           </h4>
-          <form action="#">
-            <input type="text" placeholder="Enter email" />
+          <form action="/subsForm" method="post">
+            @csrf
+            <input name="subscription" placeholder="Enter email" />
             <button type="submit">
               Subscribe
             </button>

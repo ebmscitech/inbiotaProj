@@ -33,4 +33,17 @@ class HomeController extends Controller
     public function page7(){
         return view('halaman.inputData');
     }
+    
+    public function pageBForm(Request $request){
+        dd($request->all());
+    }
+    public function pageInputData(Request $request){
+        dd($request->all());
+    }
+    public function subsForm(Request $request){
+        dd($request->all());
+    }
+    public function accSignin(Request $request){
+        dd($request->all());
+    }
 }

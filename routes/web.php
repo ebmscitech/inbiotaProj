@@ -27,3 +27,9 @@ Route::get('/signup', [HomeController::class, 'page5']);
 Route::get('/sEngine', [HomeController::class, 'page6']);
 
 Route::get('/inputData', [HomeController::class, 'page7']);
+
+Route::post('/sendBForm', [HomeController::class, 'pageBForm']);
+
+Route::post('/sendPData', [HomeController::class, 'pageInputData']);
+
+Route::post('/subsForm', [HomeController::class, 'subsForm']);

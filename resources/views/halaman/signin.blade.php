@@ -12,15 +12,16 @@
       <div class="row">
         <div class="col-md-8 col-lg-6 mx-auto">
           <div class="form_container">
-            <form action="">
+            <form action="/accSignin" method="post">
+              @csrf
               <div>
-                <input type="text" placeholder="Email" />
+                <input type="text" name="email" placeholder="Email" />
               </div>
               <div>
-                <input type="text" placeholder="Password" />
+                <input type="text" name="pass" placeholder="Password" />
               </div>
-              <div class="btn_box ">
-                <button>
+              <div class="btn_box">
+                <button type="submit">
                   Sign In
                 </button>
               </div>

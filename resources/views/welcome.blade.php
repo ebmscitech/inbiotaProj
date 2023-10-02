@@ -73,21 +73,14 @@
     <div class="row">
       <div class="col-md-8 col-lg-6 mx-auto">
         <div class="form_container">
-          <form method="" action="">
-            <div>
-              <input type="text" placeholder="Your Name" />
-            </div>
-            <div>
-              <input type="email" placeholder="Your Email" />
-            </div>
-            <div>
-              <input type="text" placeholder="Your Phone" />
-            </div>
-            <div>
-              <input type="text" class="message-box" placeholder="Message" />
-            </div>
+          <form method="post" action="/sendBForm">
+              @csrf
+              <input type="text" name="name" placeholder="Your Name" />
+              <input type="email" name="emailmsg" placeholder="Your Email" />
+              <input type="text" name="phone number" placeholder="Your Phone" />
+              <input type="text" name="message" class="message-box" placeholder="Message" />
             <div class="btn_box ">
-              <button>
+              <button type="submit" class="btn_box ">
                 SEND
               </button>
             </div>
