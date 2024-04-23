@@ -93,7 +93,7 @@
     <div class="container">
       <p>
         &copy; <span id="displayYear"></span> All Rights Reserved By
-        <a href="/">Inbiota</a>
+        <a href="/">INBIOTA</a>
       </p>
     </div>
   </footer>

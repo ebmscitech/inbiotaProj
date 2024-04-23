@@ -1,113 +1,139 @@
-@extends('master')
-
+@extends('master2')
+@section('title')
+    Plant Data
+@endsection
 @section('content1')
+  <!-- Select2 -->
+  <link rel="stylesheet" href="{{asset('/adminlte/plugins/select2/css/select2.min.css')}}">
     <!-- contact section -->
-  <section class="contact_section layout_padding">
-    <div class="container">
-      <div class="heading_container heading_center">
-        <h2>
-          Input Data
-        </h2>
-      </div>
-      <div class="row">
-        <div class="col-md-8 col-lg-6 mx-auto">
-          <div class="form_container">
+  <section class="content">
+    <div class="container-fluid">
+      <div class="">
+        <div class="">
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Input Plant Data</h3>
+            </div>
+            <div class="card-body">
+            @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
             <form action="/sendPData" method="post">
               @csrf
-              <div>
-                <input type="text" name="Plant Name" placeholder="Plant Name" />
+              <div class="form-group">
+                <label for="exampleInputEmail1">Plant Name</label>
+                <input type="text" class="form-control" name="Plant_Name" placeholder="Plant Name" />
               </div>
-              <div>
-                <input type="text" name="Local Name" placeholder="Local Name" />
+              <div class="form-group">
+                <label for="exampleInputEmail1">Local Name</label>
+                <input type="text" class="form-control" name="Local_Name" placeholder="Local Name" />
               </div>
-              <div>
-                <input type="text" name="English Name" placeholder="English Name" />
+              <div class="form-group">
+                <label for="exampleInputEmail1">English Name</label>
+                <input type="text" class="form-control" name="English_Name" placeholder="English Name" />
               </div>
-              <div>
-                <input type="text" name="Kingdom" placeholder="Kingdom" />
+              <div class="form-group">
+                <label for="exampleInputEmail1">Kingdom</label>
+                <input type="text" class="form-control" name="Kingdom" placeholder="Kingdom" />
               </div>
-              <div>
-                <input type="text" name="Sub-Kingdom" placeholder="Sub-Kingdom" />
+              <div class="form-group">
+                <label for="exampleInputEmail1">SubKingdom</label>
+                <input type="text" class="form-control" name="SubKingdom" placeholder="Sub-Kingdom" />
               </div>
-              <div>
-                <input type="text" name="Infrakingdom" placeholder="Infrakingdom" />
+              <div class="form-group">
+                <label for="exampleInputEmail1">Infrakingdom</label>
+                <input type="text" class="form-control" name="Infrakingdom" placeholder="Infrakingdom" />
               </div>
-              <div>
-                <input type="text" name="Superdivision" placeholder="Superdivision" />
+              <div class="form-group">
+                <label for="exampleInputEmail1">Superdivision</label>
+                <input type="text" class="form-control" name="Superdivision" placeholder="Superdivision" />
               </div>
-              <div>
-                <input type="text" name="Class" placeholder="Class" />
+              <div class="form-group">
+                <label for="exampleInputEmail1">Class</label>
+                <input type="text" class="form-control" name="Class" placeholder="Class" />
               </div>
-              <div>
-                <input type="text" name="Superorder" placeholder="Superorder" />
+              <div class="form-group">
+                <label for="exampleInputEmail1">Superorder</label>
+                <input type="text" class="form-control" name="Superorder" placeholder="Superorder" />
               </div>
-              <div>
-                <input type="text" name="Order" placeholder="Order" />
+              <div class="form-group">
+                <label for="exampleInputEmail1">Order</label>
+                <input type="text" class="form-control" name="Order" placeholder="Order" />
               </div>
-              <div>
-                <input type="text" name="Family" placeholder="Family" />
+              <div class="form-group">
+                <label for="exampleInputEmail1">Family</label>
+                <input type="text" class="form-control" name="Family" placeholder="Family" />
               </div>
-              <div>
-                <input type="text" name="Genus" placeholder="Genus" />
+              <div class="form-group">
+                <label for="exampleInputEmail1">Genus</label>
+                <input type="text" class="form-control" name="Genus" placeholder="Genus" />
               </div>
-              <div>
-                <input type="text" name="Species" placeholder="Species" />
+              <div class="form-group">
+                <label for="exampleInputEmail1">Species</label>
+                <input type="text" class="form-control" name="Species" placeholder="Species" />
               </div>
-              <div>
-                <input type="text" name="Synonym" placeholder="Synonym" />
+              <div class="form-group">
+                <label for="exampleInputEmail1">Geographical Distribution</label>
+                <input type="text" class="form-control" name="Geographical_Distribution" class="message-box" placeholder="Geographycal Distribution" />
               </div>
-              <div>
-                <input type="text" name="CAS Number" placeholder="CAS Number" />
+              <div class="form-group">
+                <label for="exampleInputEmail1">Traditional Uses</label>
+                <input type="text" class="form-control" name="Traditional_Uses" class="message-box" placeholder="Traditional Uses" />
               </div>
-              <div>
-                <input type="text" name="Chemical Formula" placeholder="Chemical Formula" />
+              <div class="form-group">
+                <label for="exampleInputEmail1">Synonym</label>
+                <input type="text" class="form-control" name="Synonym" placeholder="Synonym" />
               </div>
-              <div>
-                <input type="text" name="Molecular Mass" placeholder="Molecular Mass (m/z)" />
+              <div class="form-group">
+                <label for="exampleInputEmail1">Reference</label>
+                <input type="text" class="form-control" name="Reference" placeholder="Reference" />
               </div>
-              <div>
-                <input type="text" name="IUPAC Name" placeholder="IUPAC Name" />
+              <div class="form-group">
+                <label>Bioactivities related:</label>
+                <select name="BA_Name[]" class="select2" multiple="multiple" data-placeholder="Any" style="width: 100%;">
+                  @forelse ($Bio as $item)
+                      <option value="{{$item->id}}">{{$item->BA_Name}}</option>
+                  @empty
+                      <option value="">None of Plant Data</option>
+                  @endforelse
+                </select>
               </div>
-              <div>
-                <input type="text" name="Geographical Distribution" class="message-box" placeholder="Geographycal Distribution" />
+              <div class="form-group">
+                <label for="exampleInputEmail1">Bioactivity Detail</label>
+                <input type="text" class="form-control" name="BA_detail" placeholder="Bioactivity Detail" />
               </div>
-              <div>
-                <input type="text" name="Traditional Uses" class="message-box" placeholder="Traditional Uses" />
+              <div class="form-group">
+                <label>Phytochemical related:</label>
+                <select name="Phytochemical[]" class="select2" multiple="multiple" data-placeholder="Any" style="width: 100%;">
+                  @forelse ($zat as $item)
+                      <option value="{{$item->id}}">{{$item->Phytochemical}}</option>
+                  @empty
+                      <option value="">None of Bioactivity Data</option>
+                  @endforelse
+                </select>
               </div>
-              <div>
-                <input type="text" name="In Silico" class="message-box" placeholder="Bioacttivities In silico" />
-              </div>
-              <div>
-                <input type="text" name="Acute Toxicity" class="message-box" placeholder="Acute Toxicity" />
-              </div>
-              <div>
-                <input type="text" name="Subchronic Toxicity" class="message-box" placeholder="Subchronic Toxicity" />
-              </div>
-              <div>
-                <input type="text" name="Chronic Toxicity" class="message-box" placeholder="Chronic Toxicity" />
-              </div>
-              <div>
-                <input type="text" name="In Vivo" class="message-box" placeholder="Bioacttivities In vivo" />
-              </div>
-              <div>
-                <input type="text" name="In Vitro" class="message-box" placeholder="Bioacttivities In vitro" />
-              </div>
-              <div>
-                <input type="text" name="Clinical Studies" class="message-box" placeholder="Bioacttivities Clinical Studies" />
-              </div>
-              <div>
-                <input type="text" name="Phytochemical" class="message-box" placeholder="Phytochemical" />
-              </div>
-              <div class="btn_box ">
-                <button>
+              <button class="btn btn-primary btn-lg">
                   SEND
-                </button>
-              </div>
+              </button>
             </form>
+          </div>
           </div>
         </div>
       </div>
     </div>
   </section>
   <!-- end contact section -->
+  <script>
+    $(function () {
+      $('.select2').select2()
+    });
+  </script>
+<!-- Select2 -->
+<script src="{{asset('/adminlte/plugins/select2/js/select2.full.min.js')}}"></script>
 @endsection

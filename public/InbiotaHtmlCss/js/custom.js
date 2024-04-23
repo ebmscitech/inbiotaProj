@@ -43,5 +43,5 @@ $('.team_carousel').owlCarousel({
             items: 3
         }
     }
-})
+});
 

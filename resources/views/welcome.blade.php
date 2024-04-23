@@ -33,7 +33,7 @@
 @endsection
 
 @section('content1')
-<section class="about_section layout_padding-bottom">
+{{-- <section class="about_section layout_padding-bottom">
   <div class="container  ">
     <div class="row">
       <div class="col-md-6">
@@ -58,7 +58,7 @@
 
     </div>
   </div>
-</section>
+</section> --}}
 @endsection
 
 @section('content2')
@@ -73,18 +73,29 @@
     <div class="row">
       <div class="col-md-8 col-lg-6 mx-auto">
         <div class="form_container">
+          <div class="card-body">
+            @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
           <form method="post" action="/sendBForm">
               @csrf
               <input type="text" name="name" placeholder="Your Name" />
-              <input type="email" name="emailmsg" placeholder="Your Email" />
-              <input type="text" name="phone number" placeholder="Your Phone" />
+              <input type="email" name="senderEmail" placeholder="Your Email" />
+              <input type="text" name="phoneNumber" placeholder="Your Phone" />
               <input type="text" name="message" class="message-box" placeholder="Message" />
-            <div class="btn_box ">
-              <button type="submit" class="btn_box ">
-                SEND
-              </button>
-            </div>
+              <div class="btn_box ">
+                <button type="submit" class="btn_box ">
+                  SEND
+                </button>
+              </div>
           </form>
+        </div>
         </div>
       </div>
     </div>
@@ -94,18 +105,23 @@
 
 @section('content3')
 <section class="about_section layout_padding-bottom">
-  <div class="container ">
+  <div class="container">
     <div class="row">
-      <div class="col-md-6">
-        <div class="img-box">
-            <h1>
+      <div class="col-md-7">
+        <div class="image-container">
+            <h2>
               <div class="heading_container">
                   Powered by :
               </div>
+              <br>
               <div>
-                  <img src="{{asset('/EBM-Logo.png')}}" alt="">
+                  <img src="{{asset('/EBM-Logo.png')}}" alt="" class="image">
+                  &nbsp;&nbsp;
+                  <img src="{{asset('/logoITB.png')}}" alt="" class="image">
+                  &nbsp;&nbsp;
+                  <img src="{{asset('/logopui.png')}}" alt="" class="image">
               </div>
-            </h1>
+            </h2>
         </div>
       </div>
     </div>

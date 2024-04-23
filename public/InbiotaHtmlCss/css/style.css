@@ -1063,3 +1063,27 @@ a:focus {
   transition: all .3s;
   font-weight: bold;
 }
+
+.image-container {
+  display: flex;
+  justify-content: center; /* Mengatur jarak yang merata antara gambar */
+  align-items: center;
+}
+
+.image {
+  max-width: 30%; /* Lebar maksimum gambar adalah 30% dari lebar parent container */
+  height: auto;
+}
+
+/* Menghilangkan margin kanan dari gambar terakhir */
+.image:last-child {
+  margin-right: 0;
+}
+
+/* Resetting default margin and padding for the body */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+

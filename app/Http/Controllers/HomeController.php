@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Models\zat;
+use App\Models\Bio;
 
 class HomeController extends Controller
 {
@@ -31,19 +34,50 @@ class HomeController extends Controller
     }
 
     public function page7(){
-        return view('halaman.inputData');
+        $zat = zat::get();
+        $Bio = Bio::get();
+        return view('halaman.inputData', compact('zat', 'Bio'));
     }
     
     public function pageBForm(Request $request){
-        dd($request->all());
-    }
-    public function pageInputData(Request $request){
-        dd($request->all());
+        $validated = $request->validate([
+            'name' => 'required',
+            'senderEmail' => 'required',
+            'phoneNumber' => 'numeric',
+            'dibaca' => 'boolean'
+        ]);
+        // dd($request->all());
+        DB::table('questionsub')->insert([
+            'name' => $request['name'],
+            'senderEmail' => $request['senderEmail'],
+            'phoneNumber' => $request['phoneNumber'],
+            'message' => $request['message'],
+        ]);
+        return redirect ('/');
     }
     public function subsForm(Request $request){
+        DB::table('emailsub')->insert([
+            'subscription' => $request['subscription'],
+        ]);
+        return redirect('/');
+    }
+
+    //tinggal Auth
+    public function accSignin(Request $request){
+        $validated = $request->validate([
+            'email' => 'required',
+            'password' => 'required',
+        ]);
         dd($request->all());
     }
-    public function accSignin(Request $request){
+    public function accSignup(Request $request){
+        $validated = $request->validate([
+            'email' => 'required',
+            'password' => 'required',
+        ]);
         dd($request->all());
+    }
+    public function indexadmin(){
+        return view('backoffice.indexAdmin');
     }
 }
