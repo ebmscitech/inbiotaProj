@@ -13,7 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('bioaktivitas', function (Blueprint $table){
+            $table->id('baId');
+            $table->string('BA_Name');
+            $table->text('BA_ref');
+            $table->text('BA_Details');
+        });
     }
 
     /**
@@ -23,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('bioaktivitas');
     }
 };

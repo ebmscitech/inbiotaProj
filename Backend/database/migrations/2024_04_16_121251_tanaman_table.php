@@ -13,7 +13,26 @@ return new class extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('tanaman', function (Blueprint $table){
+            $table->id('tanamanID');
+            $table->string('Plant_Name');
+            $table->string('Local_Name');
+            $table->string('English_Name');
+            $table->string('Kingdom');
+            $table->string('SubKingdom');
+            $table->string('Infrakingdom');
+            $table->string('Superdivision');
+            $table->string('Class');
+            $table->string('Order');
+            $table->string('Superorder');
+            $table->string('Family');
+            $table->string('Genus');
+            $table->string('Species');
+            $table->string('Synonym');
+            $table->string('Geographical_Distribution');
+            $table->text('Traditional_Uses');
+            $table->text('Reference');
+        });
     }
 
     /**
@@ -23,6 +42,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('tanaman');
     }
 };
