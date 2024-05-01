@@ -1,0 +1,155 @@
+module.exports = {
+  content: [
+    "./pages/*.js",
+    "./pages/**/*.js",
+    "./components/*.js",
+    "./components/**/*.js",
+  ],
+  theme: {
+    boxShadow: {
+      sm: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+      DEFAULT:
+        "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)",
+      md: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+      lg: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
+      xl: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+      t: "0 -1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)",
+      orange: "0px 20px 20px -15px rgba(245,56,56,0.81) ",
+      "orange-md": "0px 20px 40px -15px rgba(245,56,56,0.81) ",
+      none: "none",
+    },
+    colors: {
+      transparent: "transparent",
+      black: {
+        500: "#4F5665",
+        600: "#0B132A",
+      },
+      orange: {
+        100: "#FFECEC",
+        500: "#F53855",
+      },
+      green: {
+        500: "#2FAB73",
+      },
+      white: {
+        200: "#F7F7F7",
+        300: "#F8F8F8",
+        500: "#fff",
+      },
+      gray: {
+        100: "#EEEFF2",
+        400: "#AFB5C0",
+        500: "#DDDDDD",
+      },
+      primary: {
+        50: "#f6e7e7",
+        100: "#e2b5b5",
+        200: "#d49191",
+        300: "#c15e5e",
+        400: "#b53f3f",
+        500: "#a20f0f",
+        600: "#930e0e",
+        700: "#730b0b",
+        800: "#590808",
+        900: "#440606",
+      },
+      secondary: {
+        50: "#fff9e6",
+        100: "#feebb0",
+        200: "#fde18a",
+        300: "#fcd354",
+        400: "#fccb33",
+        500: "#fbbe00",
+        600: "#e4ad00",
+        700: "#b28700",
+        800: "#8a6900",
+        900: "#695000",
+      },
+      neutral: {
+        50: "#e7e7e7",
+        100: "#b3b3b4",
+        200: "#8e8e8f",
+        300: "#5b5b5c",
+        400: "#3b3b3d",
+        500: "#0a0a0c",
+        600: "#09090b",
+        700: "#070709",
+        800: "#060607",
+        900: "#040405",
+      },
+      w: {
+        50: "#fdfdfd",
+        75: "#f5f5f5",
+        100: "#f1f1f1",
+        200: "#eaeaea",
+        300: "#e6e6e6",
+        400: "#a1a1a1",
+        500: "#8c8c8c",
+      },
+    },
+    extend: {
+      minHeight: {
+        "screen-75": "75vh",
+      },
+      fontSize: {
+        55: "55rem",
+      },
+      opacity: {
+        80: ".8",
+      },
+      zIndex: {
+        2: 2,
+        3: 3,
+      },
+      inset: {
+        "-100": "-100%",
+        "-225-px": "-225px",
+        "-160-px": "-160px",
+        "-150-px": "-150px",
+        "-94-px": "-94px",
+        "-50-px": "-50px",
+        "-29-px": "-29px",
+        "-20-px": "-20px",
+        "25-px": "25px",
+        "40-px": "40px",
+        "95-px": "95px",
+        "145-px": "145px",
+        "195-px": "195px",
+        "210-px": "210px",
+        "260-px": "260px",
+      },
+      height: {
+        "95-px": "95px",
+        "70-px": "70px",
+        "350-px": "350px",
+        "500-px": "500px",
+        "600-px": "600px",
+      },
+      maxHeight: {
+        "860-px": "860px",
+      },
+      maxWidth: {
+        "100-px": "100px",
+        "120-px": "120px",
+        "150-px": "150px",
+        "180-px": "180px",
+        "200-px": "200px",
+        "210-px": "210px",
+        "580-px": "580px",
+      },
+      minWidth: {
+        "140-px": "140px",
+        48: "12rem",
+      },
+      backgroundSize: {
+        full: "100%",
+      },
+    },
+  },
+  variants: {
+    extend: {
+      boxShadow: ["active", "hover"],
+    },
+  },
+  plugins: []
+};
