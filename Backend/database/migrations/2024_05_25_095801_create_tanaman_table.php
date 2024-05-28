@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tanaman', function (Blueprint $table){
-            $table->id('tanamanID');
+        Schema::create('tanaman', function (Blueprint $table) {
+            $table->id();
             $table->string('Plant_Name');
             $table->string('Local_Name');
             $table->string('English_Name');
@@ -32,6 +32,7 @@ return new class extends Migration
             $table->string('Geographical_Distribution');
             $table->text('Traditional_Uses');
             $table->text('Reference');
+            $table->timestamps();
         });
     }
 

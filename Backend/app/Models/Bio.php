@@ -7,6 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Bio extends Model
 {
-    protected $table = 'Bio';
+    use HasFactory;
+    protected $table = 'bioaktivitas';
     protected $fillable = ['BA_Name','BA_Details','BA_ref', 'Plant_Name', 'Phytochemical'];
+    
+    public function datasenyawa()
+    {
+        return $this->belongsToMany(dataSenyawa::class, 'sbt');
+    }
+
+    public function zat()
+    {
+        return $this->belongsToMany(zat::class, 'sbt');
+    }
 }

@@ -9,4 +9,14 @@ class zat extends Model
 {
     protected $table = 'zat';
     protected $fillable = ['Synonym','CAS_Number','Chemical_Formula','Molecular_Mass', 'IUPAC_Name', 'Phytochemical', 'compoundClass', 'Plant_Name', 'Description', 'BA_Name'];
+
+    public function datasenyawa()
+    {
+        return $this->belongsToMany(dataSenyawa::class, 'sbt');
+    }
+
+    public function Bio()
+    {
+        return $this->belongsToMany(Bio::class, 'sbt');
+    }
 }

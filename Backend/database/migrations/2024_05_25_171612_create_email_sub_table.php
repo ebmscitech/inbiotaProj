@@ -13,11 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('bioaktivitas', function (Blueprint $table){
-            $table->id('baId');
-            $table->string('BA_Name');
-            $table->text('BA_ref');
-            $table->text('BA_Details');
+        Schema::create('emailsub', function (Blueprint $table) {
+            $table->id();
+            $table->string('subscription');
+            $table->timestamps();
         });
     }
 
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bioaktivitas');
+        Schema::dropIfExists('emailsub');
     }
 };

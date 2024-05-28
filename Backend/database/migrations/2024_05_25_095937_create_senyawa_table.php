@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('senyawa', function(Blueprint $table){
-            $table->id('senyawaId');
+        Schema::create('senyawa', function (Blueprint $table) {
+            $table->id();
             $table->string('Phytochemical');
             $table->string('compoundClass');
             $table->string('CAS_Number');
@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('IUPAC_Name');
             $table->string('SynonymZ');
             $table->text('Description');
+            $table->timestamps();
         });
     }
 
@@ -31,8 +32,8 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('senyawa');        
+        Schema::dropIfExists('senyawa');
     }
 };
