@@ -34,8 +34,8 @@ class HomeController extends Controller
     }
 
     public function page7(){
-        $zat = zat::get();
-        $Bio = Bio::get();
+        $zat = DB::table('senyawa')->get();
+        $Bio = DB::table('bioaktivitas')->get();
         return view('halaman.inputData', compact('zat', 'Bio'));
     }
     
