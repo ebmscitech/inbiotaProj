@@ -39,17 +39,17 @@
         <tr>
         <td>Plant Related</td>
         <td>
-            @forelse ($dataSenyawa as $item)
-            @php
-                $selected = in_array($item->id, json_decode($zat->Plant_Name, true) ?? []);
-            @endphp
-            @if ($selected)
-                <option value="{{ $item->id }}" {{ $selected ? 'selected' : '' }}>{{ $item->Plant_Name }}</option>
-            @endif
-            
-            @empty
-                    <option value="">None of Phytochemical Data</option>
-            @endforelse
+              @forelse ($sbt as $item)
+              @php
+                  $plantNames = $tanaman->pluck('Plant_Name')->toArray();
+                  $selected = in_array($item->tanId, $plantNames);
+              @endphp
+              @if ($selected)
+                  <option value="{{ $item->id }}" {{ $selected ? 'selected' : '' }}>{{ $item->Plant_Name }}</option>
+              @endif
+              @empty
+                  <option value="">None of Plant Data</option>
+              @endforelse
         </td>
         </tr>
         <td>Bioactivities Related</td>
@@ -72,7 +72,7 @@
         </tr>        
         {{-- <tr>
           <td>Structure</td>
-          <td><img src="{{asset('imageInput/' . $dataSenyawa->Structure)}}" alt=""></td>
+          <td><img src="{{asset('imageInput/' . $tanaman->Structure)}}" alt=""></td>
         </tr> --}}
         </table>
 

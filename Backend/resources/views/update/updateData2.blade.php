@@ -57,7 +57,7 @@
               <div class="form-group">
                 <label>Plant related:</label>
                 <select name="Plant_Name[]" class="select2" multiple="multiple" data-placeholder="Any" value="{{$zat->Phytochemical ?? 'N/A'}}" style="width: 100%;">
-                    @forelse ($dataSenyawa as $item)
+                    @forelse ($tanaman as $item)
                     @php
                         $selected = in_array($item->id, json_decode($zat->Plant_Name, true) ?? []);
                     @endphp
@@ -95,8 +95,8 @@
               </div>
               {{-- <div class="form-group">
                 <label>Bioactivities related:</label>
-                <select name="Plant_Name" class="select2" multiple="multiple" data-placeholder="Any" style="width: 100%;" value="{{$dataSenyawa->Plant_Name ?? 'N/A'}}">
-                  @forelse ($dataSenyawa as $item)
+                <select name="Plant_Name" class="select2" multiple="multiple" data-placeholder="Any" style="width: 100%;" value="{{$tanaman->Plant_Name ?? 'N/A'}}">
+                  @forelse ($tanaman as $item)
                       <option value="{{$item->id}}">{{$item->Plant_Name}}</option>
                   @empty
                       <option value="">None of Plant Data</option>
@@ -105,8 +105,8 @@
               </div>
               <div class="form-group">
                 <label>Phytochemical related:</label>
-                <select name="Plant_Name" class="select2" multiple="multiple" data-placeholder="Any" style="width: 100%;" value="{{$dataSenyawa->Plant_Name ?? 'N/A'}}">
-                  @forelse ($dataSenyawa as $item)
+                <select name="Plant_Name" class="select2" multiple="multiple" data-placeholder="Any" style="width: 100%;" value="{{$tanaman->Plant_Name ?? 'N/A'}}">
+                  @forelse ($tanaman as $item)
                       <option value="{{$item->id}}">{{$item->Plant_Name}}</option>
                   @empty
                       <option value="">None of Plant Data</option>

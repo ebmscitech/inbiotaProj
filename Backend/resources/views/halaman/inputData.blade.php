@@ -24,7 +24,7 @@
                                 </ul>
                             </div>
                         @endif
-            <form action="/sendPData" method="post">
+            <form action="/tanaman" method="post">
               @csrf
               <div class="form-group">
                 <label for="exampleInputEmail1">Plant Name</label>
@@ -106,7 +106,7 @@
               </div>
               <div class="form-group">
                 <label for="exampleInputEmail1">Bioactivity Detail</label>
-                <input type="text" class="form-control" name="BA_detail" placeholder="Bioactivity Detail" />
+                <input type="text" class="form-control" name="BaTanRelated" placeholder="Bioactivity Detail" />
               </div>
               <div class="form-group">
                 <label>Phytochemical related:</label>

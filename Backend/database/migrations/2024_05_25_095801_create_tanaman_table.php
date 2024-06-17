@@ -31,6 +31,7 @@ return new class extends Migration
             $table->string('Synonym');
             $table->string('Geographical_Distribution');
             $table->text('Traditional_Uses');
+            $table->text('BaTanRelated');
             $table->text('Reference');
             $table->timestamps();
         });

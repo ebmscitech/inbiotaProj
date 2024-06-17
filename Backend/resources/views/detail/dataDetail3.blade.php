@@ -23,7 +23,7 @@
         <tr>
         <td>Plant Related</td>
         <td>
-            @forelse ($dataSenyawa as $item)
+            @forelse ($tanaman as $item)
                 @php
                     // Mengecek apakah $item->id ada dalam array yang dihasilkan dari JSON decoding Plant_Name
                     $selected = in_array($item->id, json_decode($Bio->Plant_Name, true) ?? [], true);
@@ -34,7 +34,7 @@
                 </option>
                 @endif
             @empty
-                <!-- Jika $dataSenyawa kosong, menampilkan opsi default -->
+                <!-- Jika $tanaman kosong, menampilkan opsi default -->
                 <option value="">None of Plant Data</option>
             @endforelse
         </td>
@@ -57,7 +57,7 @@
         </tr>      
         {{-- <tr>
           <td>Structure</td>
-          <td><img src="{{asset('imageInput/' . $dataSenyawa->Structure)}}" alt=""></td>
+          <td><img src="{{asset('imageInput/' . $tanaman->Structure)}}" alt=""></td>
         </tr> --}}
         </table>
 

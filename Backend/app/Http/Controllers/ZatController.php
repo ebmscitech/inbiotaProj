@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\zat;
 use Illuminate\Http\Request;
-use App\Models\dataSenyawa;
+use App\Models\tanaman;
 use App\Models\Bio;
+use App\Models\sbt;
 use App\Rules\NumericWithMinus;
 use Illuminate\Support\Facades\DB;
 
@@ -30,9 +31,10 @@ class ZatController extends Controller
      */
     public function create()
     {
-        $dataSenyawa = dataSenyawa::get();
+        $tanaman = tanaman::get();
         $Bio = Bio::get();
-        return view('halaman.inputData2', compact('dataSenyawa', 'Bio'));
+        $sbt = sbt::get();
+        return view('halaman.inputData2', compact('tanaman', 'Bio'));
     }
 
     /**
@@ -59,7 +61,7 @@ class ZatController extends Controller
         $plantNames = $request->input('Plant_Name');
         $baname = $request->input('BA_Name');
 
-        DB::table('zat')->insert([
+        $zatId = DB::table('senyawa')->insertGetId([
             'Phytochemical' => $request['Phytochemical'],
             'compoundClass' => $request['compoundClass'],
             'CAS_Number' => $request['CAS_Number'],
@@ -67,10 +69,27 @@ class ZatController extends Controller
             'Molecular_Mass' => $request['Molecular_Mass'],
             'IUPAC_Name' => $request['IUPAC_Name'],
             'SynonymZ' => $request['SynonymZ'],
-            'Plant_Name' => json_encode($plantNames),
             'Description' => $request['Description'],
-            'BA_Name' => json_encode($baname), 
         ]);
+
+        if (is_array($plantNames) && is_array($baname)) {
+            foreach ($plantNames as $plantName) {
+                foreach ($baname as $baName) {
+                    DB::table('sbt')->insert([
+                        'snywId' => $zatId,
+                        'tanId' => $plantName,
+                        'biokId' => $baName, 
+                    ]);
+                }
+            }
+        } else {
+            DB::table('sbt')->insert([
+                'snywId' => $zatId,
+                'tanId' => is_array($plantNames) ? $plantNames[0] : $plantNames,
+                'biokId' => is_array($baname) ? $baname[0] : $baname,
+            ]);
+        }
+    
     
         return redirect('/zat');
     }
@@ -83,10 +102,15 @@ class ZatController extends Controller
      */
     public function show($id)
     {
-        $zat = zat::all()->where('id', $id)->first();
-        $dataSenyawa = dataSenyawa::get();
+        $zat = zat::find($id);
+        $tanaman = tanaman::get();
         $Bio = Bio::get();
-        return view('detail.dataDetail2', compact('zat', 'dataSenyawa', 'Bio'));
+        $sbt = DB::table('sbt')
+            ->where('snywId', $id)
+            ->distinct()
+            ->get(['biokId', 'tanId']);
+
+        return view('detail.dataDetail2', compact('zat', 'tanaman', 'Bio', 'sbt'));
     }
 
     /**
@@ -98,9 +122,10 @@ class ZatController extends Controller
     public function edit($id)
     {
         $zat = zat::all()->where('id', $id)->first();
-        $dataSenyawa = dataSenyawa::get();
+        $tanaman = tanaman::get();
         $Bio = Bio::get();
-        return view('update.updateData2', compact('zat', 'dataSenyawa', 'Bio'));
+        $sbt = sbt::get();
+        return view('update.updateData2', compact('zat', 'tanaman', 'Bio', 'sbt'));
     }
 
     /**
@@ -125,12 +150,7 @@ class ZatController extends Controller
             'BA_Name' => 'required',
         ]);
 
-        $plantNames = $request->input('Plant_Name');
-        $baname = $request->input('BA_Name');
-
-        $zat = zat::all()
-        ->where('id', $id)
-        ->first();
+        $zat = zat::find($id);
         if ($zat) {
             $zat->update([
             'Phytochemical' => $request['Phytochemical'],
@@ -140,11 +160,31 @@ class ZatController extends Controller
             'Molecular_Mass' => $request['Molecular_Mass'],
             'IUPAC_Name' => $request['IUPAC_Name'],
             'SynonymZ' => $request['SynonymZ'],
-            'Plant_Name' => $request['Plant_Name'],
-            'Description' => $request['Description'],
-            'Plant_Name' => json_encode($plantNames),
-            'BA_Name' => json_encode($baname), 
+            'Description' => $request['Description'],  
         ]);}
+        
+        $plantNames = $request->input('Plant_Name');
+        $baname = $request->input('BA_Name');
+
+        DB::table('sbt')->where('snywId', $id)->delete();
+
+        if (is_array($plantNames) && is_array($baname)) {
+            foreach ($plantNames as $plantName) {
+                foreach ($baname as $baName) {
+                    DB::table('sbt')->insert([
+                        'snywId' => $id,
+                        'tanId' => $plantName,
+                        'biokId' => $baName,
+                    ]);
+                }
+            }
+        } else {
+            DB::table('sbt')->insert([
+                'snywId' => $Id,
+                'tanId' => is_array($plantNames) ? $plantNames[0] : $plantNames,
+                'biokId' => is_array($baname) ? $baname[0] : $baname,
+            ]);
+        }
 
         return redirect('/zat');
     }
@@ -157,8 +197,13 @@ class ZatController extends Controller
      */
     public function destroy($id)
     {
-        $zat = zat::where('_id', $id)->first();
-        $zat->delete();
-        return redirect('/zat')->with('success','Data Berhasil Dihapus!');
+        $zat = zat::find($id);
+
+        if ($zat) {
+            $zat->delete();
+            return redirect('/zat')->with('success', 'Data Berhasil Dihapus!');
+        } else {
+            return redirect('/zat')->with('error', 'Data Tidak Ditemukan!');
+        }
     }
 }

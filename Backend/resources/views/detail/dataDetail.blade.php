@@ -106,7 +106,7 @@
         </tr>
         <tr>
           <td>Bioactivity Detail</td>
-          {{-- <td>{{$tanaman->BA_detail}}</td> --}}
+          <td>{{$Bio->BA_detail}}</td>
         </tr>         
         {{-- <tr>
           <td>Structure</td>
@@ -114,7 +114,7 @@
         </tr> --}}
         </table>
 
-      <a href="/listDatabase" class="btn-2 btn btn-info">Back</a>
+      <a href="/tanaman" class="btn-2 btn btn-info">Back</a>
 
       {{-- ["Plant_Name", "Local_Name", "English_Name", "Kingdom", "SubKingdom", "Infrakingdom", "Superdivision", "Class", "Superorder", "Order", "Family", "Genus", "Species", "Synonym", "CAS_Number", "Chemical_Formula", "Molecular_Mass", "IUPAC_Name", "Geographical_Distribution", "Traditional_Uses", "In_Silico", "Acute_Toxicity", "Subchronic_Toxicity", "Chronic_Toxicity", "In_Vivo", "In_Vitro", "Clinical_Studies", "Phytochemical"] --}}
       {{-- <div class="row">

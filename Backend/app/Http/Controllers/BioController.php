@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Bio;
 use App\Models\zat;
-use App\Models\dataSenyawa;
+use App\Models\sbt;
+use App\Models\tanaman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -18,7 +19,7 @@ class BioController extends Controller
     public function index()
     {
         $Bio = Bio::get();
-        return view('clientData.listBio', ['Bio' => $Bio]);
+        return view('clientData.listBio', compact('Bio'));
     }
 
     /**
@@ -28,9 +29,10 @@ class BioController extends Controller
      */
     public function create()
     {
-        $dataSenyawa = dataSenyawa::get();
+        $tanaman = tanaman::get();
         $zat = zat::get();
-        return view('halaman.inputData3', ['dataSenyawa' => $dataSenyawa], ['zat' => $zat]);
+        $sbt = sbt::get();
+        return view('halaman.inputData3', compact('tanaman', 'zat', 'sbt'));
     }
 
     /**
@@ -52,13 +54,29 @@ class BioController extends Controller
         $plantNames = $request->input('Plant_Name');
         $fitokimia = $request->input('Phytochemical');
 
-        DB::table('Bio')->insert([
+        $baId = DB::table('bioaktivitas')->insertGetId([
             'BA_Name' => $request['BA_Name'],
             'BA_Details' => $request['BA_Details'],
             'BA_ref' => $request['BA_ref'],
-            'Plant_Name' => json_encode($plantNames),
-            'Phytochemical' => json_encode($fitokimia),
         ]);
+
+        if (is_array($plantNames) && is_array($fitokimia)) {
+            foreach ($plantNames as $plantName) {
+                foreach ($fitokimia as $Fitokimia) {
+                    DB::table('sbt')->insert([
+                        'snywId' => $Fitokimia,
+                        'tanId' => $plantName,
+                        'biokId' => $baId, 
+                    ]);
+                }
+            }
+        } else {
+            DB::table('sbt')->insert([
+                'snywId' => is_array($fitokimia) ? $fitokimia[0] : $fitokimia,
+                'tanId' => is_array($plantNames) ? $plantNames[0] : $plantNames,
+                'biokId' => $baId,
+            ]);
+        }
     
         return redirect('/Bio');
     }
@@ -71,11 +89,16 @@ class BioController extends Controller
      */
     public function show($id)
     {
-        $Bio = Bio::all()->where('id', $id)->first();
+        $Bio = Bio::find($id);
         $zat = zat::get();
-        $dataSenyawa = dataSenyawa::get();
+        $tanaman = tanaman::get();
+        $sbt = DB::table('sbt')
+            ->where('tanId', $id)
+            ->distinct()
+            ->get(['tanId', 'snywId']);
+
         
-        return view('detail.dataDetail3', compact('Bio', 'zat', 'dataSenyawa'));
+        return view('detail.dataDetail3', compact('Bio', 'sbt' , 'zat', 'tanaman'));
     }
 
     /**
@@ -87,10 +110,11 @@ class BioController extends Controller
     public function edit($id)
     {
         $Bio = Bio::all()->where('id', $id)->first();
+        $sbt = sbt::get();
         $zat = zat::get();
-        $dataSenyawa = dataSenyawa::get();
+        $tanaman = tanaman::get();
         
-        return view('update.updateData3', compact('Bio', 'zat', 'dataSenyawa'));
+        return view('update.updateData3', compact('Bio', 'zat', 'tanaman'));
     }
 
     /**
@@ -113,17 +137,33 @@ class BioController extends Controller
         $plantNames = $request->input('Plant_Name');
         $fitokimia = $request->input('Phytochemical');
 
-        $Bio = Bio::all()
-        ->where('id', $id)
-        ->first();
+        $Bio = Bio::find($id);
         if ($Bio) {
             $Bio->update([
             'BA_Name' => $request['BA_Name'],
             'BA_Details' => $request['BA_Details'],
             'BA_ref' => $request['BA_ref'],
-            'Plant_Name' => json_encode($plantNames),
-            'Phytochemical' => json_encode($fitokimia),
         ]);}
+
+        DB::table('sbt')->where('biokId', $id)->delete();
+
+        if (is_array($plantNames) && is_array($fitokimia)) {
+            foreach ($plantNames as $plantName) {
+                foreach ($fitokimia as $Fitokimia) {
+                    DB::table('sbt')->insert([
+                        'snywId' => $Fitokimia,
+                        'tanId' => $plantName,
+                        'biokId' => $id, 
+                    ]);
+                }
+            }
+        } else {
+            DB::table('sbt')->insert([
+                'snywId' => is_array($fitokimia) ? $fitokimia[0] : $fitokimia,
+                'tanId' => is_array($plantNames) ? $plantNames[0] : $plantNames,
+                'biokId' => $id,
+            ]);
+        }
     
         return redirect('/Bio');
     }
@@ -136,8 +176,12 @@ class BioController extends Controller
      */
     public function destroy($id)
     {
-        $Bio = Bio::where('_id', $id)->first();
-        $Bio->delete();
-        return redirect('/Bio')->with('success','Data Berhasil Dihapus!');
+        $Bio = Bio::find($id);
+        if ($Bio) {
+            $Bio->delete();
+            return redirect('/Bio')->with('success', 'Data Berhasil Dihapus!');
+        } else {
+            return redirect('/Bio')->with('error', 'Data Tidak Ditemukan!');
+        }
     }
 }

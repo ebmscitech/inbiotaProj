@@ -41,7 +41,7 @@
               <div class="form-group">
                 <label>Plant related:</label>
                 <select name="Plant_Name[]" class="select2" multiple="multiple" data-placeholder="Any" value="{{$Bio->Phytochemical ?? 'N/A'}}" style="width: 100%;">
-                 @forelse ($dataSenyawa as $item)
+                 @forelse ($tanaman as $item)
                     @php
                         // Mengecek apakah $item->id ada dalam array yang dihasilkan dari JSON decoding Plant_Name
                         $selected = in_array($item->id, json_decode($Bio->Plant_Name, true) ?? [], true);
@@ -56,7 +56,7 @@
                   </option>
                     @endif
                 @empty
-                    <!-- Jika $dataSenyawa kosong, menampilkan opsi default -->
+                    <!-- Jika $tanaman kosong, menampilkan opsi default -->
                     <option value="">None of Plant Data</option>
                 @endforelse
                 </select>
