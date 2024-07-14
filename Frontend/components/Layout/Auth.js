@@ -7,13 +7,13 @@ import FooterSmall from "../../components/Footers/FooterSmall.js";
 import SeoHead from "../SeoHead.js";
 import { ToastContainer } from "react-toastify";
 
-export default function Auth({ children }) {
+export default function Auth({ children, color }) {
   return (
     <>
       <SeoHead title='EbmScitech Auth Page' />
       <Navbar transparent />
       <main>
-        <section className="relative w-full h-full py-24 min-h-screen">
+        <section className={`relative w-full h-full py-24 min-h-screen bg-${color}`}>
           {/* <div
             className="absolute top-0 w-full h-full bg-blueGray-800 bg-no-repeat bg-full"
             style={{
@@ -25,18 +25,18 @@ export default function Auth({ children }) {
         </section>
       </main>
       <ToastContainer
-          autoClose={3000}
-          closeOnClick={false}
-          draggable
-          hideProgressBar={false}
-          limit={3}
-          newestOnTop={false}
-          pauseOnFocusLoss
-          pauseOnHover
-          position="bottom-right"
-          rtl={false}
-          theme={"colored"}
-        />
+        autoClose={3000}
+        closeOnClick={false}
+        draggable
+        hideProgressBar={false}
+        limit={3}
+        newestOnTop={false}
+        pauseOnFocusLoss
+        pauseOnHover
+        position="bottom-right"
+        rtl={false}
+        theme={"colored"}
+      />
     </>
   );
 }

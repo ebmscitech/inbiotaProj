@@ -15,11 +15,11 @@ function MetaPixel({ pixelData, dataCaleg }) {
         if (!isObjEmpty(pixelData)) {
             // console.log("ini pixel event meta pixel caleg", pixelData.event)
             var tempPixelEvent = pixelData.event.value
-            fbq.event(tempPixelEvent, {
-                content_name: `Aspirasi Caleg ${dataCaleg?.account?.full_name}`,
-                content_category: 'Aspirasi > Detail Caleg',
-                content_type: 'caleg',
-            })
+            // fbq.event(tempPixelEvent, {
+            //     content_name: `Aspirasi Caleg ${dataCaleg?.account?.full_name}`,
+            //     content_category: 'Aspirasi > Detail Caleg',
+            //     content_type: 'caleg',
+            // })
         }
     }, [pixelData])
 

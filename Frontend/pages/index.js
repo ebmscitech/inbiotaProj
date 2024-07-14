@@ -30,13 +30,13 @@ function Home() {
     <>
       <SeoHead title='Aspirasi Landing Page' />
       <Layout>
-        <div className="py-8">
+        <div className="py-8 h-screen bg-[#080D28]">
           <Inforial1 />
         </div>
-        {/* <Inforial2 />
+        <Inforial2 />
         <Inforial3 />
         <Inforial4 />
-        <Inforial5 /> */}
+        {/* <Inforial5 /> */}
         <div className='scroll-to-top'>
           <ScrollTop showOffset={300} className='scroll-top block'>
             <ButtonPrimary addClass={"py-3 px-5 lg:px-4"}>

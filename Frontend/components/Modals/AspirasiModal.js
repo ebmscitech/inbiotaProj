@@ -36,12 +36,12 @@ export default function AspirasiModal() {
 
     const handlePixel = () => {
         // console.log("ini click pixel add to cart", pixelData)
-        fbq.event('AddToCart', {
-            content_name: `Send Aspirasi to Caleg ${store?.selectedCaleg.name}`,
-            content_category: 'Aspirasi > Detail Caleg > Modal Aspirasi',
-            content_type: 'caleg',
-            value: 1,
-        })
+        // fbq.event('AddToCart', {
+        //     content_name: `Send Aspirasi to Caleg ${store?.selectedCaleg.name}`,
+        //     content_category: 'Aspirasi > Detail Caleg > Modal Aspirasi',
+        //     content_type: 'caleg',
+        //     value: 1,
+        // })
     }
 
     const onSubmit = async (values, actions) => {

@@ -50,10 +50,13 @@ a.nextBttn {
 @tailwind components;
 
 html {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Hind';
 }
 body {
   @apply bg-w-50;
+}
+html, body {
+  overflow-x: hidden;
 }
 p {
   @apply text-black-600;
@@ -63,7 +66,7 @@ p {
   content: "";
   height: 2px;
   transition: width 0.3s ease 0s, left 0.3s ease 0s;
-  @apply w-0 bg-[#020230] left-1/2 block bottom-0 absolute;
+  @apply w-0 bg-[#fff] left-1/2 block bottom-0 absolute;
 }
 .animation-active:after {
   @apply left-0 w-full;
@@ -122,6 +125,12 @@ li.check:before {
   z-index: 99;
 }
 
+/* mobile size adjust for bg image */
+@media (max-width: 768px) {
+  .bg-mobile-size {
+    background-size: 250px 250px;
+  }
+}
 
 
 

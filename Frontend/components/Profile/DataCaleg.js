@@ -337,13 +337,13 @@ function DataCaleg({ color, isLoading }) {
                                             Sticky Button Aspirasi
                                         </label>
                                         <div className="py-3">
-                                            <label class="relative inline-flex items-center me-5 cursor-pointer">
-                                                <input type="checkbox" value="" class="sr-only peer"
+                                            <label className="relative inline-flex items-center me-5 cursor-pointer">
+                                                <input type="checkbox" value="" className="sr-only peer"
                                                     checked={isStickyButton}
                                                     onChange={() => setIsStickyButton(!isStickyButton)}
                                                 />
-                                                <div class="w-11 h-6 bg-gray-100 rounded-full peer dark:bg-gray-500 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-w-50 after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-400 after:border-2 after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-400 peer-checked:bg-primary-500"></div>
-                                                <span class="ms-3 text-sm font-medium text-gray-500 dark:text-gray-400">{isStickyButton ? "Aktif" : "Tidak Aktif"}</span>
+                                                <div className="w-11 h-6 bg-gray-100 rounded-full peer dark:bg-gray-500 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-w-50 after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-400 after:border-2 after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-400 peer-checked:bg-primary-500"></div>
+                                                <span className="ms-3 text-sm font-medium text-gray-500 dark:text-gray-400">{isStickyButton ? "Aktif" : "Tidak Aktif"}</span>
                                             </label>
                                         </div>
                                     </div>

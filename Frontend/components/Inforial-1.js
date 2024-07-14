@@ -6,6 +6,7 @@ import getScrollAnimation from "../utils/getScrollAnimation";
 import ScrollAnimationWrapper from "./Layout/ScrollAnimationWrapper";
 import SearchBox from "./misc/SearchBox";
 import { useRouter } from "next/navigation";
+import Diamond from "../public/assets/diamond.svg";
 
 const Inforial1 = () => {
   const scrollAnimation = useMemo(() => getScrollAnimation(), []);
@@ -21,34 +22,34 @@ const Inforial1 = () => {
         <motion.div
           className="grid grid-flow-row sm:grid-flow-col grid-rows-2 md:grid-rows-1 sm:grid-cols-2 gap-8 py-6 sm:py-16"
           variants={scrollAnimation}>
-          <div className="flex flex-col justify-center items-start row-start-2 sm:row-start-1">
+          <div className="flex flex-col justify-center items-start row-start-1 z-10">
             <div className="relative">
-              <div className="absolute h-full -left-5 sm:-left-8 border-[3px] border-solid border-opacity-20 border-secondary-500"></div>
-              <h1 className="text-3xl lg:text-4xl xl:text-5xl font-medium text-black-600 leading-normal">
-                <strong>Sumber Data Bahan Alam dengan Basis Data Terpercaya</strong>
+              {/* <div className="absolute h-full -left-5 sm:-left-8 border-[3px] border-solid border-opacity-20 border-secondary-500"></div> */}
+              <h1 className="text-3xl lg:text-4xl xl:text-5xl font-medium text-white-300 leading-normal">
+                <strong>Natural Product Trusted
+                  <p className="from-[#FF5DD9] bg-clip-text text-transparent bg-gradient-to-r to-[#890670]">Data Source</p></strong>
               </h1>
             </div>
-            <p className="text-black-500 mt-4 mb-6">
-              Inbiota adalah software database yang menghimpun data tanaman dengan senyawa yang ada di dalamnya yang bermanfaat bagi kehidupan
+            <p className="text-white-500 text-[26px] font-medium mt-4 mb-6">
+              Inbiota is a database software which plants data with
+              compound containted in it. A breaktrough for natural
+              product research using AI to help finding data.
             </p>
-            {/* <ButtonPrimary type='button' onClick={() => router.push('/aspirasi-rakyat')} addClass={"py-3 lg:py-4 px-5 lg:px-7"}>
-              Buat Aspirasi
-            </ButtonPrimary> */}
-          </div>
-          <div className="flex w-full">
-            <motion.div className="h-full w-full" variants={scrollAnimation}>
-              <Image
-                src="/assets/about-img.png"
-                alt="about image"
-                quality={100}
-                width={612}
-                height={383}
-                layout="responsive"
-              />
-            </motion.div>
+            <ButtonPrimary type='button' onClick={() => router.push('/search')}
+              addClass={"py-3 lg:py-4 px-10 lg:px-12"}>
+              Get Started!
+            </ButtonPrimary>
           </div>
         </motion.div>
       </ScrollAnimationWrapper>
+      <div
+        className="absolute hidden sm:flex -top-0 right-0 sm:-right-96 bottom-0 w-2/5 z-0 sm:w-[110%] bg-no-repeat bg-right bg-mobile-size lg:bg-cover"
+        style={{ backgroundImage: `url('/assets/diamond.png')` }}
+      ></div>
+      <div
+        className="absolute top-0 -left-10 -bottom-[33rem] w-2/5 sm:w-w-[45%] bg-no-repeat bg-right"
+        style={{ backgroundImage: `url('/assets/molecules.svg')`, backgroundSize: "400px 400px" }}
+      ></div>
     </div>
   );
 };

@@ -1,60 +1,57 @@
 import React, { useMemo } from "react";
 import Image from "next/image";
-import ButtonPrimary from "./misc/ButtonPrimary";
 import { motion } from "framer-motion";
 import getScrollAnimation from "../utils/getScrollAnimation";
 import ScrollAnimationWrapper from "./Layout/ScrollAnimationWrapper";
-import SearchBox from "./misc/SearchBox";
-import { useRouter } from "next/navigation";
 
 const Inforial2 = () => {
   const scrollAnimation = useMemo(() => getScrollAnimation(), []);
-  const router = useRouter()
 
   return (
-    <div
-      className="max-w-screen-xl px-8 xl:px-16 mx-auto"
-      id="inforial-2"
-    >
+    <div className="relative max-w-screen-xl px-8 xl:px-16 mx-auto" id="inforial-2">
       <ScrollAnimationWrapper>
+        <div className="font-bold text-3xl sm:pt-16">Powered by:</div>
         <motion.div
-          className="w-full flex flex-col justify-center items-center sm:flex-row sm:justify-between sm:items-start sm:py-16"
+          className="w-full flex flex-col justify-center items-center sm:flex-row sm:justify-between sm:items-start sm:pb-16"
           variants={scrollAnimation}>
-          <div className="flex w-full sm:w-1/3 mb-14 sm:mb-0">
-            <motion.div className="h-full w-full" variants={scrollAnimation}>
+          <div className="flex flex-col items-center space-y-4 md:flex-row md:space-y-0 md:space-x-8 p-4">
+            <motion.div className="h-[117px] w-auto" variants={scrollAnimation}>
               <Image
-                src="/assets/inbiota-logo.png"
-                alt="Aspirasi Logo"
+                src="/assets/puipt-logo.png"
+                alt="PUI-PT Nutrasetikal"
                 quality={100}
                 width={341}
-                height={85}
-              // layout="responsive"
+                height={50}
+                className="h-[117px] w-auto"
+              />
+            </motion.div>
+            <motion.div className="h-[117px] w-auto" variants={scrollAnimation}>
+              <Image
+                src="/assets/itb-logo.png"
+                alt="Institut Teknologi Bandung"
+                quality={100}
+                width={341}
+                height={50}
+                className="h-[117px] w-auto"
+              />
+            </motion.div>
+            <motion.div className="h-[117px] w-auto" variants={scrollAnimation}>
+              <Image
+                src="/assets/ebm-logo.png"
+                alt="EBM Scitech"
+                quality={100}
+                width={341}
+                height={50}
+                className="h-[117px] w-auto"
               />
             </motion.div>
           </div>
-          <div className="w-full sm:w-2/3 flex flex-col justify-center items-start row-start-2 sm:row-start-1 mb-14 sm:mb-0">
-            <div className="relative">
-              <div className="absolute h-full -right-5 sm:-right-8 border-[3px] border-solid border-opacity-20 border-secondary-500"></div>
-              <h1 className="text-3xl lg:text-4xl xl:text-5xl font-medium text-black-600 leading-normal">
-                <strong>Jangan Pilih Karena Janji, Pilih Pemimpin yang Berprestasi dan Menerima Aspirasi</strong>
-              </h1>
-            </div>
-            <p className="text-black-500 mt-4 mb-6">
-              Aspirasi.net hadir sebagai wadah terpercaya untuk menyampaikan aspirasi rakyat secara langsung kepada caleg yang akan dipilih dengan nilai-nlai transparansi
-            </p>
-          </div>
         </motion.div>
-        <div className="w-full grid justify-center text-center mb-14 sm:mb-7">
-          <div className="grid justify-center place-items-center">
-            <h1 className="text-3xl lg:text-4xl xl:text-5xl font-medium text-black-600 leading-normal mb-10">
-              <strong>Suarakan Aspirasimu Sekarang!</strong>
-            </h1>
-            <ButtonPrimary type='button' onClick={() => router.push('/aspirasi-rakyat')} addClass={"py-3 lg:py-4 px-5 lg:px-7"}>
-              Wujudkan Aspirasimu
-            </ButtonPrimary>
-          </div>
-        </div>
       </ScrollAnimationWrapper>
+      {/* <div
+        className="absolute top-0 -left-52 h-full w-[45%] bg-no-repeat bg-top rotate-180"
+        style={{ backgroundImage: `url('/assets/vector.svg')`, backgroundSize: "contain" }}
+      ></div> */}
     </div>
   );
 };

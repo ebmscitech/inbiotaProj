@@ -28,10 +28,10 @@ export const selectThemeColors = theme => ({
   ...theme,
   colors: {
     ...theme.colors,
-    // primary25: '#D8D6E2', // for option hover bg-color
-    // // primary: '#7367f0', // for selected option bg-color
-    // neutral10: '#D8D6E2 !important', // for tags bg-color
-    // neutral20: '#D8D6E2 !important', // for input border-color
+    primary25: '#F0F8CC', // for option hover bg-color
+    primary: '#C78643', // for selected option bg-color
+    // neutral10: '#C78643 !important', // for tags bg-color
+    neutral20: '#C78643 !important', // for input border-color
     // neutral30: '#D8D6E2 !important' // for input hover border-color
   }
 })

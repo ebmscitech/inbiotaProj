@@ -20,6 +20,9 @@ import { getListDapil, getListPartai } from "@/redux/global";
 import DatePicker from "@/components/DatePicker";
 import moment from "moment";
 import { noValue } from "@/utils/validateInput";
+import Inforial2 from "@/components/Inforial-2";
+import RadioInput from "@/components/Fields/Radio";
+import CustomCheckbox from "@/components/Fields/Checkbox";
 
 export default function Register() {
   const dispatch = useDispatch()
@@ -92,7 +95,7 @@ export default function Register() {
     if (!noValue(lembaga)) {
       // console.log("ini lembaga", lembaga)
       // dispatch(getListDapil())
-    } 
+    }
   }, [lembaga])
 
   const onSubmit = async (values, actions) => {
@@ -140,13 +143,16 @@ export default function Register() {
   return (
     <>
       <Auth>
-        <div className="min-h-[75vh] md:min-h-[80vh] md:flex px-5">
-          <div className="relative overflow-hidden lg:flex w-1/2 bg-white-200 items-center justify-center hidden">
+        <div className="min-h-[75vh] md:min-h-[80vh] justify-items-center items-center grid px-5 pb-10">
+          {/* <div className="relative overflow-hidden lg:flex w-1/2 bg-white-200 items-center justify-center hidden">
             <div className="px-5">
               <RegisterImage />
             </div>
+          </div> */}
+          <div className="w-full">
+            <Inforial2 />
           </div>
-          <div className="flex lg:w-1/2 justify-center items-center bg-white">
+          <div className="max-w-5xl w-full z-10 justify-center items-center bg-white">
             <Formik
               enableReinitialize={true}
               initialValues={{
@@ -162,35 +168,39 @@ export default function Register() {
             >
               {({ isSubmitting, values, errors }) => (
                 <Form className="w-full px-10">
-                  <div className="flex place-items-center mb-5">
-                    <span className="text-xl min-w-max font-bold w-1/5 pr-7 sm:pr-0">
-                      Data Diri
-                    </span>
-                    <hr className="w-4/5" style={{ border: '1px solid black' }} />
-                  </div>
                   <div className="-mx-3 flex flex-wrap">
                     <div className="w-full px-3 sm:w-1/2">
                       <div className="mb-5">
                         <Input
-                          label={"Nama Lengkap"}
+                          label={"Complete Name"}
                           name="full_name"
                           type="text"
-                          placeholder="Masukkan Nama Lengkap"
+                          placeholder="Enter Complete Name"
                         />
                       </div>
                     </div>
                     <div className="w-full px-3 sm:w-1/2">
                       <div className="mb-5">
                         <Input
-                          label={"Tempat Lahir"}
-                          name="birth_place"
-                          type="text"
-                          placeholder="Masukkan Nama Tempat"
+                          label={"Email Address"}
+                          name="email"
+                          type="email"
+                          placeholder="Enter Email Address"
                         />
                       </div>
                     </div>
                   </div>
                   <div className="-mx-3 flex flex-wrap">
+                    <div className="w-full px-3 sm:w-1/2">
+                      <div className="mb-5">
+                        <Input
+                          label={"No Handphone"}
+                          name="mobile_phone"
+                          type="text"
+                          placeholder="Enter No Handphone"
+                        />
+                      </div>
+                    </div>
                     <div className="w-full px-3 sm:w-1/2">
                       <div className="mb-5">
                         <label
@@ -206,164 +216,28 @@ export default function Register() {
                         />
                       </div>
                     </div>
+                  </div>
+                  <div className="-mx-3 flex flex-wrap">
                     <div className="w-full px-3 sm:w-1/2">
                       <div className="mb-5">
                         <Input
-                          label={"No Handphone"}
-                          name="mobile_phone"
+                          label={"Hometown"}
+                          name="home_town"
                           type="text"
-                          placeholder="Masukkan No Handphone"
+                          placeholder="Enter Hometown"
                         />
                       </div>
                     </div>
-                  </div>
-                  <div className="-mx-3 flex flex-wrap">
                     <div className="w-full px-3 sm:w-1/2">
                       <div className="mb-5">
                         <Input
-                          label={"Email"}
-                          name="email"
-                          type="email"
-                          placeholder="Masukkan Email"
+                          label={"Address"}
+                          name="address"
+                          type="text"
+                          placeholder="Enter Address"
                         />
                       </div>
                     </div>
-                  </div>
-                  <div className="flex place-items-center mb-5">
-                    <span className="text-xl min-w-max font-bold w-1/5 pr-7 sm:pr-0">
-                      Data Caleg
-                    </span>
-                    <hr className="w-4/5" style={{ border: '1px solid black' }} />
-                  </div>
-                  <div className="-mx-3 flex flex-wrap">
-                    <div className="mb-5 px-3">
-                      <label
-                        htmlFor="dapil"
-                        className="mb-3 block text-base font-medium text-[#07074D]"
-                      >
-                        Lembaga
-                      </label>
-                      <div className="w-full grid grid-rows-1 grid-cols-1 sm:grid-cols-4 gap-4 justify-items-start items-center">
-                        <div className="grid justify-items-center" >
-                          <div>
-                            <label className="inline-flex items-center cursor-pointer">
-                              <input
-                                id="lembaga-radio"
-                                type="radio"
-                                checked={lembaga === "DPR"}
-                                className="border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
-                                onChange={() => setLembaga("DPR")}
-                              />
-                              <span className="min-w-max ml-2 text-sm font-semibold text-blueGray-600">
-                                DPR
-                              </span>
-                            </label>
-                          </div>
-                        </div>
-                        <div className="grid justify-items-center" >
-                          <div>
-                            <label className="inline-flex items-center cursor-pointer">
-                              <input
-                                id="lembaga-radio"
-                                type="radio"
-                                checked={lembaga === "DPD"}
-                                className="border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
-                                onChange={() => setLembaga("DPD")}
-                              />
-                              <span className="min-w-max ml-2 text-sm font-semibold text-blueGray-600">
-                                DPD
-                              </span>
-                            </label>
-                          </div>
-                        </div>
-                        <div className="grid justify-items-center" >
-                          <div>
-                            <label className="inline-flex items-center cursor-pointer">
-                              <input
-                                id="lembaga-radio"
-                                type="radio"
-                                checked={lembaga === "DPRD Provinsi"}
-                                className="border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
-                                onChange={() => setLembaga("DPRD Provinsi")}
-                              />
-                              <span className="min-w-max ml-2 text-sm font-semibold text-blueGray-600">
-                                DPRD Provinsi
-                              </span>
-                            </label>
-                          </div>
-                        </div>
-                        <div className="grid justify-items-center" >
-                          <div>
-                            <label className="inline-flex items-center cursor-pointer">
-                              <input
-                                id="lembaga-radio"
-                                type="radio"
-                                checked={lembaga === "DPRD Kota / Kabupaten"}
-                                className="border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
-                                onChange={() => setLembaga("DPRD Kota / Kabupaten")}
-                              />
-                              <span className="min-w-max ml-2 text-sm font-semibold text-blueGray-600">
-                                DPRD Kota / Kabupaten
-                              </span>
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="-mx-3 flex flex-wrap">
-                    <div className="w-full px-3 sm:w-1/2">
-                      <div className="mb-5">
-                        <label
-                          htmlFor="dapil"
-                          className="mb-3 block text-base font-medium text-[#07074D]"
-                        >
-                          Partai
-                        </label>
-                        <Select
-                          id="partai-select"
-                          className={"react-select"}
-                          classNamePrefix="select"
-                          // isClearable={false}
-                          isSearchable={true}
-                          options={listPartai}
-                          // styles={colourStyles}
-                          theme={selectThemeColors}
-                          value={partai}
-                          onChange={(data) => setPartai(data)}
-                          components={{ Option: DropdownComponent }}
-                        />
-                      </div>
-                    </div>
-                    <div className="w-full px-3 sm:w-1/2">
-                      <div className="mb-5">
-                        <label
-                          htmlFor="dapil"
-                          className="mb-3 block text-base font-medium text-[#07074D]"
-                        >
-                          Dapil
-                        </label>
-                        <Select
-                          id="dapil-select"
-                          className={"react-select"}
-                          classNamePrefix="select"
-                          // isClearable={false}
-                          isSearchable={true}
-                          options={listDapil}
-                          // styles={colourStyles}
-                          theme={selectThemeColors}
-                          value={dapil}
-                          onChange={(data) => setDapil(data)}
-                          components={{ Option: DropdownComponent }}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex place-items-center mb-5">
-                    <span className="text-xl min-w-max font-bold w-1/5 pr-7 sm:pr-0">
-                      Akun
-                    </span>
-                    <hr className="w-4/5" style={{ border: '1px solid black' }} />
                   </div>
                   <div className="-mx-3 flex flex-wrap">
                     <div className="w-full px-3 sm:w-1/2">
@@ -372,47 +246,38 @@ export default function Register() {
                           label={"Username"}
                           name="username"
                           type="text"
-                          placeholder="Masukkan Username"
+                          placeholder="Enter Username"
                         />
                       </div>
                     </div>
                     <div className="w-full px-3 sm:w-1/2">
                       <div className="mb-5">
-                        <div className="relative items-center">
-                          {/* <Input
-                            label={"Password"}
-                            name="password"
-                            type={show ? 'text' : 'password'}
-                            placeholder="Masukkan Password"
-                          />
-                          <span onClick={togglePasswordVisibility} className={`cursor-pointer absolute inline-block right-5 ${errors.password ? "bottom-9" : values.password === "" ? "bottom-3" : "bottom-3"}`}>
-                            {!show ? (
-                              <EyeOff24Filled />
-                            ) : (
-                              <Eye24Filled />
-                            )}
-                          </span> */}
-                          <Input
-                            label={"Password"}
-                            name="password"
-                            type={show ? 'text' : 'password'}
-                            placeholder="Masukkan Password"
-                          />
-                          <span onClick={togglePasswordVisibility} className={`cursor-pointer absolute right-5 ${errors.password ? "bottom-8" : values.password === "" ? "bottom-3" :values.username === "" ? "bottom-":"bottom-3"}`}>
-                            {!show ? (
-                              <EyeOff24Filled className="absolute -right-2 bottom-1" />
-                            ) : (
-                              <Eye24Filled className="absolute -right-2 bottom-1" />
-                            )}
-                          </span>
-                        </div>
+                        <Input
+                          label="Password"
+                          name="password"
+                          type="password"
+                          placeholder="Enter Password"
+                        />
                       </div>
                     </div>
                   </div>
-                  <div className="flex flex-row-reverse">
+                  <div>
+                    <div className="mb-3">
+                      By signing up you are consenting for us to contact you with Inbiota updates.
+                    </div>
+                    <CustomCheckbox
+                      label="I agree to receive Inbiota updates"
+                      name="agreeToUpdates"
+                    />
+                  </div>
+                  <div className="w-full grid text-center place-items-center">
+                    <div className="w-full sm:w-1/2 mb-3">
+                      You can unsubscribe from these communications at any time.
+                      For more information please review our privacy policy.
+                    </div>
                     {!isLoading ? (
-                      <ButtonPrimary type="submit" addClass={"py-3 lg:py-4 px-5 lg:px-7"}>
-                        Daftar
+                      <ButtonPrimary type="submit" addClass={"py-3 lg:py-4 px-24 lg:px-28"}>
+                        Submit
                       </ButtonPrimary>
                     ) : (
                       <Loader
@@ -421,16 +286,23 @@ export default function Register() {
                         buttontext="Sending In..."
                       />
                     )}
-                    <div className="pr-5">
-                      <ButtonSecondary type="button" addClass={"py-3 lg:py-4 px-5 lg:px-7"} onClick={() => router.push('/')}>
-                        Batal
-                      </ButtonSecondary>
-                    </div>
                   </div>
                 </Form>
               )}
             </Formik>
           </div>
+          <div
+            className="absolute top-0 right-0 sm:right-52 bottom-72 w-2/5 sm:w-w-[45%] bg-no-repeat bg-right"
+            style={{ backgroundImage: `url('/assets/molecules.svg')`, backgroundSize: "230px 230px" }}
+          ></div>
+          <div
+            className="absolute top-0 left-48 bottom-96 w-2/5 sm:w-w-[45%] bg-no-repeat bg-left"
+            style={{ backgroundImage: `url('/assets/molecules.svg')`, backgroundSize: "230px 230px" }}
+          ></div>
+          <div
+            className="absolute top-0 left-0 bottom-0 w-2/5 sm:w-[45%] bg-no-repeat bg-bottom bg-mobile-size"
+            style={{ backgroundImage: `url('/assets/molecules.svg')`, backgroundSize: "330px 330px" }}
+          ></div>
         </div>
         <RegisterModal />
       </Auth>

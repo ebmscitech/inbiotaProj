@@ -14,6 +14,7 @@ import { postAuth } from "@/api/index.js";
 import toastAlert from "@/utils/alert";
 import { useRouter } from "next/navigation.js";
 import { setCookie, setStorage, setUserData } from "@/utils/storage.js";
+import Inforial2 from "@/components/Inforial-2.js";
 
 export default function Login() {
   const router = useRouter()
@@ -76,35 +77,18 @@ export default function Login() {
 
   return (
     <>
-      <Auth>
-
+      <Auth color={"[#080D28]"}>
         <div className="container mx-auto py-16 px-4 h-full">
-          <div className="flex content-center items-center justify-center h-full">
+          <div className="flex content-center items-center justify-start h-full">
             <div className="w-full lg:w-4/12 px-4">
-              <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0">
+              <div className="relative flex flex-col z-10 min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gradient-to-b from-[#E8BAEA33] to-[#62347133] border border-white-200">
                 <div className="rounded-t mb-0 px-6 py-6">
                   <div className="text-center mb-3">
-                    <h6 className="text-blueGray-500 text-sm font-bold">
+                    <h6 className="text-white-500 text-sm font-bold">
                       Sign in
                     </h6>
                   </div>
-                  {/* <div className="btn-wrapper text-center">
-                    <button
-                      className="bg-white active:bg-blueGray-50 text-blueGray-700 px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
-                      type="button"
-                    >
-                      <img alt="..." className="w-5 mr-1" src="/img/github.svg" />
-                      Github
-                    </button>
-                    <button
-                      className="bg-white active:bg-blueGray-50 text-blueGray-700 px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
-                      type="button"
-                    >
-                      <img alt="..." className="w-5 mr-1" src="/img/google.svg" />
-                      Google
-                    </button>
-                  </div> */}
-                  <hr className="mt-6 border-b-1 border-blueGray-300" />
+                  <hr className="mt-6 border-b-1 border-white-300" />
                 </div>
                 <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
                   {/* <div className="text-blueGray-400 text-center mb-3 font-bold">
@@ -127,6 +111,7 @@ export default function Login() {
                             name="username"
                             type="text"
                             placeholder="Masukkan Username"
+                            labelColor="text-white-500"
                           />
                         </div>
                         {/* <div className="relative w-full mb-3">
@@ -161,6 +146,7 @@ export default function Login() {
                             name="password"
                             type={show ? 'text' : 'password'}
                             placeholder="Masukkan Password"
+                            labelColor="text-white-500"
                           />
                           <span onClick={togglePasswordVisibility} className={`cursor-pointer absolute right-5 ${errors.password ? "bottom-8" : values.password === "" ? "bottom-3" : "bottom-3"}`}>
                             {!show ? (
@@ -207,9 +193,16 @@ export default function Login() {
                 </div>
               </div>
             </div>
+            <div
+              className="absolute hidden sm:flex -top-40 right-0 sm:-right-96 bottom-0 w-2/5 z-0 sm:w-[110%] bg-no-repeat bg-right bg-mobile-size lg:bg-cover"
+              style={{ backgroundImage: `url('/assets/diamond.png')` }}
+            ></div>
           </div>
         </div>
       </Auth>
+      <div className="mt-0">
+        <Inforial2 />
+      </div>
     </>
   );
 }

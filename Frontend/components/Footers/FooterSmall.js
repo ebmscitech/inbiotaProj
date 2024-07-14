@@ -1,4 +1,6 @@
 import React from "react";
+import Link from "next/link";
+import Image from "next/image";
 
 export default function FooterSmall(props) {
   return (
@@ -7,59 +9,28 @@ export default function FooterSmall(props) {
         className={
           (props.absolute
             ? "absolute w-full bottom-0 bg-blueGray-800"
-            : "relative") + " pb-6"
+            : "relative") + " py-6"
         }
       >
-        <div className="container mx-auto px-4">
-          <hr className="mb-6 border-b-1 border-blueGray-600" />
-          <div className="flex flex-wrap items-center md:justify-between justify-center">
-            <div className="w-full md:w-4/12 px-4">
-              <div className="text-sm text-blueGray-500 font-semibold py-1 text-center md:text-left">
-                Copyright © {new Date().getFullYear()}{" "}EbmScitech
-                {/* <a
-                  href="https://www.creative-tim.com?ref=nnjs-footer-small"
-                  className="text-white hover:text-blueGray-300 text-sm font-semibold py-1"
-                >
-                  Creative Tim
-                </a> */}
-              </div>
-            </div>
-            <div className="w-full md:w-8/12 px-4">
-              <ul className="flex flex-wrap list-none md:justify-end  justify-center">
-                {/* <li>
-                  <a
-                    href="https://www.creative-tim.com?ref=nnjs-footer-small"
-                    className="text-white hover:text-blueGray-300 text-sm font-semibold block py-1 px-3"
-                  >
-                    Creative Tim
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://www.creative-tim.com/presentation?ref=nnjs-footer-small"
-                    className="text-white hover:text-blueGray-300 text-sm font-semibold block py-1 px-3"
-                  >
-                    About Us
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="http://blog.creative-tim.com?ref=nnjs-footer-small"
-                    className="text-white hover:text-blueGray-300 text-sm font-semibold block py-1 px-3"
-                  >
-                    Blog
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://github.com/creativetimofficial/notus-nextjs/blob/main/LICENSE.md?ref=nnjs-footer-small"
-                    className="text-white hover:text-blueGray-300 text-sm font-semibold block py-1 px-3"
-                  >
-                    MIT License
-                  </a>
-                </li> */}
-              </ul>
-            </div>
+        <div className="container px-4 mx-auto flex flex-wrap items-center justify-center">
+          <div className="w-auto static block justify-start">
+            <Link href="/">
+              <Image
+                src="/assets/inbiota-logo-black.png"
+                alt="Inbiota Logo"
+                quality={100}
+                width={170}
+                height={80}
+              // layout="responsive"
+              />
+            </Link>
+            {/* <button
+              className="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
+              type="button"
+              onClick={() => setNavbarOpen(!navbarOpen)}
+            >
+              <i className="text-white fas fa-bars"></i>
+            </button> */}
           </div>
         </div>
       </footer>

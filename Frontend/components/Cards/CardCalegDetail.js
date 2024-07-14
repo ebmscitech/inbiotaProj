@@ -34,14 +34,14 @@ export default function CardCalegDetail({ dataCaleg = {}, isLoading }) {
       redirectLink: redirectLink
     }
     dispatch(setSelectedCaleg(data))
-    fbq.event('ViewContent', {
-      content_name: `Modal Aspirasi Caleg ${dataCaleg?.account?.full_name}`,
-      content_category: 'Aspirasi > Detail Caleg > Modal Aspirasi',
-      content_type: 'caleg',
-      // content_ids: ['1234'],
-      // currency: 'USD', 
-      // value: 10
-    })
+    // fbq.event('ViewContent', {
+    //   content_name: `Modal Aspirasi Caleg ${dataCaleg?.account?.full_name}`,
+    //   content_category: 'Aspirasi > Detail Caleg > Modal Aspirasi',
+    //   content_type: 'caleg',
+    //   // content_ids: ['1234'],
+    //   // currency: 'USD', 
+    //   // value: 10
+    // })
   }
 
   useEffect(() => {

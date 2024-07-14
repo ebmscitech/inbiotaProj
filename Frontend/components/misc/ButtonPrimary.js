@@ -5,7 +5,7 @@ const ButtonPrimary = ({ children, addClass, onClick, ...props }) => {
     <button
       {...props}
       className={
-        "text-w-50 font-semibold rounded-lg bg-[#020230] hover:shadow-orange-md transition-all outline-none " +
+        "bg-gradient-custom text-white-500 font-bold rounded-lg hover:shadow-orange-md transition-all outline-none " +
         addClass
       }
       onClick={onClick}

@@ -13,7 +13,7 @@ class MyDocument extends Document {
         <Head>
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-          <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap" rel="stylesheet"></link>
+          <link href="https://fonts.googleapis.com/css2?family=Hind:wght@300;400;500;600;700&display=swap" rel="stylesheet"></link>
           <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"></link>
           <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"></link>
           <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"></link>
@@ -28,6 +28,8 @@ class MyDocument extends Document {
                 gtag('js', new Date());
                 gtag('config', 'G-WZBQXEGVM0');
                 gtag('event', 'session_start')
+                gtag('event', 'page_view')
+                gtag('event', 'page_view')
                 gtag('event', 'page_view')
                 gtag('event', 'first_visit')
                 gtag('event', 'click')

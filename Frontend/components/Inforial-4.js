@@ -4,9 +4,11 @@ import { motion } from "framer-motion";
 import getScrollAnimation from "../utils/getScrollAnimation";
 import ScrollAnimationWrapper from "./Layout/ScrollAnimationWrapper";
 import ButtonPrimary from "./misc/ButtonPrimary";
+import { useRouter } from "next/navigation";
 
 const Inforial4 = () => {
   const scrollAnimation = useMemo(() => getScrollAnimation(), []);
+  const router = useRouter()
 
   return (
     <div
@@ -31,16 +33,18 @@ const Inforial4 = () => {
           </div>
           <div className=" flex flex-col justify-center items-start row-start-2 sm:row-start-1">
             <div className="relative">
-              <div className="absolute h-full -right-5 sm:-right-8 border-[3px] border-solid border-opacity-20 border-secondary-500"></div>
-              <h1 className="text-3xl lg:text-4xl xl:text-5xl font-medium text-black-600 leading-normal">
-                <strong>Ketentuan Pasal 186
-                  UU Nomor 17 Tahun 2017
-                  berbunyi :</strong>
+              <h1 className="text-3xl lg:text-4xl xl:text-5xl font-medium text-black-300 leading-normal">
+                <strong>Documents</strong>
               </h1>
             </div>
-            <p className="text-black-500 mt-4 mb-6">
-              Pasal 186 jumlah kursi anggota DPR ditetapkan sebanyak 580 (lima ratus delapan puluh)
+            <p className="text-black-500 text-[26px] font-medium mt-4 mb-6">
+              We collect anything data research about Bioactivity,
+              Phytochemical references in search engines.
             </p>
+            <ButtonPrimary type='button' onClick={() => router.push('/docs')}
+              addClass={"py-3 lg:py-4 px-10 lg:px-12"}>
+              See Documents
+            </ButtonPrimary>
           </div>
         </motion.div>
       </ScrollAnimationWrapper>
