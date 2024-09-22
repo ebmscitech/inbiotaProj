@@ -32,12 +32,6 @@ class HomeController extends Controller
     public function page6(){
         return view('halaman.sEngine');
     }
-
-    public function page7(){
-        $zat = DB::table('senyawa')->get();
-        $Bio = DB::table('bioaktivitas')->get();
-        return view('halaman.inputData', compact('zat', 'Bio'));
-    }
     
     public function pageBForm(Request $request){
         $validated = $request->validate([

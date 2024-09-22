@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\dataSenyawa;
+use App\Models\tanaman;
 use App\Models\zat;
 use App\Models\Bio;
 
@@ -19,7 +19,7 @@ class SearchController extends Controller
 
           $keywordString = implode(' ', $keyword);
 
-          $query = dataSenyawa::query();
+          $query = tanaman::query();
           $query2 = zat::query();
           $query3 = Bio::query();
 
@@ -29,8 +29,8 @@ class SearchController extends Controller
             $data = [];
             break;
             case 'plant':
-                $dataSenyawa = dataSenyawa::all();
-                $data = dataSenyawa::where(function ($query) use ($keyword){
+                $tanaman = tanaman::all();
+                $data = tanaman::where(function ($query) use ($keyword){
                     foreach ($keyword as $word) {
                     $query->where('Plant_Name', 'LIKE', "%$word%")
                     ->orWhere('Local_Name', 'LIKE', "%$word%")
@@ -50,7 +50,7 @@ class SearchController extends Controller
                     ->orWhere('Traditional_Uses', 'LIKE', "%$word%")
                     ->orWhere('Reference', 'LIKE', "%$word%")
                     ->orWhere('Phytochemical', 'LIKE', "%$word%")
-                    ->orWhere('BA_Name', 'LIKE', "%$word%"); 
+                    ->orWhere('BA_Name', 'LIKE', "%$word%");
           }})
                     ->get();
                     $results = $data;
@@ -88,9 +88,9 @@ class SearchController extends Controller
                     if ($attribute == $attr['value']) {
                         $zat = zat::get();
                         $Bio = Bio::get();
-                        return view('advancesearch.advancesearch', compact('results', 'dataSenyawa', 'zat', 'Bio', 'attributes', 'attribute'));
+                        return view('advancesearch.advancesearch', compact('results', 'tanaman', 'zat', 'Bio', 'attributes', 'attribute'));
                     }}
-                    return view('halaman.search', compact('results', 'dataSenyawa', 'zat', 'Bio'));
+                    return view('halaman.search', compact('results', 'tanaman', 'zat', 'Bio'));
                     break;
                 break;
             case 'phytochemical':
@@ -116,7 +116,7 @@ class SearchController extends Controller
                         }
                     }
                     $Bio = Bio::get();
-                    $dataSenyawa = dataSenyawa::get();
+                    $tanaman = tanaman::get();
                     $attributes = [
                         ["label" => "Compound Class", "value" => "compound_class"],
                         ["label" => "Chemical Formula", "value" => "chemical_formula"],
@@ -129,11 +129,11 @@ class SearchController extends Controller
                     ];
                     foreach ($attributes as $attr){
                     if ($attribute == $attr['value']) {
-                        $dataSenyawa = dataSenyawa::get();
+                        $tanaman = tanaman::get();
                         $Bio = Bio::get();
-                        return view('advancesearch.advancesearch2', compact('results', 'dataSenyawa', 'zat', 'Bio', 'attributes', 'attribute'));
+                        return view('advancesearch.advancesearch2', compact('results', 'tanaman', 'zat', 'Bio', 'attributes', 'attribute'));
                     }}
-                    return view('halaman.search2', compact('results', 'zat', 'Bio', 'dataSenyawa', 'attributes', 'attribute'));
+                    return view('halaman.search2', compact('results', 'zat', 'Bio', 'tanaman', 'attributes', 'attribute'));
                 break;
             case 'bioactivities':
                 $Bio = Bio::all();
@@ -155,7 +155,7 @@ class SearchController extends Controller
                         }
                     }
                     $zat = zat::get();
-                    $dataSenyawa = dataSenyawa::get();
+                    $tanaman = tanaman::get();
                     $attributes = [
                         ["label" => "Details", "value" => "details"],
                         ["label" => "Plants Related", "value" => "plants_related"],
@@ -164,18 +164,18 @@ class SearchController extends Controller
                     foreach ($attributes as $attr){
                     if ($attribute == $attr['value']) {
                         $zat = zat::get();
-                        $dataSenyawa = dataSenyawa::get();
-                        return view('advancesearch.advancesearch3', compact('results', 'dataSenyawa', 'zat', 'Bio', 'attributes', 'attribute'));
+                        $tanaman = tanaman::get();
+                        return view('advancesearch.advancesearch3', compact('results', 'tanaman', 'zat', 'Bio', 'attributes', 'attribute'));
                     }}
-                    return view('halaman.search3', compact('results', 'Bio', 'zat', 'dataSenyawa'));
+                    return view('halaman.search3', compact('results', 'Bio', 'zat', 'tanaman'));
                 break;
         }
     }
 
     public function show($id) {
-        $dataSenyawa = dataSenyawa::all()->where('id', $id)->first();
+        $tanaman = tanaman::all()->where('id', $id)->first();
         $zat = zat::get();
         $Bio = Bio::get();
-        return view('halaman.searchDetail', compact('dataSenyawa', 'zat', 'Bio'));
+        return view('halaman.searchDetail', compact('tanaman', 'zat', 'Bio'));
     }
 }
