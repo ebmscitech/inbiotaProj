@@ -2,6 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TanamanController;
+use App\Http\Controllers\ZatController;
+use App\Http\Controllers\BioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +19,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::prefix('v1')->group(function () {
+    Route::apiResource('tanaman', TanamanController::class);
+    Route::apiResource('zat', ZatController::class);
+    Route::apiResource('bio', BioController::class);
 });

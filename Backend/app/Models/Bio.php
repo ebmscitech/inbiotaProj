@@ -14,8 +14,8 @@ class Bio extends Model
 
     public function tanaman()
     {
-        return $this->hasMany(tanaman::class); 
-    } 
+        return $this->hasMany(tanaman::class);
+    }
 
     public function substance()
     {

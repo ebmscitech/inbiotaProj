@@ -70,12 +70,10 @@ Route::delete('/listSubscriber/{data}', [EmailsubController::class, 'destroyS'])
 
 Route::get('/indexadmin', [HomeController::class, 'indexadmin']);
 
-// CRUD Substance Data
-Route::resource('zat', ZatController::class);
-
-
 // CRUD Bioactivities Data
 Route::resource('Bio', BioController::Class);
+
+Route::resource('zat', ZatController::class);
 
 Route::resource('tanaman', TanamanController::Class);
 

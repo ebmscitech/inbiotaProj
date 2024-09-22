@@ -23,64 +23,27 @@
         <tr>
         <td>Plant Related</td>
         <td>
-            @forelse ($tanaman as $item)
-                @php
-                    // Mengecek apakah $item->id ada dalam array yang dihasilkan dari JSON decoding Plant_Name
-                    $selected = in_array($item->id, json_decode($Bio->Plant_Name, true) ?? [], true);
-                @endphp
-                @if ($selected)
-                <option value="{{ $item->id }}" {{ $selected ? 'selected' : '' }}>
-                    {{ $item->Plant_Name }}
-                </option>
-                @endif
+            @forelse ($tanNames as $id => $name)
+                <li> (ID: {{ $id }}) {{ $name }}</li>
             @empty
-                <!-- Jika $tanaman kosong, menampilkan opsi default -->
-                <option value="">None of Plant Data</option>
+                <li>Tidak ada data senyawa terkait.</li>
             @endforelse
         </td>
         </tr>
         <tr>
         <td>Phytochemical Related</td>
         <td>
-            @forelse ($zat as $item)
-                @php
-                    $selected = in_array($item->id, json_decode($Bio->Phytochemical, true) ?? []);
-                @endphp
-                @if ($selected)
-                    <option value="{{ $item->id }}" {{ $selected ? 'selected' : '' }}>{{ $item->Phytochemical }}</option>
-                @endif
-                
+            @forelse ($senyawaNames as $id => $name)
+                <li> (ID: {{ $id }}) {{ $name }}</li>
             @empty
-                    <option value="">None of Phytochemical Data</option>
+                <li>Tidak ada data senyawa terkait.</li>
             @endforelse
         </td>
         </tr>      
-        {{-- <tr>
-          <td>Structure</td>
-          <td><img src="{{asset('imageInput/' . $tanaman->Structure)}}" alt=""></td>
-        </tr> --}}
         </table>
 
       <a href="/Bio" class="btn-2 btn btn-info">Back</a>
 
-      {{-- ["Plant_Name", "Local_Name", "English_Name", "Kingdom", "SubKingdom", "Infrakingdom", "Superdivision", "Class", "Superorder", "Order", "Family", "Genus", "Species", "Synonym", "CAS_Number", "Chemical_Formula", "Molecular_Mass", "IUPAC_Name", "Geographical_Distribution", "Traditional_Uses", "In_Silico", "Acute_Toxicity", "Subchronic_Toxicity", "Chronic_Toxicity", "In_Vivo", "In_Vitro", "Clinical_Studies", "Phytochemical"] --}}
-      {{-- <div class="row">
-        <div class="col-md-8 col-lg-6 mx-auto">
-          <div class="form_container">
-            <form action="">
-              <div>
-                <input type="text" placeholder="Search..." />
-              </div>
-              <div class="btn_box ">
-                <button>
-                  Search
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div> --}}
     </div>
   </section>
-  <!-- end contact section -->
 @endsection

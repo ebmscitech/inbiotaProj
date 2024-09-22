@@ -119,15 +119,18 @@ class TanamanController extends Controller
      */
     public function show($id)
     {
-        $tanaman = tanaman::find($id);
-        $zat = zat::get();
-        $Bio = Bio::get();
-        $sbt = DB::table('sbt')
-            ->where('tanId', $id)
-            ->distinct()
-            ->get(['biokId', 'snywId']);
+        $tanaman = Tanaman::findOrFail($id);
+
+        $sbtItems = Sbt::where('tanId', $tanaman->id)->get();
+
+        $snywIds = $sbtItems->pluck('snywId');
+        $biokIds = $sbtItems->pluck('biokId');
+
+        $senyawaNames = zat::whereIn('id', $snywIds)->pluck('Phytochemical', 'id');
+
+        $bioNames = Bio::whereIn('id', $biokIds)->pluck('BA_Name', 'id');
         
-        return view('detail.dataDetail', compact('Bio', 'sbt' , 'zat', 'tanaman'));
+        return view('detail.dataDetail', compact('senyawaNames' , 'bioNames', 'tanaman'));
     }
 
     /**

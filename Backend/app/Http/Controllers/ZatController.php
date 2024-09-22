@@ -102,15 +102,18 @@ class ZatController extends Controller
      */
     public function show($id)
     {
-        $zat = zat::find($id);
-        $tanaman = tanaman::get();
-        $Bio = Bio::get();
-        $sbt = DB::table('sbt')
-            ->where('snywId', $id)
-            ->distinct()
-            ->get(['biokId', 'tanId']);
+        $zat = zat::findOrFail($id);
 
-        return view('detail.dataDetail2', compact('zat', 'tanaman', 'Bio', 'sbt'));
+        $sbtItems = Sbt::where('snywId', $zat->id)->get();
+
+        $tanIds = $sbtItems->pluck('tanId');
+        $biokIds = $sbtItems->pluck('biokId');
+
+        $tanNames = tanaman::whereIn('id', $tanIds)->pluck('Plant_Name', 'id');
+
+        $bioNames = Bio::whereIn('id', $biokIds)->pluck('BA_Name', 'id');
+        
+        return view('detail.dataDetail2', compact('tanNames' , 'bioNames', 'zat'));
     }
 
     /**

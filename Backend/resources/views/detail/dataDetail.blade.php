@@ -76,42 +76,26 @@
           <td>Reference</td>
           <td>{{$tanaman->Reference}}</td>
         </tr>
+        <tr>
         <td>Phytochemical Related</td>
         <td>
-            @forelse ($zat as $item)
-            @php
-                $selected = in_array($item->id, json_decode($tanaman->Phytochemical, true) ?? []);
-            @endphp
-            @if ($selected)
-                <option value="{{ $item->id }}" {{ $selected ? 'selected' : '' }}>{{ $item->Phytochemical }}</option>
-            @endif
+            @forelse ($senyawaNames as $id => $name)
+                <li> (ID: {{ $id }}) {{ $name }}</li>
             @empty
-                    <option value="">None of Phytochemical Data</option>
-            @endforelse
-        </td>
-        </tr>
-        <td>Bioactivities Related</td>
-        <td>
-            @forelse ($Bio as $item)
-            @php
-                $selected = in_array($item->id, json_decode($tanaman->BA_Name, true) ?? []);
-            @endphp
-            @if ($selected)
-                <option value="{{ $item->id }}" {{ $selected ? 'selected' : '' }}>{{ $item->BA_Name }}</option>
-            @endif
-            @empty
-                    <option value="">None of Bioactivity Data</option>
+                <li>Tidak ada data senyawa terkait.</li>
             @endforelse
         </td>
         </tr>
         <tr>
-          <td>Bioactivity Detail</td>
-          <td>{{$Bio->BA_detail}}</td>
-        </tr>         
-        {{-- <tr>
-          <td>Structure</td>
-          <td><img src="{{asset('imageInput/' . $dataSenyawa->Structure)}}" alt=""></td>
-        </tr> --}}
+        <td>Bioactivities Related</td>
+        <td>
+            @forelse ($bioNames as $id => $name)
+                <li> (ID: {{ $id }}) {{ $name }} </li>
+            @empty
+                <li>Tidak ada data aktivitas biokimia terkait.</li>
+            @endforelse
+        </td>
+        </tr>
         </table>
 
       <a href="/tanaman" class="btn-2 btn btn-info">Back</a>

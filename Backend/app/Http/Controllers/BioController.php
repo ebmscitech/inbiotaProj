@@ -89,16 +89,18 @@ class BioController extends Controller
      */
     public function show($id)
     {
-        $Bio = Bio::find($id);
-        $zat = zat::get();
-        $tanaman = tanaman::get();
-        $sbt = DB::table('sbt')
-            ->where('tanId', $id)
-            ->distinct()
-            ->get(['tanId', 'snywId']);
+        $Bio = Bio::findOrFail($id);
 
+        $sbtItems = Sbt::where('biokId', $Bio->id)->get();
+
+        $tanIds = $sbtItems->pluck('tanId');
+        $snywIds = $sbtItems->pluck('snywId');
+
+        $tanNames = tanaman::whereIn('id', $tanIds)->pluck('Plant_Name', 'id');
+
+        $senyawaNames = zat::whereIn('id', $snywIds)->pluck('Phytochemical', 'id');
         
-        return view('detail.dataDetail3', compact('Bio', 'sbt' , 'zat', 'tanaman'));
+        return view('detail.dataDetail3', compact('tanNames' , 'senyawaNames', 'Bio'));
     }
 
     /**
@@ -109,12 +111,18 @@ class BioController extends Controller
      */
     public function edit($id)
     {
-        $Bio = Bio::all()->where('id', $id)->first();
-        $sbt = sbt::get();
-        $zat = zat::get();
-        $tanaman = tanaman::get();
+        $Bio = Bio::findOrFail($id);
+
+        $sbtItems = Sbt::where('biokId', $Bio->id)->get();
+
+        $tanIds = $sbtItems->pluck('tanId');
+        $snywIds = $sbtItems->pluck('snywId');
+
+        $tanNames = tanaman::whereIn('id', $tanIds)->pluck('Plant_Name', 'id');
+
+        $senyawaNames = zat::whereIn('id', $snywIds)->pluck('Phytochemical', 'id');
         
-        return view('update.updateData3', compact('Bio', 'zat', 'tanaman'));
+        return view('update.updateData3', compact('tanNames' , 'senyawaNames', 'Bio'));
     }
 
     /**
