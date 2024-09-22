@@ -17,8 +17,22 @@ class User extends Model implements Authenticatable
 {
     use AuthenticableTrait;
 
-    protected $table = 'user';
-    protected $fillable = ['name', 'email', 'password'];
+    protected $table = "users";
+    protected $primaryKey = "id";
+    protected $keyType = "int";
+    public $timestamps = true;
+    public $incrementing = true;
+
+    protected $fillable = [
+        'username',
+        'password',
+        'completeName',
+        'homeTown',
+        'phoneNo',
+        'email',
+        'birthDate',
+        'address'
+    ];
 
     public function save(array $options = [])
     {
