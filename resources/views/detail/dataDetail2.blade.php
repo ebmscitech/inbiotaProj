@@ -39,30 +39,20 @@
         <tr>
         <td>Plant Related</td>
         <td>
-            @forelse ($dataSenyawa as $item)
-            @php
-                $selected = in_array($item->id, json_decode($zat->Plant_Name, true) ?? []);
-            @endphp
-            @if ($selected)
-                <option value="{{ $item->id }}" {{ $selected ? 'selected' : '' }}>{{ $item->Plant_Name }}</option>
-            @endif
-            
+            @forelse ($tanNames as $id => $name)
+                <li> (ID: {{ $id }}) {{ $name }}</li>
             @empty
-                    <option value="">None of Phytochemical Data</option>
+                <li>Tidak ada data senyawa terkait.</li>
             @endforelse
+        </td>
         </td>
         </tr>
         <td>Bioactivities Related</td>
         <td>
-            @forelse ($Bio as $item)
-            @php
-                $selected = in_array($item->id, json_decode($zat->BA_Name, true) ?? []);
-            @endphp
-            @if ($selected)
-                <option value="{{ $item->id }}" {{ $selected ? 'selected' : '' }}>{{ $item->BA_Name }}</option>
-            @endif
+            @forelse ($bioNames as $id => $name)
+                <li> (ID: {{ $id }}) {{ $name }} </li>
             @empty
-                    <option value="">None of Phytochemical Data</option>
+                <li>Tidak ada data aktivitas biokimia terkait.</li>
             @endforelse
         </td>
         </tr>
@@ -70,31 +60,12 @@
           <td>Description</td>
           <td>{{$zat->Description}} </td>
         </tr>        
-        {{-- <tr>
-          <td>Structure</td>
-          <td><img src="{{asset('imageInput/' . $dataSenyawa->Structure)}}" alt=""></td>
-        </tr> --}}
         </table>
 
       <a href="/zat" class="btn-2 btn btn-info">Back</a>
+      <br>
 
-      {{-- ["Plant_Name", "Local_Name", "English_Name", "Kingdom", "SubKingdom", "Infrakingdom", "Superdivision", "Class", "Superorder", "Order", "Family", "Genus", "Species", "Synonym", "CAS_Number", "Chemical_Formula", "Molecular_Mass", "IUPAC_Name", "Geographical_Distribution", "Traditional_Uses", "In_Silico", "Acute_Toxicity", "Subchronic_Toxicity", "Chronic_Toxicity", "In_Vivo", "In_Vitro", "Clinical_Studies", "Phytochemical"] --}}
-      {{-- <div class="row">
-        <div class="col-md-8 col-lg-6 mx-auto">
-          <div class="form_container">
-            <form action="">
-              <div>
-                <input type="text" placeholder="Search..." />
-              </div>
-              <div class="btn_box ">
-                <button>
-                  Search
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div> --}}
+      
     </div>
   </section>
   <!-- end contact section -->

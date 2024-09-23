@@ -40,44 +40,35 @@
               </div>
               <div class="form-group">
                 <label>Plant related:</label>
-                <select name="Plant_Name[]" class="select2" multiple="multiple" data-placeholder="Any" value="{{$Bio->Phytochemical ?? 'N/A'}}" style="width: 100%;">
-                 @forelse ($dataSenyawa as $item)
-                    @php
-                        // Mengecek apakah $item->id ada dalam array yang dihasilkan dari JSON decoding Plant_Name
-                        $selected = in_array($item->id, json_decode($Bio->Plant_Name, true) ?? [], true);
-                    @endphp
-                    @if ($selected)
-                    <option value="{{ $item->id }}" {{ $selected ? 'selected' : '' }}>
-                        {{ $item->Plant_Name }}
-                    </option>
-                    @else
-                    <option value="{{ $item->id }}" >
-                      {{ $item->Plant_Name }}
-                  </option>
-                    @endif
-                @empty
-                    <!-- Jika $dataSenyawa kosong, menampilkan opsi default -->
-                    <option value="">None of Plant Data</option>
-                @endforelse
+                  <select name="Plant_Name[]" class="select2" multiple="multiple" data-placeholder="Any" style="width: 100%;">
+                    @forelse ($tanNames as $id => $name)
+                        @php
+                            // Periksa apakah id saat ini termasuk dalam nilai yang dipilih
+                            $selected = in_array($id, old('Plant_Name', $selectedPlantNames ?? []));
+                        @endphp
+                        <option value="{{ $id }}" {{ $selected ? 'selected' : '' }}>
+                            {{ $name }}
+                        </option>
+                    @empty
+                        <option value="">None of Plant Data</option>
+                    @endforelse
                 </select>
               </div>
               <div class="form-group">
-                <label>Phytochemical related:</label>
-                <select name="Phytochemical[]" class="select2" multiple="multiple" data-placeholder="Any" value="{{$Bio->Phytochemical ?? 'N/A'}}" style="width: 100%;">
-                @forelse ($zat as $item)
-                    @php
-                        $selected = in_array($item->id, json_decode($Bio->Phytochemical, true) ?? []);
-                    @endphp
-                    @if ($selected)
-                        <option value="{{ $item->id }}" {{ $selected ? 'selected' : '' }}>{{ $item->Phytochemical }}</option>
-                    @else
-                        <option value="{{ $item->id }}">{{ $item->Phytochemical }}</option>
-                    @endif
-                    
-                @empty
+              <label>Phytochemical related:</label>
+                <select name="Phytochemical[]" class="select2" multiple="multiple" data-placeholder="Any" style="width: 100%;">
+                    @forelse ($senyawaNames as $id => $name)
+                        @php
+                            // Periksa apakah id saat ini termasuk dalam nilai yang dipilih
+                            $selected = in_array($name, $zat->Phytochemical ?? []);
+                        @endphp
+                        <option value="{{ $id }}" {{ $selected ? 'selected' : '' }}>
+                            {{ $name }}
+                        </option>
+                    @empty
                         <option value="">None of Phytochemical Data</option>
-                @endforelse
-                </select>
+                    @endforelse
+                </select>                     
               </div>
               <button class="btn btn-primary btn-lg">
                   SEND

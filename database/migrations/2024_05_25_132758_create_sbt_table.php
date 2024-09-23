@@ -15,13 +15,12 @@ return new class extends Migration
     {
         Schema::create('sbt', function (Blueprint $table) {
             $table->id();
-            $table->string('details');
             $table->unsignedBigInteger('biokId');
-            $table->foreign('biokId')->references('id')->on('bioaktivitas');
+            $table->foreign('biokId')->references('id')->on('bioaktivitas')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('snywId');
-            $table->foreign('snywId')->references('id')->on('senyawa');
+            $table->foreign('snywId')->references('id')->on('senyawa')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('tanId');
-            $table->foreign('tanId')->references('id')->on('tanaman');    
+            $table->foreign('tanId')->references('id')->on('tanaman')->onDelete('cascade')->onUpdate('cascade');   
             $table->timestamps();
         });
     }

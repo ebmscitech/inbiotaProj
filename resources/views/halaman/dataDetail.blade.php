@@ -9,78 +9,78 @@
       <table class="table table-bordered">
         <!-- First Row (Header Row) with One Column -->
         <tr  style="width: 100%; text-align: center;">
-          <td colspan="2"><h2><strong>{{$dataSenyawa->Plant_Name}}</strong></h2></td>
+          <td colspan="2"><h2><strong>{{$tanaman->Plant_Name}}</strong></h2></td>
         </tr>
         <!-- Second Row with Two Columns -->
         <tr>
           <td>English Name</td>
-          <td>{{$dataSenyawa->English_Name}} </td>
+          <td>{{$tanaman->English_Name}} </td>
         </tr>
         <tr>
           <td>Local Name</td>
-          <td>{{$dataSenyawa->Local_Name}}</td>
+          <td>{{$tanaman->Local_Name}}</td>
         </tr>
         <tr>
           <td>Kingdom</td>
-          <td>{{$dataSenyawa->Kingdom}}</td>
+          <td>{{$tanaman->Kingdom}}</td>
         </tr>
         <tr>
           <td>SubKingdom</td>
-          <td>{{$dataSenyawa->SubKingdom}} </td>
+          <td>{{$tanaman->SubKingdom}} </td>
         </tr>
         <tr>
           <td>Infrakingdom</td>
-          <td>{{$dataSenyawa->Infrakingdom}} </td>
+          <td>{{$tanaman->Infrakingdom}} </td>
         </tr>
         <tr>
           <td>Superdivision</td>
-          <td>{{$dataSenyawa->Superdivision}} </td>
+          <td>{{$tanaman->Superdivision}} </td>
         </tr>
         <tr>
           <td>Class</td>
-          <td>{{$dataSenyawa->Class}} </td>
+          <td>{{$tanaman->Class}} </td>
         </tr>
         <tr>
           <td>Superorder</td>
-          <td>{{$dataSenyawa->Superorder}} </td>
+          <td>{{$tanaman->Superorder}} </td>
         </tr>
         <tr>
           <td>Order</td>
-          <td>{{$dataSenyawa->Order}}</td>
+          <td>{{$tanaman->Order}}</td>
         </tr>
         <tr>
           <td>Family</td>
-          <td>{{$dataSenyawa->Family}}</td>
+          <td>{{$tanaman->Family}}</td>
         </tr>
         <tr>
           <td>Genus</td>
-          <td>{{$dataSenyawa->Genus}}</td>
+          <td>{{$tanaman->Genus}}</td>
         </tr>
         <tr>
           <td>Species</td>
-          <td>{{$dataSenyawa->Species}}</td>
+          <td>{{$tanaman->Species}}</td>
         </tr>
         <tr>
           <td>Synonym</td>
-          <td>{{$dataSenyawa->Synonym}}</td>
+          <td>{{$tanaman->Synonym}}</td>
         </tr>
         <tr>
           <td>Geographical Distribution</td>
-          <td>{{$dataSenyawa->Geographical_Distribution}}</td>
+          <td>{{$tanaman->Geographical_Distribution}}</td>
         </tr>
         <tr>
           <td>Traditional Uses</td>
-          <td>{{$dataSenyawa->Traditional_Uses}}</td>
+          <td>{{$tanaman->Traditional_Uses}}</td>
         </tr>
         <tr>
           <td>Reference</td>
-          <td>{{$dataSenyawa->Reference}}</td>
+          <td>{{$tanaman->Reference}}</td>
         </tr>
         <td>Phytochemical Related</td>
         <td>
             @forelse ($zat as $item)
             @php
-                $selected = in_array($item->id, json_decode($dataSenyawa->Phytochemical, true) ?? []);
+                $selected = in_array($item->id, json_decode($tanaman->Phytochemical, true) ?? []);
             @endphp
             @if ($selected)
                 <option value="{{ $item->id }}" {{ $selected ? 'selected' : '' }}>{{ $item->Phytochemical }}</option>
@@ -94,7 +94,7 @@
         <td>
             @forelse ($Bio as $item)
             @php
-                $selected = in_array($item->id, json_decode($dataSenyawa->BA_Name, true) ?? []);
+                $selected = in_array($item->id, json_decode($tanaman->BA_Name, true) ?? []);
             @endphp
             @if ($selected)
                 <option value="{{ $item->id }}" {{ $selected ? 'selected' : '' }}>{{ $item->BA_Name }}</option>
@@ -106,15 +106,15 @@
         </tr>
         <tr>
           <td>Bioactivity Detail</td>
-          <td>{{$dataSenyawa->BA_detail}}</td>
-        </tr>         
+          {{-- <td>{{$tanaman->BA_detail}}</td> --}}
+        </tr>
         {{-- <tr>
           <td>Structure</td>
           <td><img src="{{asset('imageInput/' . $dataSenyawa->Structure)}}" alt=""></td>
         </tr> --}}
         </table>
 
-      <a href="/listDatabase" class="btn-2 btn btn-info">Back</a>
+      <a href="/tanaman" class="btn-2 btn btn-info">Back</a>
 
       {{-- ["Plant_Name", "Local_Name", "English_Name", "Kingdom", "SubKingdom", "Infrakingdom", "Superdivision", "Class", "Superorder", "Order", "Family", "Genus", "Species", "Synonym", "CAS_Number", "Chemical_Formula", "Molecular_Mass", "IUPAC_Name", "Geographical_Distribution", "Traditional_Uses", "In_Silico", "Acute_Toxicity", "Subchronic_Toxicity", "Chronic_Toxicity", "In_Vivo", "In_Vitro", "Clinical_Studies", "Phytochemical"] --}}
       {{-- <div class="row">

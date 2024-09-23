@@ -19,9 +19,9 @@ return new class extends Migration
             $table->string('compoundClass');
             $table->string('CAS_Number');
             $table->string('Chemical_Formula');
-            $table->integer('Molecular_Mass');
+            $table->double('Molecular_Mass', 15, 2);
             $table->string('IUPAC_Name');
-            $table->string('SynonymZ');
+            $table->text('SynonymZ');
             $table->text('Description');
             $table->timestamps();
         });

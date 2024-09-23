@@ -28,9 +28,10 @@ return new class extends Migration
             $table->string('Family');
             $table->string('Genus');
             $table->string('Species');
-            $table->string('Synonym');
-            $table->string('Geographical_Distribution');
+            $table->text('Synonym');
+            $table->text('Geographical_Distribution');
             $table->text('Traditional_Uses');
+            $table->text('BaTanRelated');
             $table->text('Reference');
             $table->timestamps();
         });

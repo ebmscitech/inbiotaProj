@@ -56,7 +56,7 @@
               <div class="form-group">
                 <label>Plant related:</label>
                 <select name="Plant_Name[]" class="select2" multiple="multiple" data-placeholder="Any" style="width: 100%;">
-                  @forelse ($dataSenyawa as $item)
+                  @forelse ($tanaman as $item)
                       <option value="{{$item->id}}">{{$item->Plant_Name}}</option>
                   @empty
                       <option value="">None of Plant Data</option>

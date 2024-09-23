@@ -20,7 +20,6 @@ class EmailsubController extends Controller
     public function indexS()
     {
         $emailsub = emailsub::all();
-        // dd($dataSenyawa);
         return view('clientData.listEmailSub', compact('emailsub', $emailsub));
     }
     /**

@@ -23,17 +23,17 @@
           </tr>
         </thead>
         <tbody>
-         @forelse ($dataSenyawa as $key => $value)
+         @forelse ($tanamans as $key => $value)
          <tr>
             <td>{{$key + 1}}</td>
             <td>{{$value ->Plant_Name}}</td>
             <td>{{$value ->Synonym}}</td>
             <td>
-              <form action="/listDatabase/{{$value->id}}" method="POST">
+              <form action="/tanaman/{{$value->id}}" method="POST">
                 @csrf
                 @method('DELETE')
-                <a href="/listDatabase/{{$value->id}}" class="btn-2 btn btn-info">Detail</a>
-                <a href="/listDatabase/{{$value->id}}/edit" class="btn-2 btn-warning btn">Edit</a>
+                <a href="/tanaman/{{$value->id}}" class="btn-2 btn btn-info">Detail</a>
+                <a href="/tanaman/{{$value->id}}/edit" class="btn-2 btn-warning btn">Edit</a>
                 <button type="submit" value="Delete" class="btn-2 btn-danger btn delete-button" >Delete</button>
               </form>
             </td>
