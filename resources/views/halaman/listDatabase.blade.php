@@ -6,7 +6,7 @@
     <!-- contact section -->
     <section class="content">
         <div class="container-fluid">
-            <form action="/inputData">
+            <form action="/tanaman/create">
                 <button class="btn btn-success btn-lg">
                     Add Data
                 </button>
