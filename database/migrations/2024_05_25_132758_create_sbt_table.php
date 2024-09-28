@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('snywId');
             $table->foreign('snywId')->references('id')->on('senyawa')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('tanId');
-            $table->foreign('tanId')->references('id')->on('tanaman')->onDelete('cascade')->onUpdate('cascade');   
+            $table->foreign('tanId')->references('id')->on('tanaman')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

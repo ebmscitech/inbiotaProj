@@ -16,7 +16,7 @@ class QuestionsubController extends Controller
     public function index()
     {
         $questionsub = questionsub::all();
-        // dd($dataSenyawa);
+        // dd($tanaman);
         return view('clientData.listQuestSub', compact('questionsub', $questionsub));
     }
 

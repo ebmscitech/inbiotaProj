@@ -35,7 +35,7 @@
                 <button type="submit" value="Delete" class="btn-2 btn-danger btn delete-button" >Delete</button>
               </form>
             </td>
-          </tr> 
+          </tr>
          @empty
           <tr>
             <td></td>
@@ -45,7 +45,7 @@
         </tbody>
       </table>
       {{-- <div class="pagination-section">
-        @include('pagination', ['paginator' => $dataSenyawa])
+        @include('pagination', ['paginator' => $tanaman])
       </div> --}}
 
       {{-- <div class="row">
@@ -94,5 +94,5 @@ $(document).ready(function() {
 
 </script>
 
-  
+
 @endsection

@@ -32,7 +32,7 @@ class HomeController extends Controller
     public function page6(){
         return view('halaman.sEngine');
     }
-    
+
     public function pageBForm(Request $request){
         $validated = $request->validate([
             'name' => 'required',

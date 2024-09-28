@@ -52,7 +52,7 @@ Route::post('/accSignup', [HomeController::class, 'accSignup']);
 
 // sampe sini
 //Create Data Inbiota
-//Route::get('/inputData', [HomeController::class, 'page7']);
+Route::get('/inputData', [HomeController::class, 'page7']);
 //Kirim ke database
 // Route::post('/sendPData', [DataInbiotaController::class, 'pageInputData']);
 
@@ -70,10 +70,12 @@ Route::delete('/listSubscriber/{data}', [EmailsubController::class, 'destroyS'])
 
 Route::get('/indexadmin', [HomeController::class, 'indexadmin']);
 
+// CRUD Substance Data
+Route::resource('zat', ZatController::class);
+
+
 // CRUD Bioactivities Data
 Route::resource('Bio', BioController::Class);
-
-Route::resource('zat', ZatController::class);
 
 Route::resource('tanaman', TanamanController::Class);
 

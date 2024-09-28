@@ -56,7 +56,7 @@
             <tr>
                 <td>Plant Related :</td>
                 <td>
-                    @forelse ($dataSenyawa as $item)
+                    @forelse ($tanaman as $item)
                     @php
                         $selected = in_array($item->id, json_decode($result->Plant_Name, true) ?? []);
                     @endphp
@@ -72,8 +72,8 @@
                 <td><br><br></td>
                 <td></td>
             </tr>
-       
-    </tbody> 
+
+    </tbody>
     @endforeach
 </table>
     <a href="/sEngine" class=" btn btn-warning container heading_center">Back</a>

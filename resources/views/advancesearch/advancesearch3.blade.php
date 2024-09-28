@@ -38,7 +38,7 @@
                             @case('plants_related')
                                 <td>Plant Related :</td>
                                 <td>
-                                    @forelse ($dataSenyawa as $item)
+                                    @forelse ($tanaman as $item)
                                     @php
                                         $selected = in_array($item->id, json_decode($result->Plant_Name, true) ?? []);
                                     @endphp

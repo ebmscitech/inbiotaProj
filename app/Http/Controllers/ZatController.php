@@ -78,7 +78,7 @@ class ZatController extends Controller
                     DB::table('sbt')->insert([
                         'snywId' => $zatId,
                         'tanId' => $plantName,
-                        'biokId' => $baName, 
+                        'biokId' => $baName,
                     ]);
                 }
             }
@@ -89,8 +89,8 @@ class ZatController extends Controller
                 'biokId' => is_array($baname) ? $baname[0] : $baname,
             ]);
         }
-    
-    
+
+
         return redirect('/zat');
     }
 
@@ -112,7 +112,7 @@ class ZatController extends Controller
         $tanNames = tanaman::whereIn('id', $tanIds)->pluck('Plant_Name', 'id');
 
         $bioNames = Bio::whereIn('id', $biokIds)->pluck('BA_Name', 'id');
-        
+
         return view('detail.dataDetail2', compact('tanNames' , 'bioNames', 'zat'));
     }
 
@@ -156,16 +156,16 @@ class ZatController extends Controller
         $zat = zat::find($id);
         if ($zat) {
             $zat->update([
-            'Phytochemical' => $request['Phytochemical'],
-            'compoundClass' => $request['compoundClass'],
-            'CAS_Number' => $request['CAS_Number'],
-            'Chemical_Formula' => $request['Chemical_Formula'],
-            'Molecular_Mass' => $request['Molecular_Mass'],
-            'IUPAC_Name' => $request['IUPAC_Name'],
-            'SynonymZ' => $request['SynonymZ'],
-            'Description' => $request['Description'],  
-        ]);}
-        
+                'Phytochemical' => $request['Phytochemical'],
+                'compoundClass' => $request['compoundClass'],
+                'CAS_Number' => $request['CAS_Number'],
+                'Chemical_Formula' => $request['Chemical_Formula'],
+                'Molecular_Mass' => $request['Molecular_Mass'],
+                'IUPAC_Name' => $request['IUPAC_Name'],
+                'SynonymZ' => $request['SynonymZ'],
+                'Description' => $request['Description'],
+            ]);}
+
         $plantNames = $request->input('Plant_Name');
         $baname = $request->input('BA_Name');
 

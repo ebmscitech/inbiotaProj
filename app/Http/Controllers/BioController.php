@@ -66,7 +66,7 @@ class BioController extends Controller
                     DB::table('sbt')->insert([
                         'snywId' => $Fitokimia,
                         'tanId' => $plantName,
-                        'biokId' => $baId, 
+                        'biokId' => $baId,
                     ]);
                 }
             }
@@ -77,7 +77,7 @@ class BioController extends Controller
                 'biokId' => $baId,
             ]);
         }
-    
+
         return redirect('/Bio');
     }
 
@@ -99,7 +99,7 @@ class BioController extends Controller
         $tanNames = tanaman::whereIn('id', $tanIds)->pluck('Plant_Name', 'id');
 
         $senyawaNames = zat::whereIn('id', $snywIds)->pluck('Phytochemical', 'id');
-        
+
         return view('detail.dataDetail3', compact('tanNames' , 'senyawaNames', 'Bio'));
     }
 
@@ -121,7 +121,7 @@ class BioController extends Controller
         $tanNames = tanaman::whereIn('id', $tanIds)->pluck('Plant_Name', 'id');
 
         $senyawaNames = zat::whereIn('id', $snywIds)->pluck('Phytochemical', 'id');
-        
+
         return view('update.updateData3', compact('tanNames' , 'senyawaNames', 'Bio'));
     }
 
@@ -141,17 +141,17 @@ class BioController extends Controller
             'Plant_Name' => 'required',
             'Phytochemical' => 'required',
         ]);
-        
+
         $plantNames = $request->input('Plant_Name');
         $fitokimia = $request->input('Phytochemical');
 
         $Bio = Bio::find($id);
         if ($Bio) {
             $Bio->update([
-            'BA_Name' => $request['BA_Name'],
-            'BA_Details' => $request['BA_Details'],
-            'BA_ref' => $request['BA_ref'],
-        ]);}
+                'BA_Name' => $request['BA_Name'],
+                'BA_Details' => $request['BA_Details'],
+                'BA_ref' => $request['BA_ref'],
+            ]);}
 
         DB::table('sbt')->where('biokId', $id)->delete();
 
@@ -161,7 +161,7 @@ class BioController extends Controller
                     DB::table('sbt')->insert([
                         'snywId' => $Fitokimia,
                         'tanId' => $plantName,
-                        'biokId' => $id, 
+                        'biokId' => $id,
                     ]);
                 }
             }
@@ -172,7 +172,7 @@ class BioController extends Controller
                 'biokId' => $id,
             ]);
         }
-    
+
         return redirect('/Bio');
     }
 
