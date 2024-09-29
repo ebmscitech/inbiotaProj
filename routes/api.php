@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TanamanController;
 use App\Http\Controllers\ZatController;
 use App\Http\Controllers\BioController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,4 +28,4 @@ use App\Http\Controllers\BioController;
 //    Route::apiResource('bio', BioController::class);
 //});
 
-Route::post('/users'. [\App\Http\Controllers\UserController::class, 'register']);
+Route::post('/users', [\App\Http\Controllers\UserController::class, 'register']);
