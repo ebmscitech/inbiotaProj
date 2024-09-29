@@ -20,7 +20,7 @@ class EmailsubController extends Controller
     public function indexS()
     {
         $emailsub = emailsub::all();
-        return view('clientData.listEmailSub', compact('emailsub', $emailsub));
+        return view('clientData.listEmailSub', compact('emailsub'));
     }
     /**
      * Show the form for creating a new resource.

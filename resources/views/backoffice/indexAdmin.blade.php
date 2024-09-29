@@ -24,7 +24,23 @@ Introduction
       <div class="card-body">
         <div class="tab-content">
           <div class="tab-pane active" id="tab_1">
-            Mencoba push branchtest
+              Tabel bioaktivitas <br>
+              protected $table = 'bioaktivitas'; <br>
+              protected $fillable = ['BA_Name','BA_Details','BA_ref']; <br><br> <hr>
+
+              Tabel tanaman <br>
+              protected $table = 'tanaman';<br>
+              protected $fillable = ["Plant_Name", "Local_Name", "English_Name", "Kingdom", "SubKingdom", "Infrakingdom", "Superdivision", "Class", "Superorder", "Order", "Family", "Genus", "Species", "Synonym", "Geographical_Distribution", "Traditional_Uses", "Reference", 'BaTanRelated']; <br><br><hr>
+
+              Tabel senyawa <br>
+              protected $table = 'senyawa'; <br>
+              protected $fillable = ['Synonym','CAS_Number','Chemical_Formula','Molecular_Mass', 'IUPAC_Name', 'Phytochemical', 'compoundClass', 'Description']; <br> <br> <hr>
+
+
+              Tiap tabel ada field detail yang bisa diisi <br>
+              -bioaktivitas 	==> BA_Detail <br>
+              -tanaman	==> BaTanRelated <br>
+              -senyawa	==> Description <br>
           </div>
           <!-- /.tab-pane -->
           <div class="tab-pane" id="tab_2">
@@ -54,6 +70,8 @@ Introduction
       <button class="btn-success mb-8 btn-lg">
         Webpage
       </button>
+        <br>
+        <br>
     </form>
   </div>
   <!-- /.col -->
