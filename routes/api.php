@@ -17,12 +17,14 @@ use App\Http\Controllers\BioController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
+//
+//Route::prefix('v1')->group(function () {
+//    Route::apiResource('tanaman', TanamanController::class);
+//    Route::apiResource('zat', ZatController::class);
+//    Route::apiResource('bio', BioController::class);
+//});
 
-Route::prefix('v1')->group(function () {
-    Route::apiResource('tanaman', TanamanController::class);
-    Route::apiResource('zat', ZatController::class);
-    Route::apiResource('bio', BioController::class);
-});
+Route::post('/users'. [\App\Http\Controllers\UserController::class, 'register']);
