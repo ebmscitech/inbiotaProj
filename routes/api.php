@@ -28,4 +28,6 @@ use App\Http\Controllers\UserController;
 //    Route::apiResource('bio', BioController::class);
 //});
 
-Route::post('/users', [\App\Http\Controllers\UserController::class, 'register']);
+Route::post('/users/register', [\App\Http\Controllers\UserController::class, 'register']);
+
+Route::post('/users/login', [\App\Http\Controllers\UserController::class, 'login']);

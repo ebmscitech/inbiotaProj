@@ -3,7 +3,7 @@ info:
   title: Inbiota API
   version: '1.0'
 servers:
-  - url: https://inbiota.id
+  - url: http://localhost:8000/
 paths:
   /api/search:
     get:

@@ -18,6 +18,7 @@ class UserResource extends JsonResource
         return [
             'username' => $this->username,
             'completeName' => $this->completeName,
+            'token' => $this->whenNotNull($this->token)
         ];
     }
 }
