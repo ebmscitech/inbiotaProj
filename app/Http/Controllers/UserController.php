@@ -9,6 +9,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class UserController extends Controller
 {
@@ -16,11 +17,11 @@ class UserController extends Controller
         \Log::info('Register method is called');
         $data = $request->validated();
 
-        if(User::where('username', $data['username'])->count() == 1){
-            throw new \HttpResponseException(response([
-                "errors" => [
-                    "username" => [
-                        "username already exist"
+        if(User::where('username', $data['username'])->exists()){
+            throw new HttpResponseException(response([
+                'errors' => [
+                    'username' => [
+                        'The username already exist'
                     ]
                 ]
             ], 400));

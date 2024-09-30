@@ -146,7 +146,7 @@ paths:
                   value:
                     error:
                       username:
-                        Username must not be blank
+                        Username is already registered
         '401':
           description: Registration is being Reviewed
           content:

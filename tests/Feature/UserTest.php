@@ -24,7 +24,7 @@ class UserTest extends TestCase
             'phoneNo' => '082131667685',
             'homeTown' => 'Madison',
             'address' => 'Madison',
-            'birthDate' => '2000-01-01'
+            'birthDate' => '2000/01/01'
         ]);
 
         $response->dump();
@@ -40,11 +40,61 @@ class UserTest extends TestCase
 
     public function testRegisterFailed()
     {
+        $response = $this->postJson('/api/users', [
+            'username' => '',
+            'password' => '',
+            'email' => '',
+            'completeName' => '',
+            'phoneNo' => '',
+            'homeTown' => '',
+            'address' => '',
+            'birthDate' => ''
+        ]);
 
+        $response->dump();
+
+        $response->assertStatus(400);
+        $response->assertJson([
+            'errors' => [
+                'username' => [
+                    'The username field is required.'
+                ], 'completeName' => [
+                    'The complete name field is required.'
+                ], 'password' => [
+                    'The password field is required.'
+                ], 'homeTown' => [
+                    'The home town field is required.'
+                ], 'address' => [
+                    'The address field is required.'
+                ], 'birthDate' => [
+                    'The birth date field is required.'
+                ], 'email' => [
+                    'The email field is required.'
+                ], 'phoneNo' => [
+                    'The phone no field is required.'
+                ]
+            ]
+        ]);
     }
 
     public function testRegisterUsernameExist()
     {
+        $this->testRegisterSuccess();
+        $response = $this->postJson('/api/users', [
+            'username' => 'mzakiammar',
+            'password' => '123456',
+            'email' => 'mzakiammar@gmail.com',
+            'completeName' => 'Mzakiammar',
+            'phoneNo' => '082131667685',
+            'homeTown' => 'Madison',
+            'address' => 'Madison',
+            'birthDate' => '2000-01-01'  // Sesuaikan format tanggal
+        ]);
 
+        $response->assertStatus(400)->assertJson([
+            'errors' => [
+                'username' => ['The username already exist'],
+            ]
+        ]);
     }
 }
