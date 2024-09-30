@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Http\Controllers\UserController;
+use Database\Seeders\UserSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -16,7 +17,7 @@ class UserTest extends TestCase
      */
     public function testRegisterSuccess()
     {
-        $response = $this->postJson('/api/users', [
+        $response = $this->postJson('/api/users/register', [
             'username' => 'mzakiammar',
             'password' => '123456',
             'email' => 'mzakiammar@gmail.com',
@@ -40,7 +41,7 @@ class UserTest extends TestCase
 
     public function testRegisterFailed()
     {
-        $response = $this->postJson('/api/users', [
+        $response = $this->postJson('/api/users/register', [
             'username' => '',
             'password' => '',
             'email' => '',
@@ -80,7 +81,7 @@ class UserTest extends TestCase
     public function testRegisterUsernameExist()
     {
         $this->testRegisterSuccess();
-        $response = $this->postJson('/api/users', [
+        $response = $this->postJson('/api/users/register', [
             'username' => 'mzakiammar',
             'password' => '123456',
             'email' => 'mzakiammar@gmail.com',
@@ -97,4 +98,27 @@ class UserTest extends TestCase
             ]
         ]);
     }
+
+    public function testLoginSuccess()
+    {
+        $this->seed([UserSeeder::class]);
+        $response = $this->postJson('/api/users/login', [
+            'username' => 'test',
+            'password' => 'test',
+        ]);
+
+        $response->dump();
+        $response->assertStatus(200);
+        $response->assertJson([
+            'data' => [
+                'username' => 'test',
+            ]
+        ]);
+
+    }
+
+//    public function testLoginFailed()
+//    {
+//
+//    }
 }
