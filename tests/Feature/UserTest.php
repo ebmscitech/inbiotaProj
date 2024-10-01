@@ -117,8 +117,8 @@ class UserTest extends TestCase
 
     }
 
-//    public function testLoginFailed()
-//    {
-//
-//    }
+    public function testLoginFailed()
+    {
+
+    }
 }
