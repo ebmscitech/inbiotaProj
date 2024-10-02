@@ -22,7 +22,7 @@ class UserController extends Controller
         if(User::where('username', $data['username'])->exists()){
             throw new HttpResponseException(response([
                 'errors' => [
-                    'username' => [
+                    'message' => [
                         'The username already exist'
                     ]
                 ]

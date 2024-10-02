@@ -94,7 +94,7 @@ class UserTest extends TestCase
 
         $response->assertStatus(400)->assertJson([
             'errors' => [
-                'username' => ['The username already exist'],
+                'message' => ['The username already exist'],
             ]
         ]);
     }
@@ -119,6 +119,17 @@ class UserTest extends TestCase
 
     public function testLoginFailed()
     {
+        $response = $this->postJson('/api/users/login', [
+           'username' => 'Mzakiammar',
+           'password' => '654321',
+        ]);
 
+        $response->dump();
+        $response->assertStatus(401);
+        $response->assertJson([
+            'errors' => [
+                'message' => ['The username or password is incorrect'],
+            ]
+        ]);
     }
 }
