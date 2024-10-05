@@ -2,15 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SearchRequest;
+use App\Http\Resources\SearchResource;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\tanaman;
 use App\Models\zat;
 use App\Models\Bio;
+use Illuminate\Support\Facades\Log;
 
 class SearchController extends Controller
 {
     public function search(Request $request)
     {
+        Log::info('----SearchController BEGIN----');
         $orderBy = $request->input('orderBy');
         $attribute = $request->input('attribute');
         $search = $request->input('search');
@@ -170,6 +175,8 @@ class SearchController extends Controller
                 return view('halaman.search3', compact('results', 'Bio', 'zat', 'tanaman'));
                 break;
         }
+
+        return (new SearchResource($result))->response()->setStatusCode(200);
     }
 
     public function show($id) {
@@ -178,4 +185,12 @@ class SearchController extends Controller
         $Bio = Bio::get();
         return view('halaman.searchDetail', compact('tanaman', 'zat', 'Bio'));
     }
+
+//    public function showlist(SearchRequest $request): JsonResponse
+//    {
+//        Log::info('List data is called');
+//        $data = $request->validated();
+//
+//        return
+//    }
 }
