@@ -61,7 +61,7 @@
                                 </select>
                           </div>
                           </div>
-                        </div>  
+                        </div>
                       </div>
                       <div class="form-group">
                           <div class="input-group input-group-lg">
@@ -230,14 +230,6 @@
         $.each(selectedAttributes, function(index, value) {
             $('#orderAttributes').append('<option value="' + value.value + '">' + value.label + '</option>');
         });
-    });
-
-    $('#orderBySelect').change();
-
-    $('#orderAttributes').change(function() {
-        var selectedValue = $(this).val();
-        console.log('Selected Value:', selectedValue);
-        // Lakukan sesuatu dengan nilai yang dipilih di sini
     });
 });
 </script>

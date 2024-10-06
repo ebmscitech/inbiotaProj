@@ -57,35 +57,33 @@
             <tr>
                 <td>Plant Related :</td>
                 <td>
-                    @forelse ($tanaman as $item)
-                    @php
-                        $selected = in_array($item->id, json_decode($result->Plant_Name, true) ?? []);
-                    @endphp
-                    @if ($selected)
-                        <option value="{{ $item->id }}" {{ $selected ? 'selected' : '' }}>{{ $item->Plant_Name }}</option>
-                    @endif
+                    @forelse ($tanNames as $id => $name)
+                        <li> {{ $name }} </li>
                     @empty
-                            <option value="">None of Plant Data</option>
+                        <li>Tidak ada data aktivitas biokimia terkait.</li>
                     @endforelse
                 </td>
             </tr>
             <tr>
                 <td>Bioactivity Related :</td>
                 <td>
-                    @forelse ($Bio as $item)
-                    @php
-                        $selected = in_array($item->id, json_decode($result->BA_Name, true) ?? []);
-                    @endphp
-                    @if ($selected)
-                        <option value="{{ $item->id }}" {{ $selected ? 'selected' : '' }}>{{ $item->BA_Name }}</option>
-                    @endif
+                    @forelse ($bioNames as $id => $name)
+                        <li> {{ $name }} </li>
                     @empty
-                            <option value="">None of Bioactivity Data</option>
+                        <li>Tidak ada data aktivitas biokimia terkait.</li>
                     @endforelse
                 </td>
             </tr>
             <tr>
-                <td><br><br></td><td></td>
+                <td>
+                    <br><br>
+                </td>
+                <td>
+                    <form action="/searchEngine/{{$result->id}}" method="POST">
+                        <a href="/searchEngine/{{$result->id}}" class="btn-2 btn btn-info">Detail</a>
+                    </form>
+                    <br><br>
+                </td>
             </tr>
    </tbody>
    @endforeach

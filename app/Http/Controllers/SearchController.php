@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SearchRequest;
 use App\Http\Resources\SearchResource;
+use App\Models\sbt;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\tanaman;
@@ -53,14 +54,18 @@ class SearchController extends Controller
                             ->orWhere('Synonym', 'LIKE', "%$word%")
                             ->orWhere('Geographical_Distribution', 'LIKE', "%$word%")
                             ->orWhere('Traditional_Uses', 'LIKE', "%$word%")
-                            ->orWhere('Reference', 'LIKE', "%$word%")
-                            ->orWhere('Phytochemical', 'LIKE', "%$word%")
-                            ->orWhere('BA_Name', 'LIKE', "%$word%");
+                            ->orWhere('Reference', 'LIKE', "%$word%");
                     }})
                     ->get();
                 $results = $data;
-                // Proses hasil untuk mengutip kata yang cocok dengan kata pencarian
+                $zat = zat::get();
+                $Bio = Bio::get();
                 foreach ($results as $result) {
+                    $sbtItems = Sbt::where('tanId', $result->id)->get();
+                    $snywIds = $sbtItems->pluck('snywId');
+                    $biokIds = $sbtItems->pluck('biokId');
+                    $senyawaNames = zat::whereIn('id', $snywIds)->pluck('Phytochemical', 'id');
+                    $bioNames = Bio::whereIn('id', $biokIds)->pluck('BA_Name', 'id');
                     foreach ($keyword as $word) {
                         $columns = ["Plant_Name", "Local_Name", "English_Name", "Kingdom", "SubKingdom", "Infrakingdom", "Superdivision", "Class", "Superorder", "Order", "Family", "Genus", "Species", "Synonym",  "Geographical_Distribution", "Traditional_Uses", "Phytochemical", "BA_Name"];
                         foreach ($columns as $column) {
@@ -68,8 +73,6 @@ class SearchController extends Controller
                         }
                     }
                 }
-                $zat = zat::get();
-                $Bio = Bio::get();
                 $attributes = [
                     ["label" => "All Attributes", "value" => "All"],
                     ["label" => "Local Name", "value" => "local_name"],
@@ -89,14 +92,14 @@ class SearchController extends Controller
                     ["label" => "Bioactivities Related", "value" => "bioactivities_related"],
                     ["label" => "Phytochemicals Related", "value" => "phytochemicals_related"]
                 ];
+
                 foreach ($attributes as $attr){
                     if ($attribute == $attr['value']) {
                         $zat = zat::get();
                         $Bio = Bio::get();
-                        return view('advancesearch.advancesearch', compact('results', 'tanaman', 'zat', 'Bio', 'attributes', 'attribute'));
+                        return view('advancesearch.advancesearch', compact('results', 'tanaman', 'zat', 'Bio', 'attributes', 'attribute', 'senyawaNames', 'bioNames'));
                     }}
-                return view('halaman.search', compact('results', 'tanaman', 'zat', 'Bio'));
-                break;
+                return view('halaman.search', compact('results', 'tanaman', 'zat', 'Bio', 'senyawaNames', 'bioNames'));
                 break;
             case 'phytochemical':
                 $zat = zat::all();
@@ -111,17 +114,21 @@ class SearchController extends Controller
                     }})
                     ->get();
                 $results = $data;
-                // Proses hasil untuk mengutip kata yang cocok dengan kata pencarian
+                $tanaman = tanaman::get();
+                $Bio = Bio::get();
                 foreach ($results as $result) {
+                    $sbtItems = Sbt::where('snywId', $result->id)->get();
+                    $tanIds = $sbtItems->pluck('tanId');
+                    $biokIds = $sbtItems->pluck('biokId');
+                    $tanNames = tanaman::whereIn('id', $tanIds)->pluck('Plant_Name', 'id');
+                    $bioNames = Bio::whereIn('id', $biokIds)->pluck('BA_Name', 'id');
                     foreach ($keyword as $word) {
-                        $columns = ["Phytochemical", "compoundClass", "Chemical_Formula", "Molecular_Mass", "IUPAC_Name", "SynonymZ", "BA_Name", "Plant_Name"];
+                        $columns = ["Plant_Name", "Local_Name", "English_Name", "Kingdom", "SubKingdom", "Infrakingdom", "Superdivision", "Class", "Superorder", "Order", "Family", "Genus", "Species", "Synonym",  "Geographical_Distribution", "Traditional_Uses", "Phytochemical", "BA_Name"];
                         foreach ($columns as $column) {
                             $result->$column = preg_replace("/\b$word\b/i", '<span class="highlight">$0</span>', $result->$column);
                         }
                     }
                 }
-                $Bio = Bio::get();
-                $tanaman = tanaman::get();
                 $attributes = [
                     ["label" => "Compound Class", "value" => "compound_class"],
                     ["label" => "Chemical Formula", "value" => "chemical_formula"],
@@ -136,9 +143,9 @@ class SearchController extends Controller
                     if ($attribute == $attr['value']) {
                         $tanaman = tanaman::get();
                         $Bio = Bio::get();
-                        return view('advancesearch.advancesearch2', compact('results', 'tanaman', 'zat', 'Bio', 'attributes', 'attribute'));
+                        return view('advancesearch.advancesearch2', compact('results', 'tanaman', 'zat', 'Bio', 'attributes', 'attribute', 'tanNames', 'bioNames'));
                     }}
-                return view('halaman.search2', compact('results', 'zat', 'Bio', 'tanaman', 'attributes', 'attribute'));
+                return view('halaman.search2', compact('results', 'zat', 'Bio', 'tanaman', 'attributes', 'attribute', 'tanNames', 'bioNames'));
                 break;
             case 'bioactivities':
                 $Bio = Bio::all();
@@ -150,17 +157,21 @@ class SearchController extends Controller
                     }})
                     ->get();
                 $results = $data;
-                // Proses hasil untuk mengutip kata yang cocok dengan kata pencarian
+                $zat = zat::get();
+                $tanaman = tanaman::get();
                 foreach ($results as $result) {
+                    $sbtItems = Sbt::where('biokId', $result->id)->get();
+                    $tanIds = $sbtItems->pluck('tanId');
+                    $zatIds = $sbtItems->pluck('snywId');
+                    $tanNames = tanaman::whereIn('id', $tanIds)->pluck('Plant_Name', 'id');
+                    $zatNames = zat::whereIn('id', $zatIds)->pluck('Pythochemical', 'id');
                     foreach ($keyword as $word) {
-                        $columns = ["BA_Name", "BA_Details", "BA_ref", "Phytochemical", "Plant_Name"];
+                        $columns = ["Plant_Name", "Local_Name", "English_Name", "Kingdom", "SubKingdom", "Infrakingdom", "Superdivision", "Class", "Superorder", "Order", "Family", "Genus", "Species", "Synonym",  "Geographical_Distribution", "Traditional_Uses", "Phytochemical", "BA_Name"];
                         foreach ($columns as $column) {
                             $result->$column = preg_replace("/\b$word\b/i", '<span class="highlight">$0</span>', $result->$column);
                         }
                     }
                 }
-                $zat = zat::get();
-                $tanaman = tanaman::get();
                 $attributes = [
                     ["label" => "Details", "value" => "details"],
                     ["label" => "Plants Related", "value" => "plants_related"],
@@ -170,9 +181,9 @@ class SearchController extends Controller
                     if ($attribute == $attr['value']) {
                         $zat = zat::get();
                         $tanaman = tanaman::get();
-                        return view('advancesearch.advancesearch3', compact('results', 'tanaman', 'zat', 'Bio', 'attributes', 'attribute'));
+                        return view('advancesearch.advancesearch3', compact('results', 'tanaman', 'zat', 'Bio', 'attributes', 'attribute', 'tanNames', 'zatNames'));
                     }}
-                return view('halaman.search3', compact('results', 'Bio', 'zat', 'tanaman'));
+                return view('halaman.search3', compact('results', 'Bio', 'zat', 'tanaman', 'tanNames', 'zatNames'));
                 break;
         }
 
