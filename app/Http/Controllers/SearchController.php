@@ -20,7 +20,6 @@ class SearchController extends Controller
         $orderBy = $request->input('orderBy');
         $attribute = $request->input('attribute');
         $search = $request->input('search');
-        // Memecah input pencarian menjadi array kata
         $keyword = preg_split('/\s+/', $search, -1, PREG_SPLIT_NO_EMPTY);
 
         $keywordString = implode(' ', $keyword);
