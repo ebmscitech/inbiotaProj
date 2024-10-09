@@ -24,7 +24,9 @@ class SearchRequest extends FormRequest
     public function rules()
     {
         return [
-            'field' => ['required', 'max:300'],
+            'attributeOrder' => ['required', 'max:300'],
+            'searchBy' => ['required', 'max:300'],
+            'keyword' => ['required', 'max:300'],
         ];
     }
 }

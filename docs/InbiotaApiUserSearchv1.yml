@@ -48,6 +48,30 @@ paths:
                     type: object
         '404':
           description: Not Found
+  /api/parameter:
+    get:
+      summary: "Parameter for Searching"
+      description: "Retrieve parameter results based on database fields."
+      parameters:
+        - name: Parameter
+          in: query
+          required: true
+          schema:
+            type: string
+          description: "Parameter Field"
+          example: "attributes"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: object
+        '404':
+          description: Not Found
   /api/users/login:
     post:
       description: 'Login to Inbiota'

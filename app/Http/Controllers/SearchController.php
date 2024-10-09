@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\IndividualSearchRequest;
 use App\Http\Requests\SearchRequest;
 use App\Http\Resources\SearchResource;
 use App\Models\sbt;
@@ -14,19 +15,21 @@ use Illuminate\Support\Facades\Log;
 
 class SearchController extends Controller
 {
-    public function search(Request $request)
+    public function search(SearchRequest $request) : JsonResponse
     {
+        $request = $request->validated();
         Log::info('----SearchController BEGIN----');
         $orderBy = $request->input('orderBy');
         $attribute = $request->input('attribute');
         $search = $request->input('search');
         $keyword = preg_split('/\s+/', $search, -1, PREG_SPLIT_NO_EMPTY);
 
-        $keywordString = implode(' ', $keyword);
-
-        $query = tanaman::query();
-        $query2 = zat::query();
-        $query3 = Bio::query();
+//        it can be used to make another more advance search result
+//        $keywordString = implode(' ', $keyword);
+//
+//        $query = tanaman::query();
+//        $query2 = zat::query();
+//        $query3 = Bio::query();
 
 
         switch ($orderBy) {
@@ -196,11 +199,11 @@ class SearchController extends Controller
         return view('halaman.searchDetail', compact('tanaman', 'zat', 'Bio'));
     }
 
-//    public function showlist(SearchRequest $request): JsonResponse
-//    {
-//        Log::info('List data is called');
-//        $data = $request->validated();
-//
-//        return
-//    }
+    public function showlist(IndividualSearchRequest $request): JsonResponse
+    {
+        Log::info('List data is called');
+        $data = $request->validated();
+
+        return
+    }
 }
