@@ -53,9 +53,16 @@ paths:
       summary: "Parameter for Searching"
       description: "Retrieve parameter results based on database fields."
       parameters:
-        - name: Parameter
-          in: query
+        - name: searchBy
+          in: header
           required: true
+          schema:
+            type: string
+          description: "Parameter Field"
+          example: "attributes"
+        - name: attributeOrder
+          in: header
+          required: false
           schema:
             type: string
           description: "Parameter Field"
@@ -69,7 +76,9 @@ paths:
                 type: object
                 properties:
                   result:
-                    type: object
+                    type: array
+                    items:
+                      type: string
         '404':
           description: Not Found
   /api/users/login:

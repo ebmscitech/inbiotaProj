@@ -65,14 +65,6 @@ class SearchResource extends JsonResource
                     'bioTan' => $this->bioTan,
                     'bioPhy' => $this->bioPhy,
                 ];
-            case 'attribute':
-                return [
-                    'field' => $this->field
-                ];
-            case 'searchby':
-                return [
-
-                ];
         }
         return [
             ''

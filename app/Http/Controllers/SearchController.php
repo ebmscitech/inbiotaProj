@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\IndividualSearchRequest;
 use App\Http\Requests\SearchRequest;
+use App\Http\Resources\IndividualSearchResource;
 use App\Http\Resources\SearchResource;
 use App\Models\sbt;
 use Illuminate\Http\JsonResponse;
@@ -204,6 +205,32 @@ class SearchController extends Controller
         Log::info('List data is called');
         $data = $request->validated();
 
-        return
+        if ($request->Parameter == 'searchBy'){
+
+        } else if ($request->Parameter == 'attributesOrder') {
+            if ($request->Parameter)
+            try {
+                $columns = DB::select("SHOW COLUMNS FROM {$table}");
+
+                // Format respons
+                $columnNames = array_map(function ($column) {
+                    return $column->Field;
+                }, $columns);
+
+                // Kembalikan respons dalam format JSON
+                return response()->json([
+                    'success' => true,
+                    'columns' => $columnNames
+                ]);
+            } catch (\Exception $e) {
+                // Handle jika tabel tidak ditemukan atau ada error lain
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Error: ' . $e->getMessage(),
+                ], 500);
+            }
+        }
+
+        return (new IndividualSearchResource())->response()->setStatusCode(200);
     }
 }
