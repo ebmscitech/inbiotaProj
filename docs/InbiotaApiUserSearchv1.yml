@@ -5,7 +5,7 @@ info:
 servers:
   - url: http://localhost:8000/
 paths:
-  /api/search:
+  /api/search/search:
     get:
       summary: "Keywords for Searching"
       description: "Retrieve search results based on keywords and search criteria."
@@ -48,19 +48,12 @@ paths:
                     type: object
         '404':
           description: Not Found
-  /api/parameter:
+  /api/search/parameter:
     get:
       summary: "Parameter for Searching"
       description: "Retrieve parameter results based on database fields."
       parameters:
-        - name: searchBy
-          in: header
-          required: true
-          schema:
-            type: string
-          description: "Parameter Field"
-          example: "attributes"
-        - name: attributeOrder
+        - name: parameter
           in: header
           required: false
           schema:

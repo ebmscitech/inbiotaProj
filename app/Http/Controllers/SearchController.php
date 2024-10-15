@@ -203,12 +203,13 @@ class SearchController extends Controller
     public function showlist(IndividualSearchRequest $request): JsonResponse
     {
         Log::info('List data is called');
-        $data = $request->validated();
+        $data = $request->parameter;
 
-        if ($request->Parameter == 'searchBy'){
+        if ($data == null){
+            $tables = DB::select('SHOW TABLES');
+            return (new IndividualSearchResource($tables))->response()->setStatusCode(200);
+        } else if ($data->Parameter == 'attributesOrder') {
 
-        } else if ($request->Parameter == 'attributesOrder') {
-            if ($request->Parameter)
             try {
                 $columns = DB::select("SHOW COLUMNS FROM {$table}");
 

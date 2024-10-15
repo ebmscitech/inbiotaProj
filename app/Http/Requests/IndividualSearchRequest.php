@@ -25,9 +25,20 @@ class IndividualSearchRequest extends FormRequest
     public function rules()
     {
         return [
-            'searchBy' => ['required', 'max:300'],
-            'attributesOrder' => ['nullable', 'max:300']
+            'parameter' => ['required', 'max:300']
         ];
+    }
+
+    public function parameter()
+    {
+        return $this->header('parameter');
+    }
+
+    public function prepareForValidation()
+    {
+        $this->merge([
+            'parameter' => $this->parameter()
+        ]);
     }
 
     protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
