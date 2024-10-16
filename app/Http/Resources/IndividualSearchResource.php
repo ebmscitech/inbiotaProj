@@ -15,7 +15,7 @@ class IndividualSearchResource extends JsonResource
     public function toArray($request): array
     {
         return [
-            'result' => $this->result
+            'results' => $this->resource
         ];
     }
 }

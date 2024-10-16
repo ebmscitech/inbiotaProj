@@ -7,12 +7,14 @@ use App\Http\Requests\SearchRequest;
 use App\Http\Resources\IndividualSearchResource;
 use App\Http\Resources\SearchResource;
 use App\Models\sbt;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\tanaman;
 use App\Models\zat;
 use App\Models\Bio;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 class SearchController extends Controller
 {
@@ -205,13 +207,12 @@ class SearchController extends Controller
         Log::info('List data is called');
         $data = $request->parameter;
 
-        if ($data == null){
-            $tables = DB::select('SHOW TABLES');
-            return (new IndividualSearchResource($tables))->response()->setStatusCode(200);
-        } else if ($data->Parameter == 'attributesOrder') {
-
+        if ($data == 'searchBy'){
+            $results = ['Bioactivity', 'Plants', 'Substances'];
+            return (new IndividualSearchResource($results))->response()->setStatusCode(200);
+        } else if ($data->Parameter == 'Bioactivity') {
             try {
-                $columns = DB::select("SHOW COLUMNS FROM {$table}");
+                $columns = DB::select("SHOW COLUMNS FROM {$data}");
 
                 // Format respons
                 $columnNames = array_map(function ($column) {
@@ -230,6 +231,16 @@ class SearchController extends Controller
                     'message' => 'Error: ' . $e->getMessage(),
                 ], 500);
             }
+        } else if ($data->Parameter == 'Plants') {
+
+        } else if ($data->Parameter == 'Substances') {
+
+        } else {
+            throw new HttpResponseException(response([
+                'errors' => [
+                    'message' => 'Error: Invalid parameter.'
+                ]
+            ], 403));
         }
 
         return (new IndividualSearchResource())->response()->setStatusCode(200);

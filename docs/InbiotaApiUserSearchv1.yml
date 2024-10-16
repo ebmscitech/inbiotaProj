@@ -68,12 +68,14 @@ paths:
               schema:
                 type: object
                 properties:
-                  result:
+                  results:
                     type: array
                     items:
                       type: string
         '404':
           description: Not Found
+        '403':
+          description: Invalid Parameter
   /api/users/login:
     post:
       description: 'Login to Inbiota'
