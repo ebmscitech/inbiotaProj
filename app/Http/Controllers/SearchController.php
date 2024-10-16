@@ -207,34 +207,47 @@ class SearchController extends Controller
         Log::info('List data is called');
         $data = $request->parameter;
 
+        $parameterMap = [
+            'Bioactivity' => 'bioaktivitas',
+            'Plants' => 'tanaman',
+            'Substances' => 'senyawa',
+            'plantDetails' => 'BaTanRelated',
+        ];
+
         if ($data == 'searchBy'){
             $results = ['Bioactivity', 'Plants', 'Substances'];
             return (new IndividualSearchResource($results))->response()->setStatusCode(200);
-        } else if ($data->Parameter == 'Bioactivity') {
+        } else if ($data == 'Bioactivity' || $data == 'Plants' || $data == 'Substances') {
             try {
-                $columns = DB::select("SHOW COLUMNS FROM {$data}");
+                $tableName = $parameterMap[$data];
+                $columns = DB::select("SHOW COLUMNS FROM {$tableName}");
+                $excludeColumn = ['id', 'created_at', 'updated_at', 'BA_Name', 'Plant_Name', 'Reference', 'Description'];
 
-                // Format respons
+                $filteredColumns = array_filter($columns, function ($column) use ($excludeColumn) {
+                    return !in_array($column->Field, $excludeColumn);
+                });
+
+                if ($data == 'Bioactivity'){
+                    $includeColumn = ['Pythochemical', 'Plant_Name', 'All Attributes'];
+                } else if ($data == 'Plants'){
+                    $includeColumn = ['BA_Name', 'Pythochemical', 'All Attributes'];
+                } else if ($data == 'Substances'){
+                    $includeColumn = ['BA_Name', 'Plant_Name', 'All Attributes'];
+                }
+
                 $columnNames = array_map(function ($column) {
                     return $column->Field;
-                }, $columns);
+                }, $filteredColumns);
 
-                // Kembalikan respons dalam format JSON
-                return response()->json([
-                    'success' => true,
-                    'columns' => $columnNames
-                ]);
+                $columnNames = array_merge($columnNames, $includeColumn);
+
+                return (new IndividualSearchResource($columnNames))->response()->setStatusCode(200);
             } catch (\Exception $e) {
-                // Handle jika tabel tidak ditemukan atau ada error lain
                 return response()->json([
                     'success' => false,
                     'message' => 'Error: ' . $e->getMessage(),
                 ], 500);
             }
-        } else if ($data->Parameter == 'Plants') {
-
-        } else if ($data->Parameter == 'Substances') {
-
         } else {
             throw new HttpResponseException(response([
                 'errors' => [
@@ -242,7 +255,5 @@ class SearchController extends Controller
                 ]
             ], 403));
         }
-
-        return (new IndividualSearchResource())->response()->setStatusCode(200);
     }
 }

@@ -41,7 +41,7 @@ class SearchTest extends TestCase
         $response->assertJson([
             'data' => [
                 'results' => [
-                    'All Attributes', 'Details', 'References', 'Plant Related', 'Photochemical Related'
+                    'BA_ref', 'BA_Details', 'Pythochemical', 'Plant_Name', 'All Attributes'
                 ]
             ]
         ]);
@@ -49,7 +49,7 @@ class SearchTest extends TestCase
 
     public function testParamAttributePlantSuccess(){
         $response = $this->getJson('/api/search/parameters', [
-            'parameter' => 'Plant'
+            'parameter' => 'Plants'
         ]);
 
         $response->dump();
@@ -57,7 +57,7 @@ class SearchTest extends TestCase
         $response->assertJson([
             'data' => [
                 'results' => [
-                    'All Attributes', 'Local Name', 'English Name', 'Kingdom', 'Sub Kingdom', 'Infrakingdom', 'Superdivision', 'Class', 'Superorder', 'Order', 'Family', 'Genus', 'Species', 'Traditional Uses', 'Synonym', 'Bioactivity Related', 'Phytochemical Related'
+                    'Local_Name', 'English_Name', 'Kingdom', 'SubKingdom', 'Infrakingdom', 'Superdivision', 'Class', 'Order', 'Superorder', 'Family', 'Genus', 'Species', 'Synonym', 'Geographical_Distribution', 'Traditional_Uses', 'BaTanRelated', 'BA_Name', 'Pythochemical', 'All Attributes'
                 ]
             ]
         ]);
@@ -65,7 +65,7 @@ class SearchTest extends TestCase
 
     public function testParamAttributeSubsSuccess(){
         $response = $this->getJson('/api/search/parameters', [
-            'parameter' => 'Phytochemical'
+            'parameter' => 'Substances'
         ]);
 
         $response->dump();
@@ -73,8 +73,22 @@ class SearchTest extends TestCase
         $response->assertJson([
             'data' => [
                 'results' => [
-                    'All Attributes', 'Compound Class', 'Chemical Formula', 'Molecular Mass', 'IUPAC Name', 'Synonym', 'Plant Related', 'Bioactivitie Related', 'CAS Number'
+                    'Phytochemical', 'compoundClass', 'CAS_Number', 'Chemical_Formula', 'Molecular_Mass', 'IUPAC_Name', 'SynonymZ', 'BA_Name', 'Plant_Name', 'All Attributes'
                 ]
+            ]
+        ]);
+    }
+
+    public function testParamInvalid(){
+        $response = $this->getJson('/api/search/parameters', [
+            'parameter' => 'testing'
+        ]);
+
+        $response->dump();
+        $response->assertStatus(403);
+        $response->assertJson([
+            'errors' => [
+                'message' => 'Error: Invalid parameter.'
             ]
         ]);
     }
