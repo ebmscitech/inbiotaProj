@@ -68,12 +68,13 @@ paths:
               schema:
                 type: object
                 properties:
-                  results:
-                    type: array
-                    items:
-                      type: string
-        '404':
-          description: Not Found
+                  data:
+                    type: object
+                    properties:
+                      results:
+                        type: array
+                        items:
+                          type: string
         '403':
           description: Invalid Parameter
   /api/users/login:

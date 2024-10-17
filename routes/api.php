@@ -21,12 +21,6 @@ use App\Http\Controllers\UserController;
 //Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //    return $request->user();
 //});
-//
-//Route::prefix('v1')->group(function () {
-//    Route::apiResource('tanaman', TanamanController::class);
-//    Route::apiResource('zat', ZatController::class);
-//    Route::apiResource('bio', BioController::class);
-//});
 
 Route::post('/users/register', [\App\Http\Controllers\UserController::class, 'register']);
 
