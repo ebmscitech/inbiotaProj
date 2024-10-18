@@ -26,6 +26,6 @@ Route::post('/users/register', [\App\Http\Controllers\UserController::class, 're
 
 Route::post('/users/login', [\App\Http\Controllers\UserController::class, 'login']);
 
-Route::get('/search/parameters', [\App\Http\Controllers\SearchController::class, 'showlist']);
+Route::get('/search/parameter', [\App\Http\Controllers\SearchController::class, 'showlist']);
 
 Route::get('/search/search', [\App\Http\Controllers\SearchController::class, 'search']);

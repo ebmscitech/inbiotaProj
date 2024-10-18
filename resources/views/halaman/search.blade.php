@@ -80,8 +80,8 @@
                     <br><br>
                 </td>
                 <td>
-                <form action="/searchEngine/{{$result->id}}" method="POST">
-                    <a href="/searchEngine/{{$result->id}}" class="btn-2 btn btn-info">Detail</a>
+                <form action="/searchEngineT/{{$result->id}}" method="POST">
+                    <a href="/searchEngineT/{{$result->id}}" class="btn-2 btn btn-info">Detail</a>
                 </form>
                 <br><br>
                 </td>

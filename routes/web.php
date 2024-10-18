@@ -35,7 +35,8 @@ Route::get('/sEngine', [HomeController::class, 'page6']);
 Route::get('/searchEngine', [SearchController::class, 'search']);
 
 //Detail Search Data
-Route::get('/searchEngine/{data}', [SearchController::class, 'show']);
+Route::get('/searchEngineT/{data}', [SearchController::class, 'showT']);
+Route::get('/searchEngineZ/{data}', [SearchController::class, 'showZ']);
 
 //Create Email Message
 

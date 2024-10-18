@@ -48,6 +48,8 @@ paths:
                     type: object
         '404':
           description: Not Found
+        '403':
+          description: Invalid parameter
   /api/search/parameter:
     get:
       summary: "Parameter for Searching"

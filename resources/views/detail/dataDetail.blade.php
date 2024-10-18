@@ -79,18 +79,18 @@
                 <tr>
                     <td>Phytochemical Related</td>
                     <td>
-                        @forelse ($senyawaNames as $id => $name)
-                            <li> (ID: {{ $id }}) {{ $name }}</li>
+                        @forelse ($zatNames as $id => $name)
+                            <li> {{ $name }}</li>
                         @empty
                             <li>Tidak ada data senyawa terkait.</li>
                         @endforelse
                     </td>
                 </tr>
                 <tr>
-                    <td>Bioactivities Related</td>
+                    <td>Bioactivity Related :</td>
                     <td>
                         @forelse ($bioNames as $id => $name)
-                            <li> (ID: {{ $id }}) {{ $name }} </li>
+                            <li> {{ $name }} </li>
                         @empty
                             <li>Tidak ada data aktivitas biokimia terkait.</li>
                         @endforelse

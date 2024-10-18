@@ -38,30 +38,20 @@
                             @case('plants_related')
                                 <td>Plant Related :</td>
                                 <td>
-                                    @forelse ($tanaman as $item)
-                                    @php
-                                        $selected = in_array($item->id, json_decode($result->Plant_Name, true) ?? []);
-                                    @endphp
-                                    @if ($selected)
-                                        <option value="{{ $item->id }}" {{ $selected ? 'selected' : '' }}>{{ $item->Plant_Name }}</option>
-                                    @endif
+                                    @forelse ($tanNames as $id => $name)
+                                        <li> {{ $name }} </li>
                                     @empty
-                                            <option value="">None of Plant Data</option>
+                                        <li>Tidak ada data aktivitas biokimia terkait.</li>
                                     @endforelse
                                 </td>
                                 @break
                             @case('phytochemicals_related')
                                 <td>Phytochemical Related :</td>
                                 <td>
-                                    @forelse ($zat as $item)
-                                    @php
-                                        $selected = in_array($item->id, json_decode($result->Phytochemical, true) ?? []);
-                                    @endphp
-                                    @if ($selected)
-                                        <option value="{{ $item->id }}" {{ $selected ? 'selected' : '' }}>{{ $item->Phytochemical }}</option>
-                                    @endif
+                                    @forelse ($zatNames as $id => $name)
+                                        <li> {{ $name }}</li>
                                     @empty
-                                            <option value="">None of Phytochemical Data</option>
+                                        <li>Tidak ada data senyawa terkait.</li>
                                     @endforelse
                                 </td>
                                 @break

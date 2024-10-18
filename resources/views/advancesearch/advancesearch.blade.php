@@ -89,32 +89,22 @@
                                 <td>{!! $result->Synonym !!}</td>
                                 @break
                             @case('bioactivities_related')
-                                <td>Bioactivities Related</td>
+                                <td>Bioactivity Related :</td>
                                 <td>
-                                    @forelse ($Bio as $item)
-                                    @php
-                                        $selected = in_array($item->id, json_decode($result->BA_Name, true) ?? []);
-                                    @endphp
-                                    @if ($selected)
-                                        <option value="{{ $item->id }}" {{ $selected ? 'selected' : '' }}>{{ $item->BA_Name }}</option>
-                                    @endif
+                                    @forelse ($bioNames as $id => $name)
+                                        <li> {{ $name }} </li>
                                     @empty
-                                            <option value="">None of Bioactivity Data</option>
+                                        <li>Tidak ada data aktivitas biokimia terkait.</li>
                                     @endforelse
                                 </td>
                                 @break
                             @case('phytochemicals_related')
-                                <td>Phytochemical Related</td>
+                                <td>Phytochemical Related :</td>
                                 <td>
-                                    @forelse ($zat as $item)
-                                    @php
-                                        $selected = in_array($item->id, json_decode($result->Phytochemical, true) ?? []);
-                                    @endphp
-                                    @if ($selected)
-                                        <option value="{{ $item->id }}" {{ $selected ? 'selected' : '' }}>{{ $item->Phytochemical }}</option>
-                                    @endif
+                                    @forelse ($senyawaNames as $id => $name)
+                                        <li> {{ $name }}</li>
                                     @empty
-                                            <option value="">None of Phytochemical Data</option>
+                                        <li>Tidak ada data senyawa terkait.</li>
                                     @endforelse
                                 </td>
                                 @break

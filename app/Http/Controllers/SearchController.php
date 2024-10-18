@@ -18,22 +18,14 @@ use Illuminate\Support\Facades\DB;
 
 class SearchController extends Controller
 {
-    public function search(SearchRequest $request) : JsonResponse
+    public function search(Sear $request) /*: JsonResponse */
     {
-        $request = $request->validated();
+//        $request = $request->validated();
         Log::info('----SearchController BEGIN----');
         $orderBy = $request->input('orderBy');
         $attribute = $request->input('attribute');
         $search = $request->input('search');
         $keyword = preg_split('/\s+/', $search, -1, PREG_SPLIT_NO_EMPTY);
-
-//        it can be used to make another more advance search result
-//        $keywordString = implode(' ', $keyword);
-//
-//        $query = tanaman::query();
-//        $query2 = zat::query();
-//        $query3 = Bio::query();
-
 
         switch ($orderBy) {
             default:
@@ -97,7 +89,6 @@ class SearchController extends Controller
                     ["label" => "Bioactivities Related", "value" => "bioactivities_related"],
                     ["label" => "Phytochemicals Related", "value" => "phytochemicals_related"]
                 ];
-
                 foreach ($attributes as $attr){
                     if ($attribute == $attr['value']) {
                         $zat = zat::get();
@@ -135,6 +126,7 @@ class SearchController extends Controller
                     }
                 }
                 $attributes = [
+                    ["label" => "All Attributes", "value" => "All"],
                     ["label" => "Compound Class", "value" => "compound_class"],
                     ["label" => "Chemical Formula", "value" => "chemical_formula"],
                     ["label" => "Molecular Mass", "value" => "molecular_mass"],
@@ -169,7 +161,7 @@ class SearchController extends Controller
                     $tanIds = $sbtItems->pluck('tanId');
                     $zatIds = $sbtItems->pluck('snywId');
                     $tanNames = tanaman::whereIn('id', $tanIds)->pluck('Plant_Name', 'id');
-                    $zatNames = zat::whereIn('id', $zatIds)->pluck('Pythochemical', 'id');
+                    $zatNames = zat::whereIn('id', $zatIds)->pluck('Phytochemical', 'id');
                     foreach ($keyword as $word) {
                         $columns = ["Plant_Name", "Local_Name", "English_Name", "Kingdom", "SubKingdom", "Infrakingdom", "Superdivision", "Class", "Superorder", "Order", "Family", "Genus", "Species", "Synonym",  "Geographical_Distribution", "Traditional_Uses", "Phytochemical", "BA_Name"];
                         foreach ($columns as $column) {
@@ -192,14 +184,145 @@ class SearchController extends Controller
                 break;
         }
 
+//        return (new SearchResource($result))->response()->setStatusCode(200);
+    }
+
+    public function searchApi(SearchRequest $request): JsonResponse
+    {
+        $request = $request->validated();
+        Log::info('----SearchController BEGIN----');
+        $orderBy = $request->input('orderBy');
+        $attribute = $request->input('attribute');
+        $search = $request->input('search');
+        $keyword = preg_split('/\s+/', $search, -1, PREG_SPLIT_NO_EMPTY);
+
+        switch ($orderBy) {
+            default:
+                $data = [];
+                break;
+            case 'plant':
+                $tanaman = tanaman::all();
+                $data = tanaman::where(function ($query) use ($keyword){
+                    foreach ($keyword as $word) {
+                        $query->where('Plant_Name', 'LIKE', "%$word%")
+                            ->orWhere('Local_Name', 'LIKE', "%$word%")
+                            ->orWhere('English_Name', 'LIKE', "%$word%")
+                            ->orWhere('Kingdom', 'LIKE', "%$word%")
+                            ->orWhere('SubKingdom', 'LIKE', "%$word%")
+                            ->orWhere('Infrakingdom', 'LIKE', "%$word%")
+                            ->orWhere('Superdivision', 'LIKE', "%$word%")
+                            ->orWhere('Class', 'LIKE', "%$word%")
+                            ->orWhere('Superorder', 'LIKE', "%$word%")
+                            ->orWhere('Order', 'LIKE', "%$word%")
+                            ->orWhere('Family', 'LIKE', "%$word%")
+                            ->orWhere('Genus', 'LIKE', "%$word%")
+                            ->orWhere('Species', 'LIKE', "%$word%")
+                            ->orWhere('Synonym', 'LIKE', "%$word%")
+                            ->orWhere('Geographical_Distribution', 'LIKE', "%$word%")
+                            ->orWhere('Traditional_Uses', 'LIKE', "%$word%")
+                            ->orWhere('Reference', 'LIKE', "%$word%");
+                    }})
+                    ->get();
+                $results = $data;
+                $zat = zat::get();
+                $Bio = Bio::get();
+                foreach ($results as $result) {
+                    $sbtItems = Sbt::where('tanId', $result->id)->get();
+                    $snywIds = $sbtItems->pluck('snywId');
+                    $biokIds = $sbtItems->pluck('biokId');
+                    $senyawaNames = zat::whereIn('id', $snywIds)->pluck('Phytochemical', 'id');
+                    $bioNames = Bio::whereIn('id', $biokIds)->pluck('BA_Name', 'id');
+                    foreach ($keyword as $word) {
+                        $columns = ["Plant_Name", "Local_Name", "English_Name", "Kingdom", "SubKingdom", "Infrakingdom", "Superdivision", "Class", "Superorder", "Order", "Family", "Genus", "Species", "Synonym",  "Geographical_Distribution", "Traditional_Uses", "Phytochemical", "BA_Name"];
+                        foreach ($columns as $column) {
+                            $result->$column = preg_replace("/\b$word\b/i", '<span class="highlight">$0</span>', $result->$column);
+                        }
+                    }
+                }
+                return view('halaman.search', compact('results', 'tanaman', 'zat', 'Bio', 'senyawaNames', 'bioNames'));
+            case 'phytochemical':
+                $zat = zat::all();
+                $data = zat::where(function ($query2) use ($keyword){
+                    foreach ($keyword as $word) {
+                        $query2->where('Phytochemical', 'LIKE', "%$word%")
+                            ->orWhere('compoundClass', 'LIKE', "%$word%")
+                            ->orWhere('Chemical_Formula', 'LIKE', "%$word%")
+                            ->orWhere('Molecular_Mass', 'LIKE', "%$word%")
+                            ->orWhere('IUPAC_Name', 'LIKE', "%$word%")
+                            ->orWhere('SynonymZ', 'LIKE', "%$word%");
+                    }})
+                    ->get();
+                $results = $data;
+                $tanaman = tanaman::get();
+                $Bio = Bio::get();
+                foreach ($results as $result) {
+                    $sbtItems = Sbt::where('snywId', $result->id)->get();
+                    $tanIds = $sbtItems->pluck('tanId');
+                    $biokIds = $sbtItems->pluck('biokId');
+                    $tanNames = tanaman::whereIn('id', $tanIds)->pluck('Plant_Name', 'id');
+                    $bioNames = Bio::whereIn('id', $biokIds)->pluck('BA_Name', 'id');
+                    foreach ($keyword as $word) {
+                        $columns = ["Plant_Name", "Local_Name", "English_Name", "Kingdom", "SubKingdom", "Infrakingdom", "Superdivision", "Class", "Superorder", "Order", "Family", "Genus", "Species", "Synonym",  "Geographical_Distribution", "Traditional_Uses", "Phytochemical", "BA_Name"];
+                        foreach ($columns as $column) {
+                            $result->$column = preg_replace("/\b$word\b/i", '<span class="highlight">$0</span>', $result->$column);
+                        }
+                    }
+                }
+                return view('halaman.search2', compact('results', 'zat', 'Bio', 'tanaman', 'attribute', 'tanNames', 'bioNames'));
+            case 'bioactivities':
+                $Bio = Bio::all();
+                $data = Bio::where(function ($query3) use ($keyword){
+                    foreach ($keyword as $word) {
+                        $query3->where('BA_Name', 'LIKE', "%$word%")
+                            ->orWhere('BA_Details', 'LIKE', "%$word%")
+                            ->orWhere('BA_ref', 'LIKE', "%$word%");
+                    }})
+                    ->get();
+                $results = $data;
+                $zat = zat::get();
+                $tanaman = tanaman::get();
+                foreach ($results as $result) {
+                    $sbtItems = Sbt::where('biokId', $result->id)->get();
+                    $tanIds = $sbtItems->pluck('tanId');
+                    $zatIds = $sbtItems->pluck('snywId');
+                    $tanNames = tanaman::whereIn('id', $tanIds)->pluck('Plant_Name', 'id');
+                    $zatNames = zat::whereIn('id', $zatIds)->pluck('Phytochemical', 'id');
+                    foreach ($keyword as $word) {
+                        $columns = ["Plant_Name", "Local_Name", "English_Name", "Kingdom", "SubKingdom", "Infrakingdom", "Superdivision", "Class", "Superorder", "Order", "Family", "Genus", "Species", "Synonym",  "Geographical_Distribution", "Traditional_Uses", "Phytochemical", "BA_Name"];
+                        foreach ($columns as $column) {
+                            $result->$column = preg_replace("/\b$word\b/i", '<span class="highlight">$0</span>', $result->$column);
+                        }
+                    }
+                }
+                return view('halaman.search3', compact('results', 'Bio', 'zat', 'tanaman', 'tanNames', 'zatNames'));
+        }
         return (new SearchResource($result))->response()->setStatusCode(200);
     }
 
-    public function show($id) {
+    public function showT($id) {
         $tanaman = tanaman::all()->where('id', $id)->first();
         $zat = zat::get();
         $Bio = Bio::get();
-        return view('halaman.searchDetail', compact('tanaman', 'zat', 'Bio'));
+        $sbtItems = Sbt::where('tanId', $tanaman)->get();
+        $snywIds = $sbtItems->pluck('snywId');
+        $biokIds = $sbtItems->pluck('biokId');
+        $zatNames = zat::whereIn('id', $snywIds)->pluck('Phytochemical', 'id');
+        $bioNames = Bio::whereIn('id', $biokIds)->pluck('BA_Name', 'id');
+        $bioDetails = Bio::whereIn('id', $biokIds)->pluck('BA_Details', 'id');
+        return view('halaman.searchDetail', compact('tanaman', 'zat', 'Bio', 'zatNames', 'bioNames', 'bioDetails'));
+    }
+
+    public function showZ($id) {
+        $zat = zat::all()->where('id', $id)->first();
+        $tanaman = tanaman::get();
+        $Bio = Bio::get();
+        $sbtItems = Sbt::where('snywId', $zat)->get();
+        $tanIds = $sbtItems->pluck('tanId');
+        $biokIds = $sbtItems->pluck('biokId');
+        $tanNames = tanaman::whereIn('id', $tanIds)->pluck('Plant_Name', 'id');
+        $bioNames = Bio::whereIn('id', $biokIds)->pluck('BA_Name', 'id');
+        $bioDetails = Bio::whereIn('id', $biokIds)->pluck('BA_Details', 'id');
+        return view('halaman.searchDetail2', compact('tanaman', 'zat', 'Bio', 'tanNames', 'bioNames', 'bioDetails'));
     }
 
     public function showlist(IndividualSearchRequest $request): JsonResponse

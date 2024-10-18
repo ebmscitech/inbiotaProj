@@ -73,38 +73,34 @@
           <td>{{$tanaman->Traditional_Uses}}</td>
         </tr>
         <tr>
-        <td>Phytochemical Related</td>
-        <td>
-            @forelse ($zat as $item)
-            @php
-                $selected = in_array($item->id, json_decode($tanaman->Phytochemical, true) ?? []);
-            @endphp
-            @if ($selected)
-                <option value="{{ $item->id }}" {{ $selected ? 'selected' : '' }}>{{ $item->Phytochemical }}</option>
-            @endif
-            @empty
-                    <option value="">None of Phytochemical Data</option>
-            @endforelse
-        </td>
+            <td>Phytochemical Related :</td>
+            <td>
+                @forelse ($zatNames as $id => $name)
+                    <li> {{ $name }}</li>
+                @empty
+                    <li>Tidak ada data senyawa terkait.</li>
+                @endforelse
+            </td>
         </tr>
         <tr>
-        <td>Bioactivities Related</td>
-        <td>
-            @forelse ($Bio as $item)
-            @php
-                $selected = in_array($item->id, json_decode($tanaman->BA_Name, true) ?? []);
-            @endphp
-            @if ($selected)
-                <option value="{{ $item->id }}" {{ $selected ? 'selected' : '' }}>{{ $item->BA_Name }}</option>
-            @endif
-            @empty
-                    <option value="">None of Bioactivity Data</option>
-            @endforelse
-        </td>
+            <td>Bioactivity Related :</td>
+            <td>
+                @forelse ($bioNames as $id => $name)
+                    <li> {{ $name }} </li>
+                @empty
+                    <li>Tidak ada data aktivitas biokimia terkait.</li>
+                @endforelse
+            </td>
         </tr>
         <tr>
           <td>Bioactivity Detail</td>
-          <td>{{$tanaman->BA_detail}}</td>
+            <td>
+                @forelse ($bioDetails as $id => $name)
+                    <li> {{ $name }} </li>
+                @empty
+                    <li>Tidak ada data detail aktivitas biokimia terkait.</li>
+                @endforelse
+            </td>
         </tr>
         <tr>
             <td>Reference</td>

@@ -41,7 +41,7 @@
             <tr>
                 <td>Phytochemical Related :</td>
                 <td>
-                    @forelse ($senyawaNames as $id => $name)
+                    @forelse ($zatNames as $id => $name)
                         <li> {{ $name }}</li>
                     @empty
                         <li>Tidak ada data senyawa terkait.</li>

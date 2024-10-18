@@ -66,8 +66,5 @@ class SearchResource extends JsonResource
                     'bioPhy' => $this->bioPhy,
                 ];
         }
-        return [
-            ''
-        ]
     }
 }
