@@ -34,18 +34,21 @@ class HomeController extends Controller
     }
 
     public function pageBForm(Request $request){
-        $validated = $request->validate([
+        $request->validate([
             'name' => 'required',
             'senderEmail' => 'required',
             'phoneNumber' => 'numeric',
-            'dibaca' => 'boolean'
         ]);
-        // dd($request->all());
+        if ($request['message'] == null){
+            throw new \Exception("Message can't be empty");
+        }
         DB::table('questionsub')->insert([
             'name' => $request['name'],
             'senderEmail' => $request['senderEmail'],
             'phoneNumber' => $request['phoneNumber'],
             'message' => $request['message'],
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
         return redirect ('/');
     }

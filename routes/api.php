@@ -28,4 +28,4 @@ Route::post('/users/login', [\App\Http\Controllers\UserController::class, 'login
 
 Route::get('/search/parameter', [\App\Http\Controllers\SearchController::class, 'showlist']);
 
-Route::get('/search/search', [\App\Http\Controllers\SearchController::class, 'search']);
+Route::get('/search/search', [\App\Http\Controllers\SearchController::class, 'searchApi']);

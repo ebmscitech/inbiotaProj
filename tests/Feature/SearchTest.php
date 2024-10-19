@@ -92,4 +92,89 @@ class SearchTest extends TestCase
             ]
         ]);
     }
+
+    public function testSearchResultPlant(){
+        $response = $this->getJson('/api/search/search?attribute=All&orderBy=plant&search=0');
+        $expectedData =
+                [
+                    'Plant_Name' => '[value-2]',
+                    'Local_Name' => '[value-3]',
+                    'English_Name' => '[value-4]',
+                    'Kingdom' => '[value-5]',
+                    'SubKingdom' => '[value-6]',
+                    'Infrakingdom' => '[value-7]',
+                    'Superdivision' => '[value-8]',
+                    'Class' => '[value-9]',
+                    'Superorder' => '[value-11]',
+                    'Order' => '[value-10]',
+                    'Family' => '[value-12]',
+                    'Genus' => '[value-13]',
+                    'Species' => '[value-14]',
+                    'Synonym' => '[value-15]',
+                    'Geographical_Distribution' => '[value-16]',
+                    'Traditional_Uses' => '[value-17]',
+                    'Reference' => '[value-19]',
+                    'Phytochemical' => null,
+                    'BA_Name' => null,
+        ];
+
+        $response->dump();
+        $response->assertJson([
+            'data' => [
+                $expectedData
+            ]
+        ]);
+        $response->assertStatus(200);
+    }
+
+    public function testSearchResultPhytochemical(){
+        $response = $this->getJson('/api/search/search?attribute=All&orderBy=phytochemical&search=0');
+        $expectedData =
+            [
+                'Phytochemical' => '[value-2]',
+                'compoundClass' => '[value-3]',
+                'Chemical_Formula' => '[value-5]',
+                'Molecular_Mass' => 0,
+                'IUPAC_Name' => '[value-7]',
+                'SynonymZ' => '[value-8]',
+                'phyTan' => [
+                    '6' => '[value-2]',
+                ],
+                'phyBio' => [
+                    '8' => 'Anti Helmintics',
+                ],
+            ];
+
+        $response->dump();
+        $response->assertJson([
+            'data' => [
+                $expectedData
+            ]
+        ]);
+        $response->assertStatus(200);
+    }
+
+    public function testSearchResultBio(){
+        $response = $this->getJson('/api/search/search?attribute=All&orderBy=bioactivities&search=h');
+        $expectedData =
+            [
+                'BA_Name' => 'Anti Helmintics',
+                'BA_Details' => 'Cacing',
+                'BA_ref' => 'hnjoui',
+                'bioTan' => [
+                    '6' => '[value-2]'
+                ],
+                'bioPhy' => [
+                    '5' => '[value-2]'
+                ],
+            ];
+
+        $response->dump();
+        $response->assertJson([
+            'data' => [
+                $expectedData
+            ]
+        ]);
+        $response->assertStatus(200);
+    }
 }

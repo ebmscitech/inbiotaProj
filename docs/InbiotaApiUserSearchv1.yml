@@ -16,21 +16,21 @@ paths:
         #   schema:
         #     type: string
         #   description: "User authentication token"
-        - name: searchby
+        - name: orderBy
           in: query
           required: true
           schema:
             type: string
           description: "Field to search by"
           example: "name"
-        - name: attributeOrder
+        - name: attribute
           in: query
           required: true
           schema:
             type: string
           description: "Attribute order for sorting"
           example: "asc"
-        - name: keywords
+        - name: search
           in: query
           required: true
           schema:
