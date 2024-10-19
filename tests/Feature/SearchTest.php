@@ -15,7 +15,7 @@ class SearchTest extends TestCase
      */
     public function testParamSuccess()
     {
-        $response = $this->getJson('/api/search/parameters', [
+        $response = $this->getJson('/api/search/parameter', [
             'parameter' => 'searchBy'
         ]);
 
@@ -32,7 +32,7 @@ class SearchTest extends TestCase
     }
 
     public function testParamAttributeBioSuccess(){
-        $response = $this->getJson('/api/search/parameters', [
+        $response = $this->getJson('/api/search/parameter', [
             'parameter' => 'Bioactivity'
         ]);
 

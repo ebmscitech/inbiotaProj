@@ -80,6 +80,6 @@ Route::resource('Bio', BioController::Class);
 
 Route::resource('tanaman', TanamanController::Class);
 
-Auth::routes();
+\Illuminate\Support\Facades\Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
