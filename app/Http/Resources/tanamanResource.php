@@ -16,6 +16,7 @@ class tanamanResource extends JsonResource
     {
         return [
             'Plant_Name' => $this['Plant_Name'] ?? null,
+            'id' => $this['id'] ?? null,
             'Local_Name' => $this['Local_Name'] ?? null,
             'English_Name' => $this['English_Name'] ?? null,
             'Kingdom' => $this['Kingdom'] ?? null,
@@ -32,8 +33,14 @@ class tanamanResource extends JsonResource
             'Geographical_Distribution' => $this['Geographical_Distribution'] ?? null,
             'Traditional_Uses' => $this['Traditional_Uses'] ?? null,
             'Reference' => $this['Reference'] ?? null,
-            'Phytochemical' => $this['Phytochemical'] ?? null,
-            'BA_Name' => $this['BA_Name'] ?? null,
+            'Phytochemicals' => [
+                'id' => $this->Phytochemical['id'] ?? null, // Mengambil ID dari model atau null jika tidak ada
+                'phytochemical' => $this->Phytochemical['value'] ?? null, // Mengambil nilai dari model atau null jika tidak ada
+            ],
+            'Bioactivities' => [
+                'id' => $this->BA_Name['id'] ?? null, // Mengambil ID dari model atau null jika tidak ada
+                'BA_Name' => $this->BA_Name['value'] ?? null, // Mengambil nilai dari model atau null jika tidak ada
+            ],
         ];
     }
 }

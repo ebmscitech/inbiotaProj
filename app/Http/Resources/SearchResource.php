@@ -15,11 +15,18 @@ class SearchResource extends JsonResource
     public function toArray($request): array
     {
         return [
+            'id' => $this['id'] ?? null,
             'BA_Name' => $this['BA_Name'] ?? null,
             'BA_Details' => $this['BA_Details'] ?? null,
             'BA_ref' => $this['BA_ref'] ?? null,
-            'bioTan' => $this['bioTan'] ?? null,
-            'bioPhy' => $this['bioPhy'] ?? null,
+            'bioTan' => [
+                'idTan' => $this->bioTan['idTan'] ?? null,
+                'Plant_Name' => $this->bioTan['Plant_Name'] ?? null,
+            ],
+            'bioPhy' => [
+                'idPhy' => $this->bioPhy['idPhy'] ?? null,
+                'phytochemical' => $this->bioPhy['phytochemical'] ?? null,
+            ]
         ];
     }
 }

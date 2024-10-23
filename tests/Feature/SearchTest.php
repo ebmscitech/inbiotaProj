@@ -25,7 +25,9 @@ class SearchTest extends TestCase
         $response->assertJson([
             'data' => [
                 'results' => [
-                    'Bioactivity', 'Plants', 'Substances'
+                    ['result' => 'Bioactivity'],
+                    ['result' => 'Plants'],
+                    ['result' => 'Substances']
                 ]
             ]
         ]);
@@ -41,14 +43,19 @@ class SearchTest extends TestCase
         $response->assertJson([
             'data' => [
                 'results' => [
-                    'BA_ref', 'BA_Details', 'Pythochemical', 'Plant_Name', 'All Attributes'
+                    ['result' => 'BA_ref'],
+                    ['result' => 'BA_Details'],
+                    ['result' => 'Pythochemical'],
+                    ['result' => 'Plant_Name'],
+                    ['result' => 'All Attributes'],
                 ]
             ]
         ]);
+
     }
 
     public function testParamAttributePlantSuccess(){
-        $response = $this->getJson('/api/search/parameters', [
+        $response = $this->getJson('/api/search/parameter', [
             'parameter' => 'Plants'
         ]);
 
@@ -57,14 +64,32 @@ class SearchTest extends TestCase
         $response->assertJson([
             'data' => [
                 'results' => [
-                    'Local_Name', 'English_Name', 'Kingdom', 'SubKingdom', 'Infrakingdom', 'Superdivision', 'Class', 'Order', 'Superorder', 'Family', 'Genus', 'Species', 'Synonym', 'Geographical_Distribution', 'Traditional_Uses', 'BaTanRelated', 'BA_Name', 'Pythochemical', 'All Attributes'
+                    ['result' => 'Local_Name'],
+                    ['result' => 'English_Name'],
+                    ['result' => 'Kingdom'],
+                    ['result' => 'SubKingdom'],
+                    ['result' => 'Infrakingdom'],
+                    ['result' => 'Superdivision'],
+                    ['result' => 'Class'],
+                    ['result' => 'Order'],
+                    ['result' => 'Superorder'],
+                    ['result' => 'Family'],
+                    ['result' => 'Genus'],
+                    ['result' => 'Species'],
+                    ['result' => 'Synonym'],
+                    ['result' => 'Geographical_Distribution'],
+                    ['result' => 'Traditional_Uses'],
+                    ['result' => 'BaTanRelated'],
+                    ['result' => 'BA_Name'],
+                    ['result' => 'Pythochemical'],
+                    ['result' => 'All Attributes'],
                 ]
             ]
         ]);
     }
 
     public function testParamAttributeSubsSuccess(){
-        $response = $this->getJson('/api/search/parameters', [
+        $response = $this->getJson('/api/search/parameter', [
             'parameter' => 'Substances'
         ]);
 
@@ -73,14 +98,23 @@ class SearchTest extends TestCase
         $response->assertJson([
             'data' => [
                 'results' => [
-                    'Phytochemical', 'compoundClass', 'CAS_Number', 'Chemical_Formula', 'Molecular_Mass', 'IUPAC_Name', 'SynonymZ', 'BA_Name', 'Plant_Name', 'All Attributes'
+                    ['result' => 'Phytochemical'],
+                    ['result' => 'compoundClass'],
+                    ['result' => 'CAS_Number'],
+                    ['result' => 'Chemical_Formula'],
+                    ['result' => 'Molecular_Mass'],
+                    ['result' => 'IUPAC_Name'],
+                    ['result' => 'SynonymZ'],
+                    ['result' => 'BA_Name'],
+                    ['result' => 'Plant_Name'],
+                    ['result' => 'All Attributes'],
                 ]
             ]
         ]);
     }
 
     public function testParamInvalid(){
-        $response = $this->getJson('/api/search/parameters', [
+        $response = $this->getJson('/api/search/parameter', [
             'parameter' => 'testing'
         ]);
 
@@ -98,6 +132,7 @@ class SearchTest extends TestCase
         $expectedData =
                 [
                     'Plant_Name' => '[value-2]',
+                    'id'=>'6',
                     'Local_Name' => '[value-3]',
                     'English_Name' => '[value-4]',
                     'Kingdom' => '[value-5]',
@@ -132,16 +167,19 @@ class SearchTest extends TestCase
         $expectedData =
             [
                 'Phytochemical' => '[value-2]',
+                'id'=> '5',
                 'compoundClass' => '[value-3]',
                 'Chemical_Formula' => '[value-5]',
                 'Molecular_Mass' => 0,
                 'IUPAC_Name' => '[value-7]',
                 'SynonymZ' => '[value-8]',
                 'phyTan' => [
-                    '6' => '[value-2]',
+                    'idTan' => '6',
+                    'Plant_Name' => '[value-2]',
                 ],
                 'phyBio' => [
-                    '8' => 'Anti Helmintics',
+                    'idBio' => '8',
+                    'BA_Name' => 'Anti Helmintics',
                 ],
             ];
 
@@ -161,11 +199,14 @@ class SearchTest extends TestCase
                 'BA_Name' => 'Anti Helmintics',
                 'BA_Details' => 'Cacing',
                 'BA_ref' => 'hnjoui',
+                'id' => '8',
                 'bioTan' => [
-                    '6' => '[value-2]'
+                    'idTan' => '6',
+                    'Plant_Name' => '[value-2]'
                 ],
                 'bioPhy' => [
-                    '5' => '[value-2]'
+                    'idPhy' => '5',
+                    'phytochemical' => '[value-2]'
                 ],
             ];
 

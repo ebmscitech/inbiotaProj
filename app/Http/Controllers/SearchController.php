@@ -247,6 +247,7 @@ class SearchController extends Controller
                     $senyawaNames = zat::whereIn('id', $snywIds)->pluck('Phytochemical', 'id');
                     $bioNames = Bio::whereIn('id', $biokIds)->pluck('BA_Name', 'id');
                     $result =[
+                        'id'=>$result->id,
                         'Plant_Name' => $result->Plant_Name,
                         'Local_Name' => $result->Local_Name,
                         'English_Name' => $result->English_Name,
@@ -264,8 +265,14 @@ class SearchController extends Controller
                         'Geographical_Distribution' => $result->Geographical_Distribution,
                         'Traditional_Uses' => $result->Traditional_Uses,
                         'Reference' => $result->Reference,
-                        'Phytochemicals' => $senyawaNames,
-                        'Bioactivities' => $bioNames
+                        'Phytochemicals' => [
+                            'id'=> $senyawaNames->pluck('id'),
+                            'phytochemical'=> $senyawaNames->pluck('phytochemical'),
+                        ],
+                        'Bioactivities' => [
+                            'id'=> $bioNames->pluck('id'),
+                            'BA_Name'=> $bioNames->pluck('BA_Name'),
+                        ]
                     ];
                     $resultsFinal[] = $result;
                 }
@@ -295,15 +302,30 @@ class SearchController extends Controller
                     $biokIds = $sbtItems->pluck('biokId');
                     $tanNames = tanaman::whereIn('id', $tanIds)->pluck('Plant_Name', 'id');
                     $bioNames = Bio::whereIn('id', $biokIds)->pluck('BA_Name', 'id');
+                    $tanItems = [];
+                    foreach ($tanIds as $id) {
+                        $tanItems[] = [
+                            'idTan' => $id,
+                            'Plant_Name' => $tanNames[$id] ?? null,
+                        ];
+                    }
+                    $bioItems = [];
+                    foreach ($biokIds as $id) {
+                        $bioItems[] = [
+                            'idBio' => $id,
+                            'BA_Name' => $bioNames[$id] ?? null,
+                        ];
+                    }
                     $result =[
+                        'id' => $result->id,
                         'Phytochemical' => $result->Phytochemical,
                         'compoundClass' => $result->compoundClass,
                         'Chemical_Formula' => $result->Chemical_Formula,
                         'Molecular_Mass' => $result->Molecular_Mass,
                         'IUPAC_Name' => $result->IUPAC_Name,
                         'SynonymZ' => $result->SynonymZ,
-                        'phyTan' => $tanNames,
-                        'phyBio' => $bioNames,
+                        'phyTan' => $tanItems,
+                        'phyBio' => $bioItems,
                     ];
                     $resultsFinal[] = $result;
                 }
@@ -331,6 +353,7 @@ class SearchController extends Controller
                     $tanNames = tanaman::whereIn('id', $tanIds)->pluck('Plant_Name', 'id');
                     $zatNames = zat::whereIn('id', $zatIds)->pluck('Phytochemical', 'id');
                     $result =[
+                        'id'=>$result->id,
                         'BA_Name' => $result->BA_Name,
                         'BA_Details' => $result->BA_Details,
                         'BA_ref' => $result->BA_ref,
@@ -389,7 +412,11 @@ class SearchController extends Controller
 
         if ($data == 'searchBy'){
             $results = ['Bioactivity', 'Plants', 'Substances'];
-            return (new IndividualSearchResource($results))->response()->setStatusCode(200);
+            foreach ($results as $result)
+            {
+                $finalResults[]=['result' => $result];
+            }
+            return (new IndividualSearchResource($finalResults))->response()->setStatusCode(200);
         } else if ($data == 'Bioactivity' || $data == 'Plants' || $data == 'Substances') {
             try {
                 $tableName = $parameterMap[$data];
@@ -413,8 +440,10 @@ class SearchController extends Controller
                 }, $filteredColumns);
 
                 $columnNames = array_merge($columnNames, $includeColumn);
-
-                return (new IndividualSearchResource($columnNames))->response()->setStatusCode(200);
+                foreach ($columnNames as $columnName) {
+                    $finalResults[]=['result' => $columnName];
+                }
+                return (new IndividualSearchResource($finalResults))->response()->setStatusCode(200);
             } catch (\Exception $e) {
                 return response()->json([
                     'success' => false,
