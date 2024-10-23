@@ -246,6 +246,20 @@ class SearchController extends Controller
                     $biokIds = $sbtItems->pluck('biokId');
                     $senyawaNames = zat::whereIn('id', $snywIds)->pluck('Phytochemical', 'id');
                     $bioNames = Bio::whereIn('id', $biokIds)->pluck('BA_Name', 'id');
+                    $bioItems = [];
+                    foreach ($biokIds as $id) {
+                        $bioItems[] = [
+                            'idBio' => $id,
+                            'BA_Name' => $bioNames[$id] ?? null,
+                        ];
+                    }
+                    $snywItems = [];
+                    foreach ($snywIds as $id) {
+                        $snywItems[] = [
+                            'idSnyw' => $id,
+                            'Phytochemicals' => $senyawaNames[$id] ?? null,
+                        ];
+                    }
                     $result =[
                         'id'=>$result->id,
                         'Plant_Name' => $result->Plant_Name,
@@ -265,14 +279,8 @@ class SearchController extends Controller
                         'Geographical_Distribution' => $result->Geographical_Distribution,
                         'Traditional_Uses' => $result->Traditional_Uses,
                         'Reference' => $result->Reference,
-                        'Phytochemicals' => [
-                            'id'=> $senyawaNames->pluck('id'),
-                            'phytochemical'=> $senyawaNames->pluck('phytochemical'),
-                        ],
-                        'Bioactivities' => [
-                            'id'=> $bioNames->pluck('id'),
-                            'BA_Name'=> $bioNames->pluck('BA_Name'),
-                        ]
+                        'Phytochemicals' => $snywItems,
+                        'Bioactivities' => $bioItems,
                     ];
                     $resultsFinal[] = $result;
                 }
@@ -352,13 +360,27 @@ class SearchController extends Controller
                     $zatIds = $sbtItems->pluck('snywId');
                     $tanNames = tanaman::whereIn('id', $tanIds)->pluck('Plant_Name', 'id');
                     $zatNames = zat::whereIn('id', $zatIds)->pluck('Phytochemical', 'id');
+                    $tanItems = [];
+                    foreach ($tanIds as $id) {
+                        $tanItems[] = [
+                            'idTan' => $id,
+                            'Plant_Name' => $tanNames[$id] ?? null,
+                        ];
+                    }
+                    $zatItems = [];
+                    foreach ($zatIds as $id) {
+                        $zatItems[] = [
+                            'idSnyw' => $id,
+                            'Phytochemical' => $zatNames[$id] ?? null,
+                        ];
+                    }
                     $result =[
                         'id'=>$result->id,
                         'BA_Name' => $result->BA_Name,
                         'BA_Details' => $result->BA_Details,
                         'BA_ref' => $result->BA_ref,
-                        'bioTan' => $tanNames,
-                        'bioPhy' => $zatNames,
+                        'bioTan' => $tanItems,
+                        'bioPhy' => $zatItems,
                     ];
                     $resultsFinal[] = $result;
                 }

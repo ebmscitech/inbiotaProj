@@ -149,8 +149,14 @@ class SearchTest extends TestCase
                     'Geographical_Distribution' => '[value-16]',
                     'Traditional_Uses' => '[value-17]',
                     'Reference' => '[value-19]',
-                    'Phytochemical' => null,
-                    'BA_Name' => null,
+                    'Phytochemicals' => [[
+                        'idSnyw' => 5,
+                        'Phytochemicals' => '[value-2]',
+                    ]],
+                    'Bioactivities' => [[
+                        'idBio' => 8,
+                        'BA_Name' => 'Anti Helmintics',
+                    ]],
         ];
 
         $response->dump();
@@ -164,24 +170,27 @@ class SearchTest extends TestCase
 
     public function testSearchResultPhytochemical(){
         $response = $this->getJson('/api/search/search?attribute=All&orderBy=phytochemical&search=0');
-        $expectedData =
-            [
-                'Phytochemical' => '[value-2]',
-                'id'=> '5',
-                'compoundClass' => '[value-3]',
-                'Chemical_Formula' => '[value-5]',
-                'Molecular_Mass' => 0,
-                'IUPAC_Name' => '[value-7]',
-                'SynonymZ' => '[value-8]',
-                'phyTan' => [
-                    'idTan' => '6',
+        $expectedData = [
+            'Phytochemical' => '[value-2]',
+            'id' => 5,
+            'compoundClass' => '[value-3]',
+            'Chemical_Formula' => '[value-5]',
+            'Molecular_Mass' => 0,
+            'IUPAC_Name' => '[value-7]',
+            'SynonymZ' => '[value-8]',
+            'phyTan' => [
+                [
+                    'idTan' => 6,
                     'Plant_Name' => '[value-2]',
-                ],
-                'phyBio' => [
-                    'idBio' => '8',
+                ]
+            ],
+            'phyBio' => [
+                [
+                    'idBio' => 8,
                     'BA_Name' => 'Anti Helmintics',
-                ],
-            ];
+                ]
+            ],
+        ];
 
         $response->dump();
         $response->assertJson([
@@ -201,12 +210,16 @@ class SearchTest extends TestCase
                 'BA_ref' => 'hnjoui',
                 'id' => '8',
                 'bioTan' => [
-                    'idTan' => '6',
-                    'Plant_Name' => '[value-2]'
+                    [
+                        'idTan' => '6',
+                        'Plant_Name' => '[value-2]'
+                    ]
                 ],
                 'bioPhy' => [
-                    'idPhy' => '5',
-                    'phytochemical' => '[value-2]'
+                    [
+                        'idSnyw' => '5',
+                        'Phytochemical' => '[value-2]'
+                    ]
                 ],
             ];
 

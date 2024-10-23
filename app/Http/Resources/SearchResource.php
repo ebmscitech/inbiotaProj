@@ -19,14 +19,19 @@ class SearchResource extends JsonResource
             'BA_Name' => $this['BA_Name'] ?? null,
             'BA_Details' => $this['BA_Details'] ?? null,
             'BA_ref' => $this['BA_ref'] ?? null,
-            'bioTan' => [
-                'idTan' => $this->bioTan['idTan'] ?? null,
-                'Plant_Name' => $this->bioTan['Plant_Name'] ?? null,
-            ],
-            'bioPhy' => [
-                'idPhy' => $this->bioPhy['idPhy'] ?? null,
-                'phytochemical' => $this->bioPhy['phytochemical'] ?? null,
-            ]
+            'bioTan' => is_array($this->resource['bioTan']) ? array_map(function ($item) {
+                return [
+                    'idTan' => $item['idTan'] ?? null,
+                    'Plant_Name' => $item['Plant_Name'] ?? null,
+                ];
+            }, $this->resource['bioTan']) : null,
+            'bioPhy' => is_array($this->resource['bioPhy']) ? array_map(function ($item) {
+                return [
+                    'idSnyw' => $item['idSnyw'] ?? null,
+                    'Phytochemical' => $item['Phytochemical'] ?? null,
+                ];
+            }, $this->resource['bioPhy']) : null,
+
         ];
     }
 }
