@@ -50,9 +50,14 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'completeName' => ['required', 'max:200'],
+            'homeTown' => ['required', 'max:100'],
+            'phoneNo' => ['required', 'max:100'],
+            'birthDate' => ['required', 'max:200'],
+            'address' => ['required'],
+            'username' => ['required', 'max:100'],
         ]);
     }
 
@@ -64,12 +69,21 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        try {
+            $user = User::create([
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+                'completeName' => $data['completeName'],
+                'homeTown' => $data['homeTown'],
+                'phoneNo' => $data['phoneNo'],
+                'birthDate' => $data['birthDate'],
+                'address' => $data['address'],
+                'username' => $data['username'],
+            ]);
 
-        return $user;
+            return $user;
+        } catch (\Exception $e) {
+            throw new \Exception('Failed to create user: ' . $e->getMessage());
+        }
     }
 }

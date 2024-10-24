@@ -69,7 +69,7 @@ Route::get('/listSubscriber', [EmailsubController::class, 'indexS']);
 //Delete Data Subscription
 Route::delete('/listSubscriber/{data}', [EmailsubController::class, 'destroyS']);
 
-Route::get('/indexadmin', [HomeController::class, 'indexadmin']);
+Route::get('/indexadmin', [HomeController::class, 'indexadmin'])->middleware('auth');
 
 // CRUD Substance Data
 Route::resource('zat', ZatController::class);
