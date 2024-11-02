@@ -4,10 +4,10 @@ import { useRouter } from "next/router";
 
 // Default value for some meta data
 const defaultMeta = {
-  title: 'Aspirasi',
-  siteName: 'Aspirasi',
+  title: 'Inbiota',
+  siteName: 'Inbiota',
   description:
-    'Your aspirations will be our consideration',
+    'Inbiota is a database software which plants data with compound containted in it. A breaktrough for natural product research using AI to help finding data.',
   // change base url of your web (without '/' at the end)
   url: 'https://aspirasi.net',
   type: 'website',

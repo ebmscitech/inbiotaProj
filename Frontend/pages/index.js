@@ -28,7 +28,7 @@ function Home() {
 
   return (
     <>
-      <SeoHead title='Aspirasi Landing Page' />
+      <SeoHead title='Inbiota Database Plant App' />
       <Layout>
         <div className="py-8 h-screen bg-[#080D28]">
           <Inforial1 />
