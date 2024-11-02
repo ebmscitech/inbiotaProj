@@ -1,0 +1,243 @@
+openapi: '3.0.3'
+info:
+  title: Inbiota API
+  version: '1.0'
+servers:
+  - url: http://localhost:8000/
+paths:
+  /api/search/search:
+    get:
+      summary: "Keywords for Searching"
+      description: "Retrieve search results based on keywords and search criteria."
+      parameters:
+        # - name: X-User-Token
+        #   in: header
+        #   required: true
+        #   schema:
+        #     type: string
+        #   description: "User authentication token"
+        - name: orderBy
+          in: query
+          required: true
+          schema:
+            type: string
+          description: "Field to search by"
+          example: "name"
+        - name: attribute
+          in: query
+          required: true
+          schema:
+            type: string
+          description: "Attribute order for sorting"
+          example: "asc"
+        - name: search
+          in: query
+          required: true
+          schema:
+            type: string
+          description: "Keywords for searching"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: object
+        '404':
+          description: Not Found
+        '403':
+          description: Invalid parameter
+  /api/search/parameter:
+    get:
+      summary: "Parameter for Searching"
+      description: "Retrieve parameter results based on database fields."
+      parameters:
+        - name: parameter
+          in: header
+          required: false
+          schema:
+            type: string
+          description: "Parameter Field"
+          example: "attributes"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      results:
+                        type: array
+                        items:
+                          type: string
+        '403':
+          description: Invalid Parameter
+  /api/users/login:
+    post:
+      description: 'Login to Inbiota'
+      summary: 'User Login'
+      requestBody:
+        required: true
+        content:
+          application/json:
+           schema:
+            type: object
+            properties:
+              username:
+                type: string
+              password:
+                type: string
+            required:
+              - username
+              - password
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      token:
+                        type: string
+                      id:
+                        type: string
+                      username:
+                        type: string
+        '400':
+          description: Bad Request
+        '401':
+          description: "Unauthorized - Invalid username or password"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Invalid username or password"
+  /api/users/register:
+    post:
+      description: 'Register to Inbiota'
+      summary: 'User Registration'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+                completeName:
+                  type: string
+                phoneNo:
+                  type: string
+                homeTown:
+                  type: string
+                email:
+                  type: string
+                birthDate:
+                  type: string
+                address:
+                  type: string
+      responses:
+        '201':
+          description: Success register user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  username:
+                    type: string
+                  completeName:
+                    type: string
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              examples:
+                validationerror:
+                  description: Validation Error
+                  value:
+                    error:
+                      username:
+                        Username is already registered
+        '401':
+          description: Registration is being Reviewed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Your Request is being Reviewed
+  /api/user/inquiryregist:
+    get:
+      description: 'Check User Status'
+      summary: 'Inquiry User Status'
+      parameters:
+        - name: 'Authorization'
+          in: 'header'
+          schema:
+            type: string
+          required: true
+        - name: 'username'
+          in: 'query'
+          schema:
+            type: string
+          required: true
+      responses:
+        '401':
+          description: Registration is being Reviewed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Your Request is being Reviewed
+        '201':
+          description: Success register user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  username:
+                    type: string
+                  completeName:
+                    type: string
+                  error:
+                    type: object
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: You do not have permission to access this resource
+
+
