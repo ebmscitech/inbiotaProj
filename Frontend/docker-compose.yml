@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  next-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - SKIP_PREFLIGHT_CHECK=true
+      - NEXT_PUBLIC_APP_NAME= "EbmScitech Web App"
+      - NEXT_PUBLIC_URL_DEV = "https://aspirasi.net"
+      - NEXT_PUBLIC_API_URL_DEV = "https://api.aspirasi.net"
+      - NEXT_PUBLIC_API_URL_PROD = "https://api.aspirasi.net"
+    restart: always
