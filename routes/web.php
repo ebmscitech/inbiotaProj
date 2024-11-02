@@ -76,14 +76,12 @@ Route::resource('zat', ZatController::class);
 
 
 // CRUD Bioactivities Data
-Route::resource('Bio', BioController::Class);
+Route::resource('Bio', BioController::class);
 
-Route::resource('tanaman', TanamanController::Class);
+Route::resource('tanaman', TanamanController::class);
 
 \Illuminate\Support\Facades\Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
-
-Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

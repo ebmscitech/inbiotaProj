@@ -1,0 +1,18 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ index.php [L]
+</IfModule>
+
+<Files .htaccess>
+    Require all denied
+</Files>
+
+# Mengatur pengaturan Cache-Control
+<IfModule mod_headers.c>
+    <FilesMatch "\.(jpg|jpeg|png|gif|js|css)$">
+        Header set Cache-Control "max-age=604800, public"
+    </FilesMatch>
+</IfModule>
+
