@@ -34,7 +34,7 @@ services:
     networks:
       - laravel-network
     ports:
-      - 3306:3306
+      - 3307:3306
 
   composer:
     image: composer:2.6.2
