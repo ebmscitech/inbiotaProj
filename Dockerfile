@@ -16,6 +16,9 @@ RUN apt-get update && apt-get install -y \
 
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
+# Instalasi mariadb-client
+RUN apt-get update && apt-get install -y mariadb-client && rm -rf /var/lib/apt/lists/*
+
 # Instalasi Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
@@ -40,4 +43,4 @@ RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available
 EXPOSE 8000
 
 # Jalankan Apache di latar belakang
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+CMD bash -c "php artisan serve --host=0.0.0.0 --port=8000 & npm run dev"
