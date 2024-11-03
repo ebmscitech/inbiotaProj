@@ -62,7 +62,7 @@
                 <img src="{{asset('/InbiotaHtmlCss/images/nav-bullet.png')}}" alt="">
                 Contact
               </a>
-              <a class="" href="/signin">
+              <a class="" href="/login">
                 <img src="{{asset('/InbiotaHtmlCss/images/nav-bullet.png')}}" alt="">
                 Sign In
               </a>
