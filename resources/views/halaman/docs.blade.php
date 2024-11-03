@@ -14,10 +14,10 @@
               </h2>
             </div>
             <p>Inbiota is a database software which gathers plants data with compound contained in it. A breaktrough for natural product research using AI to help finding data</p>
-    
+
             <!-- Hidden content with a unique ID -->
             <div id="more" class="read-more">
-                <p>Additional content goes here...</p>
+                <p>We'll be sharing more updates with you soon. Stay tuned for upcoming announcements and developments!</p>
             </div>
 
             <!-- "Read More" link -->
