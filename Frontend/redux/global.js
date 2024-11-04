@@ -128,15 +128,15 @@ export const globalSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getListPartai.fulfilled, (state, action) => {
-      state.listPartai = action.payload.data;
-    });
-    builder.addCase(getListDapil.fulfilled, (state, action) => {
-      state.listDapil = action.payload.data;
-    });
-    builder.addCase(getListCaleg.fulfilled, (state, action) => {
-      state.listCaleg = action.payload.data;
-    });
+    // builder.addCase(getListPartai.fulfilled, (state, action) => {
+    //   state.listPartai = action.payload.data;
+    // });
+    // builder.addCase(getListDapil.fulfilled, (state, action) => {
+    //   state.listDapil = action.payload.data;
+    // });
+    // builder.addCase(getListCaleg.fulfilled, (state, action) => {
+    //   state.listCaleg = action.payload.data;
+    // });
   },
 });
 

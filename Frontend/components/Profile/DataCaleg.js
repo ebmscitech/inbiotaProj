@@ -123,7 +123,7 @@ function DataCaleg({ color, isLoading }) {
                 let params = {
                     username: username
                 }
-                dispatch(getCaleg(params))
+                // dispatch(getCaleg(params))
                 setIsLoadingButton(false);
                 toastAlert("success", "Berhasil update data caleg !")
             } else {

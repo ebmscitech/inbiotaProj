@@ -39,9 +39,9 @@ export const searchSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        builder.addCase(getFindUser.fulfilled, (state, action) => {
-            state.listUserSearch = action.payload.data;
-        });
+        // builder.addCase(getFindUser.fulfilled, (state, action) => {
+        //     state.listUserSearch = action.payload.data;
+        // });
     },
 });
 

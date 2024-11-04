@@ -71,7 +71,7 @@ export default function Register() {
       });
       setListPartai(temp)
     } else {
-      dispatch(getListPartai())
+      // dispatch(getListPartai())
     }
   }, [store?.listPartai])
 
@@ -87,7 +87,7 @@ export default function Register() {
       });
       setListDapil(temp)
     } else {
-      dispatch(getListDapil())
+      // dispatch(getListDapil())
     }
   }, [store?.listDapil])
 
