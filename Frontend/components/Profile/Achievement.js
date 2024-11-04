@@ -36,7 +36,7 @@ function Achievement({ color }) {
                     let params = {
                         username: username
                     }
-                    dispatch(getCaleg(params))
+                    // dispatch(getCaleg(params))
                 })
                 .catch((err) => {
                     setIsLoading(false);

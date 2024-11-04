@@ -39,7 +39,7 @@ export default function BackgroundModal({ dataCaleg }) {
                 let params = {
                     username: username
                 }
-                dispatch(getCaleg(params))
+                // dispatch(getCaleg(params))
                 handleClose();
                 setIsLoading(false);
                 toastAlert("success", "Berhasil tambah latar belakang !")

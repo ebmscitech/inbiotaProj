@@ -5,8 +5,8 @@ import ButtonPrimary from "../components/misc/ButtonPrimary";
 import { ArrowUp20Filled } from "@fluentui/react-icons";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getListCaleg, getListDapil, getListPartai } from "@/redux/global";
-import { selectCaleg, selectDapil, selectPartai } from "@/redux/search";
+// import { getListCaleg, getListDapil, getListPartai } from "@/redux/global";
+// import { selectCaleg, selectDapil, selectPartai } from "@/redux/search";
 import Inforial1 from "@/components/Inforial-1";
 import Inforial3 from "@/components/Inforial-3";
 import Inforial4 from "../components/Inforial-4";
@@ -18,12 +18,12 @@ function Home() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getListPartai())
-    dispatch(getListCaleg())
-    dispatch(getListDapil())
-    dispatch(selectPartai({ id: "", name: "" }))
-    dispatch(selectDapil({ id: "", name: "" }))
-    dispatch(selectCaleg(""))
+    // dispatch(getListPartai())
+    // dispatch(getListCaleg())
+    // dispatch(getListDapil())
+    // dispatch(selectPartai({ id: "", name: "" }))
+    // dispatch(selectDapil({ id: "", name: "" }))
+    // dispatch(selectCaleg(""))
   }, [1])
 
   return (

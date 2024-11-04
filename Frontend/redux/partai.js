@@ -26,9 +26,9 @@ export const partaiSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getDataPartai.fulfilled, (state, action) => {
-      state.dataPartai = action.payload.data;
-    });
+    // builder.addCase(getDataPartai.fulfilled, (state, action) => {
+    //   state.dataPartai = action.payload.data;
+    // });
   },
 });
 

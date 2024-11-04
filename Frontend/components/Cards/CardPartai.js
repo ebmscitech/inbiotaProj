@@ -6,7 +6,10 @@ import { setIsConfirmationModal } from "@/redux/global.js";
 import toastAlert from "@/utils/alert.js";
 import { isObjEmpty } from "@/utils/index.js";
 import { Delete20Filled, Edit20Filled, Save20Filled } from "@fluentui/react-icons";
-import { getDataPartai, setIsPartaiModal } from "@/redux/partai.js";
+import {
+  // getDataPartai, 
+  setIsPartaiModal
+} from "@/redux/partai.js";
 import moment from "moment";
 import { deleteByAuth, updateData } from "@/api/index.js";
 import Pagination from "../Pagination/Pagination.js";
@@ -42,7 +45,7 @@ function CardPartai({ color }) {
           setIsLoading(false);
           // console.log("ini delete partai", res);
           toastAlert("success", "Berhasil hapus partai !");
-          getListDataPartai();
+          // getListDataPartai();
           setSelectedPartai({})
         })
         .catch((err) => {
@@ -119,28 +122,28 @@ function CardPartai({ color }) {
       limit: rowsPerPage,
     };
     setIsLoading(true);
-    await dispatch(getDataPartai(data))
-      .then((res) => {
-        setIsLoading(false);
-        var temp = res.payload.data || null;
-        setListPartai(temp.docs);
-        setTotals(temp.total);
-      })
-      .catch((err) => {
-        setIsLoading(false);
-        toastAlert("error", "Proses mendapatkan data user sedang gangguan");
-        console.error(err);
-      });
+    // await dispatch(getDataPartai(data))
+    //   .then((res) => {
+    //     setIsLoading(false);
+    //     var temp = res.payload.data || null;
+    //     setListPartai(temp.docs);
+    //     setTotals(temp.total);
+    //   })
+    //   .catch((err) => {
+    //     setIsLoading(false);
+    //     toastAlert("error", "Proses mendapatkan data user sedang gangguan");
+    //     console.error(err);
+    //   });
   }
 
   useEffect(() => {
     if (currentPage > 0) {
-      getListDataPartai();
+      // getListDataPartai();
     }
   }, [currentPage]);
 
   useEffect(() => {
-    getListDataPartai();
+    // getListDataPartai();
   }, [store?.isPartaiModal === false]);
 
   return (

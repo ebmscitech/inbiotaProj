@@ -45,7 +45,7 @@ export default function OrganizationModal({ dataCaleg }) {
                 let params = {
                     username: username
                 }
-                dispatch(getCaleg(params))
+                // dispatch(getCaleg(params))
                 handleClose();
                 setIsLoading(false);
                 toastAlert("success", "Berhasil tambah organisasi !")

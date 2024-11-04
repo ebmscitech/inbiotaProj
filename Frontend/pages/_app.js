@@ -9,7 +9,7 @@ import { useEffect } from 'react'
 import Script from 'next/script'
 import { useRouter } from 'next/router'
 import * as fbq from '../lib/fpixel'
-import { CheckSession } from "@/lib/checkSession";
+// import { CheckSession } from "@/lib/checkSession";
 import { usePathname } from "next/navigation";
 
 function MyApp({ Component, pageProps }) {
@@ -32,7 +32,7 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
     if (pathname && !pathname.includes("/admin")) {
-      CheckSession(pathname);
+      // CheckSession(pathname);
     }
   }, [pathname]);
 
