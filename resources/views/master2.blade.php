@@ -114,11 +114,12 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
-                            <li class="nav-item">
+                            {{-- EXAMPLE OF CSS ADMIN --}}
+                            {{-- <li class="nav-item">
                                 <a href="{{asset('/adminlte/pages/UI/general.html')}}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>General</p>
-                                </a>
+                                </a> --}}
                             </li>
                             <li class="nav-item">
                                 <a href="/tanaman" class="nav-link">

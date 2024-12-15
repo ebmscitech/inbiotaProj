@@ -16,7 +16,6 @@ use Illuminate\Support\Str;
 class UserController extends Controller
 {
     public function register(UserRegisterRequest $request): JsonResponse{
-        \Log::info('Register method is called');
         $data = $request->validated();
 
         if(User::where('username', $data['username'])->exists()){
