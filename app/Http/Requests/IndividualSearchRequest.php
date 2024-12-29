@@ -31,7 +31,7 @@ class IndividualSearchRequest extends FormRequest
 
     public function parameter()
     {
-        return $this->header('parameter');
+        return $this->query('parameter');
     }
 
     public function prepareForValidation()
