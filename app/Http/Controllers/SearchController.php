@@ -491,41 +491,143 @@ class SearchController extends Controller
     {
         Log::info('----showDetail BEGIN----');
 
-        $results = null;
+        $result = null;
+        $query = tanaman::query();
+        $query2 = zat::query();
+        $query3 = Bio::query();
 
         switch ($searchBy) {
             case 'plant':
-                $results = Tanaman::findOrFail($id);
-                $sbtItems = Sbt::where('tanId', $results->id)->get();
+                $result = $query->where('id', $id)->get();
+                if ($result->isEmpty()) {
+                    return response()->json([
+                        'message' => 'No results found'
+                    ], 404);
+                }
+                $sbtItems = Sbt::where('tanId', $result->id)->get();
                 $snywIds = $sbtItems->pluck('snywId');
                 $biokIds = $sbtItems->pluck('biokId');
                 $senyawaNames = zat::whereIn('id', $snywIds)->pluck('Phytochemical', 'id');
                 $bioNames = Bio::whereIn('id', $biokIds)->pluck('BA_Name', 'id');
+                $bioItems = [];
+                foreach ($biokIds as $id) {
+                    $bioItems[] = [
+                        'idBio' => $id,
+                        'BA_Name' => $bioNames[$id] ?? null,
+                    ];
+                }
+                $snywItems = [];
+                foreach ($snywIds as $id) {
+                    $snywItems[] = [
+                        'idSnyw' => $id,
+                        'Phytochemicals' => $senyawaNames[$id] ?? null,
+                    ];
+                }
+                $result =[
+                    'id'=>$result->id,
+                    'Plant_Name' => $result->Plant_Name,
+                    'Local_Name' => $result->Local_Name,
+                    'English_Name' => $result->English_Name,
+                    'Kingdom' => $result->Kingdom,
+                    'SubKingdom' => $result->SubKingdom,
+                    'Infrakingdom' => $result->Infrakingdom,
+                    'Superdivision' => $result->Superdivision,
+                    'Class' => $result->Class,
+                    'Superorder' => $result->Superorder,
+                    'Order' => $result->Order,
+                    'Family' => $result->Family,
+                    'Genus' => $result->Genus,
+                    'Species' => $result->Species,
+                    'Synonym' => $result->Synonym,
+                    'Geographical_Distribution' => $result->Geographical_Distribution,
+                    'Traditional_Uses' => $result->Traditional_Uses,
+                    'Reference' => $result->Reference,
+                    'Phytochemicals' => $snywItems,
+                    'Bioactivities' => $bioItems,
+                ];
+                return (new TanamanResourceDetail($result))
+                        ->response()
+                        ->setStatusCode(200);
                 break;
             case 'phytochemical':
-                $results = zat::where('id', $id)->first();
-                $sbtItems = Sbt::where('tanId', $results->id)->get();
-                $snywIds = $sbtItems->pluck('snywId');
+                $result = $query2->where('id', $id)->get();
+                if ($result->isEmpty()) {
+                    return response()->json([
+                        'message' => 'No results found'
+                    ], 404);
+                }
+                $sbtItems = Sbt::where('snywId', $result->id)->get();
+                $tanIds = $sbtItems->pluck('tanId');
                 $biokIds = $sbtItems->pluck('biokId');
-                break;
+                $tanNames = tanaman::whereIn('id', $tanIds)->pluck('Plant_Name', 'id');
+                $bioNames = Bio::whereIn('id', $biokIds)->pluck('BA_Name', 'id');
+                $tanItems = [];
+                foreach ($tanIds as $id) {
+                    $tanItems[] = [
+                        'idTan' => $id,
+                        'Plant_Name' => $tanNames[$id] ?? null,
+                    ];
+                }
+                $bioItems = [];
+                foreach ($biokIds as $id) {
+                    $bioItems[] = [
+                        'idBio' => $id,
+                        'BA_Name' => $bioNames[$id] ?? null,
+                    ];
+                }
+                $result =[
+                    'id' => $result->id,
+                    'Phytochemical' => $result->Phytochemical,
+                    'compoundClass' => $result->compoundClass,
+                    'Chemical_Formula' => $result->Chemical_Formula,
+                    'Molecular_Mass' => $result->Molecular_Mass,
+                    'IUPAC_Name' => $result->IUPAC_Name,
+                    'SynonymZ' => $result->SynonymZ,
+                    'phyTan' => $tanItems,
+                    'phyBio' => $bioItems,
+                ];
+                return phytochemicalResource::collection($result)->response()->setStatusCode(200);
             case 'bioactivities':
-                $results = Bio::where('id', $id)->first();
-                $sbtItems = Sbt::where('tanId', $results->id)->get();
-                $snywIds = $sbtItems->pluck('snywId');
-                $biokIds = $sbtItems->pluck('biokId');
+                $result = $query3->where('id', $id)->get();
+                if ($result->isEmpty()) {
+                    return response()->json([
+                        'message' => 'No results found'
+                    ], 404);
+                }
+                $sbtItems = Sbt::where('biokId', $result->id)->get();
+                $tanIds = $sbtItems->pluck('tanId');
+                $zatIds = $sbtItems->pluck('snywId');
+                $tanNames = tanaman::whereIn('id', $tanIds)->pluck('Plant_Name', 'id');
+                $zatNames = zat::whereIn('id', $zatIds)->pluck('Phytochemical', 'id');
+                $tanItems = [];
+                foreach ($tanIds as $id) {
+                    $tanItems[] = [
+                        'idTan' => $id,
+                        'Plant_Name' => $tanNames[$id] ?? null,
+                    ];
+                }
+                $zatItems = [];
+                foreach ($zatIds as $id) {
+                    $zatItems[] = [
+                        'idSnyw' => $id,
+                        'Phytochemical' => $zatNames[$id] ?? null,
+                    ];
+                }
+                $result =[
+                    'id'=>$result->id,
+                    'BA_Name' => $result->BA_Name,
+                    'BA_Details' => $result->BA_Details,
+                    'BA_ref' => $result->BA_ref,
+                    'bioTan' => $tanItems,
+                    'bioPhy' => $zatItems,
+                ];
+                return bioactivitiesDetailResource::collection($result)->response()->setStatusCode(200);
                 break;
             default:
                 return response()->json([
                     'message' => 'Invalid searchBy value.',
                     'status' => 400,
                 ], 400);
-        }
-
-        if (!$results) {
-            return response()->json([
-                'message' => 'Data not found.',
-                'status' => 404,
-            ], 404);
         }
 
         return (new TanamanResourceDetail($results))->response()->setStatusCode(200);
