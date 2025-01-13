@@ -9,6 +9,7 @@ use App\Http\Resources\IndividualSearchResource;
 use App\Http\Resources\phytochemicalResource;
 use App\Http\Resources\SearchResource;
 use App\Http\Resources\tanamanResource;
+use App\Http\Resources\TanamanResourceDetail;
 use App\Models\sbt;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
@@ -16,6 +17,7 @@ use Illuminate\Http\Request;
 use App\Models\tanaman;
 use App\Models\zat;
 use App\Models\Bio;
+use Exception;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 
@@ -206,6 +208,10 @@ class SearchController extends Controller
         $attribute = $request['attribute'];
         $search = $request['search'];
         $keyword = preg_split('/\s+/', $search, -1, PREG_SPLIT_NO_EMPTY);
+
+        if($attribute == null){
+            throw new Exception(422, 'Attribute is required');
+        }
 
         $query = tanaman::query();
         $query2 = zat::query();
@@ -479,5 +485,49 @@ class SearchController extends Controller
                 ]
             ], 403));
         }
+    }
+
+    public function showDetail($id, $searchBy): JsonResponse
+    {
+        Log::info('----showDetail BEGIN----');
+
+        $results = null;
+
+        switch ($searchBy) {
+            case 'plant':
+                $results = Tanaman::findOrFail($id);
+                $sbtItems = Sbt::where('tanId', $results->id)->get();
+                $snywIds = $sbtItems->pluck('snywId');
+                $biokIds = $sbtItems->pluck('biokId');
+                $senyawaNames = zat::whereIn('id', $snywIds)->pluck('Phytochemical', 'id');
+                $bioNames = Bio::whereIn('id', $biokIds)->pluck('BA_Name', 'id');
+                break;
+            case 'phytochemical':
+                $results = zat::where('id', $id)->first();
+                $sbtItems = Sbt::where('tanId', $results->id)->get();
+                $snywIds = $sbtItems->pluck('snywId');
+                $biokIds = $sbtItems->pluck('biokId');
+                break;
+            case 'bioactivities':
+                $results = Bio::where('id', $id)->first();
+                $sbtItems = Sbt::where('tanId', $results->id)->get();
+                $snywIds = $sbtItems->pluck('snywId');
+                $biokIds = $sbtItems->pluck('biokId');
+                break;
+            default:
+                return response()->json([
+                    'message' => 'Invalid searchBy value.',
+                    'status' => 400,
+                ], 400);
+        }
+
+        if (!$results) {
+            return response()->json([
+                'message' => 'Data not found.',
+                'status' => 404,
+            ], 404);
+        }
+
+        return (new TanamanResourceDetail($results))->response()->setStatusCode(200);
     }
 }

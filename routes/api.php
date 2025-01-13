@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TanamanController;
 use App\Http\Controllers\ZatController;
 use App\Http\Controllers\BioController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -29,3 +30,5 @@ Route::post('/users/login', [\App\Http\Controllers\UserController::class, 'login
 Route::get('/search/parameter', [\App\Http\Controllers\SearchController::class, 'showlist']);
 
 Route::get('/search/search', [\App\Http\Controllers\SearchController::class, 'searchApi']);
+
+Route::get('/search/{id}/{searchBy}', [SearchController::class, 'searchDetail']);
