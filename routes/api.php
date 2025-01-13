@@ -31,4 +31,4 @@ Route::get('/search/parameter', [\App\Http\Controllers\SearchController::class, 
 
 Route::get('/search/search', [\App\Http\Controllers\SearchController::class, 'searchApi']);
 
-Route::get('/search/{id}/{searchBy}', [SearchController::class, 'searchDetail']);
+Route::get('/search/{id}/{searchBy}', [SearchController::class, 'showDetail']);
