@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\IndividualSearchRequest;
 use App\Http\Requests\SearchRequest;
+use App\Http\Resources\bioactivitiesResourceDetail;
 use App\Http\Resources\bioResource;
 use App\Http\Resources\IndividualSearchResource;
 use App\Http\Resources\phytochemicalResource;
+use App\Http\Resources\phytochemicalResourceDetail;
 use App\Http\Resources\SearchResource;
 use App\Http\Resources\tanamanResource;
 use App\Http\Resources\TanamanResourceDetail;
@@ -20,6 +22,8 @@ use App\Models\Bio;
 use Exception;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
+
+use function PHPUnit\Framework\throwException;
 
 class SearchController extends Controller
 {
@@ -207,10 +211,18 @@ class SearchController extends Controller
         $orderBy = $request['orderBy'];
         $attribute = $request['attribute'];
         $search = $request['search'];
+        $row = $request['row'];
+        $pageNo = $request['pageNo'];
         $keyword = preg_split('/\s+/', $search, -1, PREG_SPLIT_NO_EMPTY);
 
         if($attribute == null){
             throw new Exception(422, 'Attribute is required');
+        }
+        if($search == null){
+            throw new Exception(422, 'Search is required');
+        }
+        if($pageNo > 50 ){
+            throw new Exception(422, 'Page number is too high');
         }
 
         $query = tanaman::query();
@@ -431,6 +443,10 @@ class SearchController extends Controller
         Log::info('List data is called');
         $data = $request->parameter;
 
+        if ($data == null) {
+            throw new Exception('Data is null. Please provide valid data.');
+        }
+
         $parameterMap = [
             'Bioactivity' => 'bioaktivitas',
             'Plants' => 'tanaman',
@@ -439,7 +455,7 @@ class SearchController extends Controller
         ];
 
         if ($data == 'searchBy'){
-            $results = ['Bioactivity', 'Plants', 'Substances']; 
+            $results = ['Bioactivity', 'Plants', 'Substances'];
 
             //TODO : CREATE COMMON TABLE (NEED TEST 13/01)
 
@@ -448,15 +464,22 @@ class SearchController extends Controller
                 ['id' => 2, 'result' => 'Bioactivity'],
                 ['id' => 3, 'result' => 'Substances']
             ];
-            
+
             foreach ($results as $result)
             {
                 $finalResults[]=[
-                    'id' => $id,
-                    'result' => $result
+                    'id' => $result['id'],
+                    'result' => $result['result']
                 ];
             }
-            return (new IndividualSearchResource($finalResults))->response()->setStatusCode(200);
+
+            $dataWthSts = [
+                'status' => 200,
+                'message' => 'success',
+                'data' => $finalResults
+            ];
+
+            return (new IndividualSearchResource($dataWthSts))->response()->setStatusCode(200);
         } else if ($data == 'Bioactivity' || $data == 'Plants' || $data == 'Substances') {
             try {
                 $tableName = $parameterMap[$data];
@@ -486,7 +509,14 @@ class SearchController extends Controller
                         'result' => $columnName
                     ];
                 }
-                return (new IndividualSearchResource($finalResults))->response()->setStatusCode(200);
+
+                $dataWthSts = [
+                    'status' => 200,
+                    'message' => 'success',
+                    'data' => $finalResults
+                ];
+
+                return (new IndividualSearchResource($dataWthSts))->response()->setStatusCode(200);
             } catch (\Exception $e) {
                 return response()->json([
                     'success' => false,
@@ -506,6 +536,10 @@ class SearchController extends Controller
     {
         Log::info('----showDetail BEGIN----');
 
+        if (empty($id) || empty($searchBy)) {
+            return response()->json(['error' => 'Invalid input parameters'], 400);
+        }
+
         $result = null;
         $query = tanaman::query();
         $query2 = zat::query();
@@ -513,8 +547,8 @@ class SearchController extends Controller
 
         switch ($searchBy) {
             case 'plant':
-                $result = $query->where('id', $id)->get();
-                if ($result->isEmpty()) {
+                $result = $query->where('id', $id)->first();
+                if (!$result) {
                     return response()->json([
                         'message' => 'No results found'
                     ], 404);
@@ -560,13 +594,16 @@ class SearchController extends Controller
                     'Phytochemicals' => $snywItems,
                     'Bioactivities' => $bioItems,
                 ];
-                return (new TanamanResourceDetail($result))
-                        ->response()
-                        ->setStatusCode(200);
+                $dataWthSts = [
+                    'status' => 200,
+                    'message' => 'success',
+                    'data' => $result
+                ];
+                return (new IndividualSearchResource($dataWthSts))->response()->setStatusCode(200);
                 break;
             case 'phytochemical':
-                $result = $query2->where('id', $id)->get();
-                if ($result->isEmpty()) {
+                $result = $query2->where('id', $id)->first();
+                if (!$result) {
                     return response()->json([
                         'message' => 'No results found'
                     ], 404);
@@ -601,10 +638,15 @@ class SearchController extends Controller
                     'phyTan' => $tanItems,
                     'phyBio' => $bioItems,
                 ];
-                return phytochemicalResource::collection($result)->response()->setStatusCode(200);
+                $dataWthSts = [
+                    'status' => 200,
+                    'message' => 'success',
+                    'data' => $result
+                ];
+                return (new IndividualSearchResource($dataWthSts))->response()->setStatusCode(200);
             case 'bioactivities':
-                $result = $query3->where('id', $id)->get();
-                if ($result->isEmpty()) {
+                $result = $query3->where('id', $id)->first();
+                if (!$result) {
                     return response()->json([
                         'message' => 'No results found'
                     ], 404);
@@ -636,7 +678,12 @@ class SearchController extends Controller
                     'bioTan' => $tanItems,
                     'bioPhy' => $zatItems,
                 ];
-                return bioactivitiesDetailResource::collection($result)->response()->setStatusCode(200);
+                $dataWthSts = [
+                    'status' => 200,
+                    'message' => 'success',
+                    'data' => $result
+                ];
+                return (new IndividualSearchResource($dataWthSts))->response()->setStatusCode(200);
                 break;
             default:
                 return response()->json([
