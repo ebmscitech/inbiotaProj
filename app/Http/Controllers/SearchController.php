@@ -439,10 +439,22 @@ class SearchController extends Controller
         ];
 
         if ($data == 'searchBy'){
-            $results = ['Bioactivity', 'Plants', 'Substances'];
+            $results = ['Bioactivity', 'Plants', 'Substances']; 
+
+            //TODO : CREATE COMMON TABLE (NEED TEST 13/01)
+
+            $results = [
+                ['id' => 1, 'result' => 'Plants'],
+                ['id' => 2, 'result' => 'Bioactivity'],
+                ['id' => 3, 'result' => 'Substances']
+            ];
+            
             foreach ($results as $result)
             {
-                $finalResults[]=['result' => $result];
+                $finalResults[]=[
+                    'id' => $id,
+                    'result' => $result
+                ];
             }
             return (new IndividualSearchResource($finalResults))->response()->setStatusCode(200);
         } else if ($data == 'Bioactivity' || $data == 'Plants' || $data == 'Substances') {
@@ -468,8 +480,11 @@ class SearchController extends Controller
                 }, $filteredColumns);
 
                 $columnNames = array_merge($columnNames, $includeColumn);
-                foreach ($columnNames as $columnName) {
-                    $finalResults[]=['result' => $columnName];
+                foreach ($columnNames as $index => $columnName) {
+                    $finalResults[]=[
+                        'id' => $index + 1,
+                        'result' => $columnName
+                    ];
                 }
                 return (new IndividualSearchResource($finalResults))->response()->setStatusCode(200);
             } catch (\Exception $e) {
