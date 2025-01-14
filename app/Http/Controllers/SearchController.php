@@ -302,6 +302,10 @@ class SearchController extends Controller
                     ];
                     $resultsFinal[] = $result;
                 }
+                $resultsFinal = usort($resultsFinal, function ($a, $b) {
+                    return $a->id <=> $b->id;
+                });
+                $size = count($resultsFinal);
                 $resultsFinal = collect($resultsFinal);
                 return TanamanResource::collection($resultsFinal)->response()->setStatusCode(200);
             case 'phytochemical':
@@ -355,6 +359,10 @@ class SearchController extends Controller
                     ];
                     $resultsFinal[] = $result;
                 }
+                $resultsFinal = usort($resultsFinal, function ($a, $b) {
+                    return $a->id <=> $b->id;
+                });
+                $size = count($resultsFinal);
                 $resultsFinal = collect($resultsFinal);
                 return phytochemicalResource::collection($resultsFinal)->response()->setStatusCode(200);
             case 'bioactivities':
@@ -402,6 +410,10 @@ class SearchController extends Controller
                     ];
                     $resultsFinal[] = $result;
                 }
+                $resultsFinal = usort($resultsFinal, function ($a, $b) {
+                    return $a->id <=> $b->id;
+                });
+                $size = count($resultsFinal);
                 $resultsFinal = collect($resultsFinal);
                 return SearchResource::collection($resultsFinal)->response()->setStatusCode(200);
             default:
