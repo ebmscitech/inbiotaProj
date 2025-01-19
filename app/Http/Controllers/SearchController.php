@@ -229,198 +229,267 @@ class SearchController extends Controller
         $query2 = zat::query();
         $query3 = Bio::query();
 
-        switch ($orderBy) {
-            case 'plant':
-                $results = $query->where(function ($query) use ($keyword) {
-                    foreach ($keyword as $word) {
-                        $query->where('Plant_Name', 'LIKE', "%$word%")
-                            ->orWhere('Local_Name', 'LIKE', "%$word%")
-                            ->orWhere('English_Name', 'LIKE', "%$word%")
-                            ->orWhere('Kingdom', 'LIKE', "%$word%")
-                            ->orWhere('SubKingdom', 'LIKE', "%$word%")
-                            ->orWhere('Infrakingdom', 'LIKE', "%$word%")
-                            ->orWhere('Superdivision', 'LIKE', "%$word%")
-                            ->orWhere('Class', 'LIKE', "%$word%")
-                            ->orWhere('Superorder', 'LIKE', "%$word%")
-                            ->orWhere('Order', 'LIKE', "%$word%")
-                            ->orWhere('Family', 'LIKE', "%$word%")
-                            ->orWhere('Genus', 'LIKE', "%$word%")
-                            ->orWhere('Species', 'LIKE', "%$word%")
-                            ->orWhere('Synonym', 'LIKE', "%$word%")
-                            ->orWhere('Geographical_Distribution', 'LIKE', "%$word%")
-                            ->orWhere('Traditional_Uses', 'LIKE', "%$word%")
-                            ->orWhere('Reference', 'LIKE', "%$word%");
-                    }
-                })->get();
-                if ($results->isEmpty()) {
-                    return response()->json([
-                        'message' => 'No results found'
-                    ], 404);
+        if($orderBy == 'plant'){
+            $results = $query->where(function ($query) use ($keyword) {
+                foreach ($keyword as $word) {
+                    $query->where('Plant_Name', 'LIKE', "%$word%")
+                        ->orWhere('Local_Name', 'LIKE', "%$word%")
+                        ->orWhere('English_Name', 'LIKE', "%$word%")
+                        ->orWhere('Kingdom', 'LIKE', "%$word%")
+                        ->orWhere('SubKingdom', 'LIKE', "%$word%")
+                        ->orWhere('Infrakingdom', 'LIKE', "%$word%")
+                        ->orWhere('Superdivision', 'LIKE', "%$word%")
+                        ->orWhere('Class', 'LIKE', "%$word%")
+                        ->orWhere('Superorder', 'LIKE', "%$word%")
+                        ->orWhere('Order', 'LIKE', "%$word%")
+                        ->orWhere('Family', 'LIKE', "%$word%")
+                        ->orWhere('Genus', 'LIKE', "%$word%")
+                        ->orWhere('Species', 'LIKE', "%$word%")
+                        ->orWhere('Synonym', 'LIKE', "%$word%")
+                        ->orWhere('Geographical_Distribution', 'LIKE', "%$word%")
+                        ->orWhere('Traditional_Uses', 'LIKE', "%$word%")
+                        ->orWhere('Reference', 'LIKE', "%$word%");
                 }
-                $resultsFinal =[];
-                foreach ($results as $result) {
-                    $sbtItems = Sbt::where('tanId', $result->id)->get();
-                    $snywIds = $sbtItems->pluck('snywId');
-                    $biokIds = $sbtItems->pluck('biokId');
-                    $senyawaNames = zat::whereIn('id', $snywIds)->pluck('Phytochemical', 'id');
-                    $bioNames = Bio::whereIn('id', $biokIds)->pluck('BA_Name', 'id');
-                    $bioItems = [];
-                    foreach ($biokIds as $id) {
-                        $bioItems[] = [
-                            'idBio' => $id,
-                            'BA_Name' => $bioNames[$id] ?? null,
-                        ];
-                    }
-                    $snywItems = [];
-                    foreach ($snywIds as $id) {
-                        $snywItems[] = [
-                            'idSnyw' => $id,
-                            'Phytochemicals' => $senyawaNames[$id] ?? null,
-                        ];
-                    }
-                    $result =[
-                        'id'=>$result->id,
-                        'Plant_Name' => $result->Plant_Name,
-                        'Local_Name' => $result->Local_Name,
-                        'English_Name' => $result->English_Name,
-                        'Kingdom' => $result->Kingdom,
-                        'SubKingdom' => $result->SubKingdom,
-                        'Infrakingdom' => $result->Infrakingdom,
-                        'Superdivision' => $result->Superdivision,
-                        'Class' => $result->Class,
-                        'Superorder' => $result->Superorder,
-                        'Order' => $result->Order,
-                        'Family' => $result->Family,
-                        'Genus' => $result->Genus,
-                        'Species' => $result->Species,
-                        'Synonym' => $result->Synonym,
-                        'Geographical_Distribution' => $result->Geographical_Distribution,
-                        'Traditional_Uses' => $result->Traditional_Uses,
-                        'Reference' => $result->Reference,
-                        'Phytochemicals' => $snywItems,
-                        'Bioactivities' => $bioItems,
-                    ];
-                    $resultsFinal[] = $result;
-                }
-                $resultsFinal = usort($resultsFinal, function ($a, $b) {
-                    return $a->id <=> $b->id;
-                });
-                $size = count($resultsFinal);
-                $resultsFinal = collect($resultsFinal);
-                return TanamanResource::collection($resultsFinal)->response()->setStatusCode(200);
-            case 'phytochemical':
-                $data = zat::where(function ($query2) use ($keyword){
-                    foreach ($keyword as $word) {
-                        $query2->where('Phytochemical', 'LIKE', "%$word%")
-                            ->orWhere('compoundClass', 'LIKE', "%$word%")
-                            ->orWhere('Chemical_Formula', 'LIKE', "%$word%")
-                            ->orWhere('Molecular_Mass', 'LIKE', "%$word%")
-                            ->orWhere('IUPAC_Name', 'LIKE', "%$word%")
-                            ->orWhere('SynonymZ', 'LIKE', "%$word%");
-                    }})
-                    ->get();
-                $results = $data;
-                if ($results->isEmpty()) {
-                    return response()->json([
-                        'message' => 'No results found'
-                    ], 404);
-                }
-                $resultsFinal =[];
-                foreach ($results as $result) {
-                    $sbtItems = Sbt::where('snywId', $result->id)->get();
-                    $tanIds = $sbtItems->pluck('tanId');
-                    $biokIds = $sbtItems->pluck('biokId');
-                    $tanNames = tanaman::whereIn('id', $tanIds)->pluck('Plant_Name', 'id');
-                    $bioNames = Bio::whereIn('id', $biokIds)->pluck('BA_Name', 'id');
-                    $tanItems = [];
-                    foreach ($tanIds as $id) {
-                        $tanItems[] = [
-                            'idTan' => $id,
-                            'Plant_Name' => $tanNames[$id] ?? null,
-                        ];
-                    }
-                    $bioItems = [];
-                    foreach ($biokIds as $id) {
-                        $bioItems[] = [
-                            'idBio' => $id,
-                            'BA_Name' => $bioNames[$id] ?? null,
-                        ];
-                    }
-                    $result =[
-                        'id' => $result->id,
-                        'Phytochemical' => $result->Phytochemical,
-                        'compoundClass' => $result->compoundClass,
-                        'Chemical_Formula' => $result->Chemical_Formula,
-                        'Molecular_Mass' => $result->Molecular_Mass,
-                        'IUPAC_Name' => $result->IUPAC_Name,
-                        'SynonymZ' => $result->SynonymZ,
-                        'phyTan' => $tanItems,
-                        'phyBio' => $bioItems,
-                    ];
-                    $resultsFinal[] = $result;
-                }
-                $resultsFinal = usort($resultsFinal, function ($a, $b) {
-                    return $a->id <=> $b->id;
-                });
-                $size = count($resultsFinal);
-                $resultsFinal = collect($resultsFinal);
-                return phytochemicalResource::collection($resultsFinal)->response()->setStatusCode(200);
-            case 'bioactivities':
-                $data = Bio::where(function ($query3) use ($keyword){
-                    foreach ($keyword as $word) {
-                        $query3->where('BA_Name', 'LIKE', "%$word%")
-                            ->orWhere('BA_Details', 'LIKE', "%$word%")
-                            ->orWhere('BA_ref', 'LIKE', "%$word%");
-                    }})
-                    ->get();
-                $results = $data;
-                if ($results->isEmpty()) {
-                    return response()->json([
-                        'message' => 'No results found'
-                    ], 404);
-                }
-                $resultsFinal =[];
-                foreach ($results as $result) {
-                    $sbtItems = Sbt::where('biokId', $result->id)->get();
-                    $tanIds = $sbtItems->pluck('tanId');
-                    $zatIds = $sbtItems->pluck('snywId');
-                    $tanNames = tanaman::whereIn('id', $tanIds)->pluck('Plant_Name', 'id');
-                    $zatNames = zat::whereIn('id', $zatIds)->pluck('Phytochemical', 'id');
-                    $tanItems = [];
-                    foreach ($tanIds as $id) {
-                        $tanItems[] = [
-                            'idTan' => $id,
-                            'Plant_Name' => $tanNames[$id] ?? null,
-                        ];
-                    }
-                    $zatItems = [];
-                    foreach ($zatIds as $id) {
-                        $zatItems[] = [
-                            'idSnyw' => $id,
-                            'Phytochemical' => $zatNames[$id] ?? null,
-                        ];
-                    }
-                    $result =[
-                        'id'=>$result->id,
-                        'BA_Name' => $result->BA_Name,
-                        'BA_Details' => $result->BA_Details,
-                        'BA_ref' => $result->BA_ref,
-                        'bioTan' => $tanItems,
-                        'bioPhy' => $zatItems,
-                    ];
-                    $resultsFinal[] = $result;
-                }
-                $resultsFinal = usort($resultsFinal, function ($a, $b) {
-                    return $a->id <=> $b->id;
-                });
-                $size = count($resultsFinal);
-                $resultsFinal = collect($resultsFinal);
-                return SearchResource::collection($resultsFinal)->response()->setStatusCode(200);
-            default:
+            })
+            ->orderBy('id', 'asc')
+            ->get();
+            if ($results->isEmpty()) {
                 return response()->json([
-                    'message' => 'Invalid orderBy option',
-                    'status' => 400
-                ], 400);
+                    'message' => 'No results found'
+                ], 404);
+            }
+            $resultsFinal =[];
+            foreach ($results as $result) {
+                $sbtItems = Sbt::where('tanId', $result->id)->get();
+                $snywIds = $sbtItems->pluck('snywId');
+                $biokIds = $sbtItems->pluck('biokId');
+                $senyawaNames = zat::whereIn('id', $snywIds)->pluck('Phytochemical', 'id');
+                $bioNames = Bio::whereIn('id', $biokIds)->pluck('BA_Name', 'id');
+                $bioItems = [];
+                foreach ($biokIds as $id) {
+                    $bioItems[] = [
+                        'idBio' => $id,
+                        'BA_Name' => $bioNames[$id] ?? null,
+                    ];
+                }
+                $snywItems = [];
+                foreach ($snywIds as $id) {
+                    $snywItems[] = [
+                        'idSnyw' => $id,
+                        'Phytochemicals' => $senyawaNames[$id] ?? null,
+                    ];
+                }
+                $result =[
+                    'id'=>$result->id,
+                    'Plant_Name' => $result->Plant_Name,
+                    'Local_Name' => $result->Local_Name,
+                    'English_Name' => $result->English_Name,
+                    'Kingdom' => $result->Kingdom,
+                    'SubKingdom' => $result->SubKingdom,
+                    'Infrakingdom' => $result->Infrakingdom,
+                    'Superdivision' => $result->Superdivision,
+                    'Class' => $result->Class,
+                    'Superorder' => $result->Superorder,
+                    'Order' => $result->Order,
+                    'Family' => $result->Family,
+                    'Genus' => $result->Genus,
+                    'Species' => $result->Species,
+                    'Synonym' => $result->Synonym,
+                    'Geographical_Distribution' => $result->Geographical_Distribution,
+                    'Traditional_Uses' => $result->Traditional_Uses,
+                    'Reference' => $result->Reference,
+                    'Phytochemicals' => $snywItems,
+                    'Bioactivities' => $bioItems,
+                ];
+                $resultsFinal[] = $result;
+            }
+        } elseif ($orderBy == 'bioactivities') {
+            $data = Bio::where(function ($query3) use ($keyword){
+                foreach ($keyword as $word) {
+                    $query3->where('BA_Name', 'LIKE', "%$word%")
+                        ->orWhere('BA_Details', 'LIKE', "%$word%")
+                        ->orWhere('BA_ref', 'LIKE', "%$word%");
+                }})
+                ->orderBy('id', 'asc')
+                ->get();
+            $results = $data;
+            if ($results->isEmpty()) {
+                return response()->json([
+                    'message' => 'No results found'
+                ], 404);
+            }
+            $resultsFinal =[];
+            foreach ($results as $result) {
+                $sbtItems = Sbt::where('biokId', $result->id)->get();
+                $tanIds = $sbtItems->pluck('tanId');
+                $zatIds = $sbtItems->pluck('snywId');
+                $tanNames = tanaman::whereIn('id', $tanIds)->pluck('Plant_Name', 'id');
+                $zatNames = zat::whereIn('id', $zatIds)->pluck('Phytochemical', 'id');
+                $tanItems = [];
+                foreach ($tanIds as $id) {
+                    $tanItems[] = [
+                        'idTan' => $id,
+                        'Plant_Name' => $tanNames[$id] ?? null,
+                    ];
+                }
+                $zatItems = [];
+                foreach ($zatIds as $id) {
+                    $zatItems[] = [
+                        'idSnyw' => $id,
+                        'Phytochemical' => $zatNames[$id] ?? null,
+                    ];
+                }
+                $result =[
+                    'id'=>$result->id,
+                    'BA_Name' => $result->BA_Name,
+                    'BA_Details' => $result->BA_Details,
+                    'BA_ref' => $result->BA_ref,
+                    'bioTan' => $tanItems,
+                    'bioPhy' => $zatItems,
+                ];
+                $resultsFinal[] = $result;
+            }
+        } elseif ($orderBy == 'phytochemical'){
+            $data = zat::where(function ($query2) use ($keyword){
+                foreach ($keyword as $word) {
+                    $query2->where('Phytochemical', 'LIKE', "%$word%")
+                        ->orWhere('compoundClass', 'LIKE', "%$word%")
+                        ->orWhere('Chemical_Formula', 'LIKE', "%$word%")
+                        ->orWhere('Molecular_Mass', 'LIKE', "%$word%")
+                        ->orWhere('IUPAC_Name', 'LIKE', "%$word%")
+                        ->orWhere('SynonymZ', 'LIKE', "%$word%");
+                }})
+                ->orderBy('id', 'asc')
+                ->get();
+            $results = $data;
+            if ($results->isEmpty()) {
+                return response()->json([
+                    'message' => 'No results found'
+                ], 404);
+            }
+            $resultsFinal =[];
+            foreach ($results as $result) {
+                $sbtItems = Sbt::where('snywId', $result->id)->get();
+                $tanIds = $sbtItems->pluck('tanId');
+                $biokIds = $sbtItems->pluck('biokId');
+                $tanNames = tanaman::whereIn('id', $tanIds)->pluck('Plant_Name', 'id');
+                $bioNames = Bio::whereIn('id', $biokIds)->pluck('BA_Name', 'id');
+                $tanItems = [];
+                foreach ($tanIds as $id) {
+                    $tanItems[] = [
+                        'idTan' => $id,
+                        'Plant_Name' => $tanNames[$id] ?? null,
+                    ];
+                }
+                $bioItems = [];
+                foreach ($biokIds as $id) {
+                    $bioItems[] = [
+                        'idBio' => $id,
+                        'BA_Name' => $bioNames[$id] ?? null,
+                    ];
+                }
+                $result =[
+                    'id' => $result->id,
+                    'Phytochemical' => $result->Phytochemical,
+                    'compoundClass' => $result->compoundClass,
+                    'Chemical_Formula' => $result->Chemical_Formula,
+                    'Molecular_Mass' => $result->Molecular_Mass,
+                    'IUPAC_Name' => $result->IUPAC_Name,
+                    'SynonymZ' => $result->SynonymZ,
+                    'phyTan' => $tanItems,
+                    'phyBio' => $bioItems,
+                ];
+                $resultsFinal[] = $result;
+            }
+        } else {
+            return response()->json([
+                'message' => 'Invalid orderBy option',
+                'status' => 400
+            ], 400);
+        }
+
+        $size = count($results);
+            Log::info('Debugging info: ', ['sizeResult' => $size]);
+
+            if ($size != null) {
+                $remainSize = $size % $row;
+            }
+
+            if ($size == 0){
+                $totalPage = 0;
+                $recCnt = 0;
+            } else {
+                if($remainSize == 0){
+                    $totalPage = (int)($size / $row);
+                    $recCnt = $row;
+                } else {
+                    if ($size < $row) {
+                        $recCnt = $size;
+                        $totalPage = 1;
+                    } else {
+                        $totalPage = (int)($size / $row) + 1;
+                        if($totalPage == $pageNo){
+                            $recCnt = $remainSize;
+                        } else if ($totalPage > $pageNo) {
+                            $recCnt = $row;
+                        } else {
+                            $recCnt = 0;
+                        }
+                    }
+                }
+            }
+
+            $curPage = $pageNo;
+
+            if ($pageNo == 0){
+                $page = 1;
+            }
+
+            Log::info('Debugging info: ', ['pageNo' => $pageNo]);
+
+            if ($pageNo > $totalPage && $row >= $size){
+                $recCnt = 0;
+                $recCnt = $recCnt;
+                $pageNo = $totalPage;
+            }
+            $sizePageOut = ($pageNo -1) * $row;
+
+            $pageResults = [];
+            for ($dataCnt = $sizePageOut; $dataCnt < $sizePageOut + $recCnt; $dataCnt++) {
+                if (isset($resultsFinal[$dataCnt])) {
+                    Log::info('Debugging info: ', ['isset' => isset($resultsFinal[$dataCnt])]);
+                    $pageResults[] = $resultsFinal[$dataCnt];
+                }
+            }
+            $pageResults = collect($pageResults);
+
+        if($orderBy == 'bioactivities'){
+            return response()->json([
+                'data' => SearchResource::collection($pageResults),
+                'totalPage' => $totalPage,
+                'curPage' => $pageNo,
+                'totalCount' => $size,
+                'recCnt' => $recCnt,
+            ], 200);
+        } elseif($orderBy == 'phytochemical'){
+            return response()->json([
+                'data' => phytochemicalResource::collection($pageResults),
+                'totalPage' => $totalPage,
+                'curPage' => $pageNo,
+                'totalCount' => $size,
+                'recCnt' => $recCnt,
+            ], 200);
+        } elseif($orderBy == 'plant'){
+            // $size = count($results);
+            // $resultsFinal = collect($resultsFinal);
+            // return TanamanResource::collection($resultsFinal)->response()->setStatusCode(200);
+            return response()->json([
+                'data' => TanamanResource::collection($pageResults),
+                'totalPage' => $totalPage,
+                'curPage' => $pageNo,
+                'totalCount' => $size,
+                'recCnt' => $recCnt,
+            ], 200);
         }
     }
 
