@@ -26,7 +26,9 @@ class SearchRequest extends FormRequest
         return [
             'attribute' => ['required', 'max:300'],
             'orderBy' => ['required', 'max:300'],
-            'search' => ['max:300']
+            'search' => ['max:300'],
+            'row' => ['max:300'],
+            'pageNo' => ['max:300']
         ];
     }
 }
