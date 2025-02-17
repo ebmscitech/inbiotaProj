@@ -19,6 +19,7 @@ use Illuminate\Http\Request;
 use App\Models\tanaman;
 use App\Models\zat;
 use App\Models\Bio;
+use App\Models\commontable;
 use Exception;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
@@ -229,7 +230,13 @@ class SearchController extends Controller
         $query2 = zat::query();
         $query3 = Bio::query();
 
-        if($orderBy == 'plant'){
+        $clasCd2 = commontable::where('CD_NM', 'attributes')
+            ->where('CLAS_CD1', $orderBy)
+            ->value('CLAS_CD2');
+
+        Log::info('Debugging info: ', ['clasCd2' => $clasCd2]);
+
+        if($clasCd2 == 'plant'){
             $results = $query->where(function ($query) use ($keyword) {
                 foreach ($keyword as $word) {
                     $query->where('Plant_Name', 'LIKE', "%$word%")
@@ -303,7 +310,7 @@ class SearchController extends Controller
                 ];
                 $resultsFinal[] = $result;
             }
-        } elseif ($orderBy == 'bioactivities') {
+        } elseif ($clasCd2 == 'bioactivities') {
             $data = Bio::where(function ($query3) use ($keyword){
                 foreach ($keyword as $word) {
                     $query3->where('BA_Name', 'LIKE', "%$word%")
@@ -349,7 +356,7 @@ class SearchController extends Controller
                 ];
                 $resultsFinal[] = $result;
             }
-        } elseif ($orderBy == 'phytochemical'){
+        } elseif ($clasCd2 == 'phytochemical'){
             $data = zat::where(function ($query2) use ($keyword){
                 foreach ($keyword as $word) {
                     $query2->where('Phytochemical', 'LIKE', "%$word%")
@@ -463,7 +470,7 @@ class SearchController extends Controller
             }
             $pageResults = collect($pageResults);
 
-        if($orderBy == 'bioactivities'){
+        if($clasCd2 == 'bioactivities'){
             return response()->json([
                 'data' => SearchResource::collection($pageResults),
                 'totalPage' => $totalPage,
@@ -471,7 +478,7 @@ class SearchController extends Controller
                 'totalCount' => $size,
                 'recCnt' => $recCnt,
             ], 200);
-        } elseif($orderBy == 'phytochemical'){
+        } elseif($clasCd2 == 'phytochemical'){
             return response()->json([
                 'data' => phytochemicalResource::collection($pageResults),
                 'totalPage' => $totalPage,
@@ -479,10 +486,7 @@ class SearchController extends Controller
                 'totalCount' => $size,
                 'recCnt' => $recCnt,
             ], 200);
-        } elseif($orderBy == 'plant'){
-            // $size = count($results);
-            // $resultsFinal = collect($resultsFinal);
-            // return TanamanResource::collection($resultsFinal)->response()->setStatusCode(200);
+        } elseif($clasCd2 == 'plant'){
             return response()->json([
                 'data' => TanamanResource::collection($pageResults),
                 'totalPage' => $totalPage,
@@ -626,7 +630,13 @@ class SearchController extends Controller
         $query2 = zat::query();
         $query3 = Bio::query();
 
-        switch ($searchBy) {
+        $clasCd2 = commontable::where('CD_NM', 'attributes')
+            ->where('CLAS_CD1', $searchBy)
+            ->value('CLAS_CD2');
+
+        Log::info('Debugging info: searchDetail', ['clasCd2' => $clasCd2]);
+
+        switch ($clasCd2) {
             case 'plant':
                 $result = $query->where('id', $id)->first();
                 if (!$result) {
