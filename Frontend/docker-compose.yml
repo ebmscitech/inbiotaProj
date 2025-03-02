@@ -11,7 +11,7 @@ services:
       - NODE_ENV=production
       - SKIP_PREFLIGHT_CHECK=true
       - NEXT_PUBLIC_APP_NAME="EbmScitech Web App"
-      - NEXT_PUBLIC_URL_DEV="https://aspirasi.net"
+      - NEXT_PUBLIC_URL_DEV="http://145.223.19.73:8000"
       - NEXT_PUBLIC_API_URL_DEV="http://145.223.19.73:8000"
       - NEXT_PUBLIC_API_URL_PROD="http://145.223.19.73:8000"
     restart: always
