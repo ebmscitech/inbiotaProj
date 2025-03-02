@@ -56,7 +56,7 @@ paths:
       description: "Retrieve parameter results based on database fields."
       parameters:
         - name: parameter
-          in: header
+          in: query
           required: false
           schema:
             type: string

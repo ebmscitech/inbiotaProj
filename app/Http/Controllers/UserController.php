@@ -11,12 +11,12 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
     public function register(UserRegisterRequest $request): JsonResponse{
-        \Log::info('Register method is called');
         $data = $request->validated();
 
         if(User::where('username', $data['username'])->exists()){
@@ -38,8 +38,11 @@ class UserController extends Controller
 
     public function login(UserLoginRequest $request): UserResource
     {
+        Log::info('USER LOGIN API START!!!');
         $data = $request->validated();
         $user = User::where('username', $data['username'])->first();
+        Log::info('User Query:', [$user]);
+        Log::info('Password Match:', [Hash::check($data['password'], $user->password)]);
         if (!$user || !Hash::check($data['password'], $user->password)) {
             throw new HttpResponseException(response([
                 'errors' => [
