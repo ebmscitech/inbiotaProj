@@ -2,7 +2,7 @@ import React from "react";
 
 // components
 
-import CardProfile from "@/components/Cards/CardProfile.js";
+// import CardProfile from "@/components/Cards/CardProfile.js";
 // import DapilModal from "@/components/Modals/DapilModal.js";
 
 // layout for page
@@ -14,7 +14,7 @@ export default function Profile() {
     <Admin>
       <div className="flex flex-wrap md:pt-32 pt-12">
         <div className="w-full mb-12 px-4">
-          <CardProfile />
+          {/* <CardProfile /> */}
         </div>
       </div>
       {/* <DapilModal /> */}

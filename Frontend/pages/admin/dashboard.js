@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 // components
 
 // import CardLineChart from "../../components/Cards/CardLineChart.js";
-import CardBarChart from "../../components/Cards/CardBarChart.js";
-import CardPageVisits from "../../components/Cards/CardPageVisits.js";
+// import CardBarChart from "../../components/Cards/CardBarChart.js";
+// import CardPageVisits from "../../components/Cards/CardPageVisits.js";
 // import CardSocialTraffic from "../../components/Cards/CardSocialTraffic.js";
 
 // layout for page
@@ -46,7 +46,7 @@ export default function Dashboard() {
     <Admin>
       <div className="flex flex-wrap md:pt-32 pt-12">
         <div className="w-full mb-12 xl:mb-0 px-4">
-          <CardBarChart />
+          {/* <CardBarChart /> */}
         </div>
         {/* <div className="w-full xl:w-4/12 px-4">
           <CardLineChart />
@@ -54,7 +54,7 @@ export default function Dashboard() {
       </div>
       <div className="flex flex-wrap mt-4">
         <div className="w-full mb-12 xl:mb-0 px-4">
-          <CardPageVisits />
+          {/* <CardPageVisits /> */}
         </div>
         {/* <div className="w-full xl:w-4/12 px-4">
           <CardSocialTraffic />
