@@ -131,9 +131,7 @@ axios.interceptors.response.use(
 // );
 
 //GET
-export const getHome = get("api/page/home/");
-export const getProfile = get("api/page/profile/");
-export const getData = get("api/");
+export const getSearch = get("api/search");
 
 //POST
 export const postAuth = postParam(
@@ -151,7 +149,7 @@ export const uploadPhoto = postMultipart(
 );
 // Delete
 export const deleteTask = deletePost(
-  "gateway/telkom-diarium-timemanagement/2.0/activity"
+  "gateway/activity"
 );
 export const deleteByAuth = deleteParam(
   "api"
@@ -165,9 +163,7 @@ export const updateData = patchParam(
 
 const API = {
   //get
-  getHome,
-  getProfile,
-  getData,
+  getSearch,
   //post
   postAuth,
   postByPath,
