@@ -121,15 +121,6 @@ axios.interceptors.response.use(
   }
 )
 
-// axios.defaults.params = {
-//   'webVersion': getDiariumVersion()
-// };
-
-// Authentication
-// export const newLoginAuth = postDiarium(
-//   "apim/login"
-// );
-
 //GET
 export const getSearch = get("api/search");
 

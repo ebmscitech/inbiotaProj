@@ -4,7 +4,6 @@ import React, { useEffect, useMemo, useState } from "react";
 // import getScrollAnimation from "../../../utils/getScrollAnimation";
 import ButtonPrimary from "../ButtonPrimary";
 import { useDispatch, useSelector } from "react-redux";
-import { getFindUser, selectCaleg } from "@/redux/search";
 import { useRouter } from "next/navigation";
 
 import Select, { components, StylesConfig } from "react-select";

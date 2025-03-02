@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 import moment from "moment";
 import momentID from "moment/locale/id";
-import { getHome, getProfile } from '../api';
+// import { getHome, getProfile } from '../api';
 
 export const timezoneUser = moment().format("Z").replace(/[0:]/g, "");
 export const momentLocale = moment().locale("id", momentID);
@@ -65,39 +65,6 @@ export const displayWindowSize = (types) => {
   }
   return val;
 };
-
-export const getListPartai = createAsyncThunk(
-  "global/getListPartai",
-  async (params) => {
-    const response = await getHome(
-      `partai`
-    );
-
-    return response.data;
-  }
-);
-
-export const getListDapil = createAsyncThunk(
-  "global/getListDapil",
-  async (params) => {
-    const response = await getHome(
-      `dapil`
-    );
-
-    return response.data;
-  }
-);
-
-export const getListCaleg = createAsyncThunk(
-  "global/getListCaleg",
-  async (params) => {
-    const response = await getProfile(
-      `profile-caleg?page=1&limit=10`
-    );
-
-    return response.data;
-  }
-);
 
 export const globalSlice = createSlice({
   name: "global",

@@ -16,7 +16,6 @@ import { setIsRegisterModal } from "@/redux/auth.js";
 import { Eye24Filled, EyeOff24Filled } from "@fluentui/react-icons";
 import { postAuth } from "@/api/index";
 import toastAlert from "@/utils/alert";
-import { getListDapil, getListPartai } from "@/redux/global";
 import DatePicker from "@/components/DatePicker";
 import moment from "moment";
 import { noValue } from "@/utils/validateInput";
@@ -59,96 +58,30 @@ export default function Register() {
     );
   };
 
-  useEffect(() => {
-    if (!isObjEmpty(store?.listPartai)) {
-      console.log("ini list Partai register", store?.listPartai)
-      var tempList = store?.listPartai
-      const temp = tempList.map((v, index) => {
-        return {
-          label: v.name,
-          value: v._id
-        }
-      });
-      setListPartai(temp)
-    } else {
-      // dispatch(getListPartai())
-    }
-  }, [store?.listPartai])
-
-  useEffect(() => {
-    if (!isObjEmpty(store?.listDapil)) {
-      console.log("ini list Dapil register", store?.listDapil)
-      var tempList = store?.listDapil
-      const temp = tempList.map((v, index) => {
-        return {
-          label: v.name,
-          value: v._id
-        }
-      });
-      setListDapil(temp)
-    } else {
-      // dispatch(getListDapil())
-    }
-  }, [store?.listDapil])
-
-  useEffect(() => {
-    if (!noValue(lembaga)) {
-      // console.log("ini lembaga", lembaga)
-      // dispatch(getListDapil())
-    }
-  }, [lembaga])
-
   const onSubmit = async (values, actions) => {
-    let data = {
-      role: "caleg",
-      partai: partai.value,
-      dapil: dapil.value,
-      birth_date: moment(birthDate).format('YYYY-MM-DD'),
-      lembaga: lembaga
-    }
-    let validatedData = {
-      ...data,
-      ...values,
-    };
-    if (
-      partai.value !== "" &&
-      dapil.value !== "" &&
-      lembaga !== ""
-    ) {
-      console.log("udah di validasi", validatedData)
-      setIsLoading(true);
+    console.log("udah di validasi", values)
+    setIsLoading(true);
 
-      postAuth(validatedData, '/register').then((res) => {
+    postAuth(values, '/register').then((res) => {
+      setIsLoading(false)
+      console.log("ini post register", res)
+      dispatch(setIsRegisterModal(true))
+      toastAlert("success", "Berhasil daftar sebagai caleg !")
+    })
+      .catch((err) => {
         setIsLoading(false)
-        console.log("ini post register", res)
-        dispatch(setIsRegisterModal(true))
-        toastAlert("success", "Berhasil daftar sebagai caleg !")
+        console.log(err)
+        if (err.code === "ERR_BAD_REQUEST") {
+          toastAlert("error", err.response.data.message)
+        }
+        console.error(err)
       })
-        .catch((err) => {
-          setIsLoading(false)
-          console.log(err)
-          if (err.code === "ERR_BAD_REQUEST") {
-            toastAlert("error", err.response.data.message)
-          }
-          console.error(err)
-        })
-    } else {
-      toastAlert(
-        "warning",
-        "Mohon untuk melengkapi dokumen terlebih dahulu !"
-      );
-    }
   };
 
   return (
     <>
       <Auth>
         <div className="min-h-[75vh] md:min-h-[80vh] justify-items-center items-center grid px-5 pb-10">
-          {/* <div className="relative overflow-hidden lg:flex w-1/2 bg-white-200 items-center justify-center hidden">
-            <div className="px-5">
-              <RegisterImage />
-            </div>
-          </div> */}
           <div className="w-full">
             <Inforial2 />
           </div>

@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 // layout for page
 
 import Admin from "../../components/Layout/Admin.js";
-import { getDashboard } from "@/redux/dashboard.js";
+// import { getDashboard } from "@/redux/dashboard.js";
 import toastAlert from "@/utils/alert.js";
 import moment from "moment";
 import { getUsername } from "@/utils/storage.js";
@@ -22,25 +22,25 @@ export default function Dashboard() {
   const username = getUsername()
   const [isLoading, setIsLoading] = useState(false)
 
-  async function getDashboardData(apiParams) {
-    setIsLoading(true);
-    await dispatch(getDashboard(apiParams)).then((res) => {
-      setIsLoading(false);
-      var temp = res.payload.data || null
-    })
-      .catch((err) => {
-        setIsLoading(false);
-        toastAlert("error", "Proses mendapatkan data user sedang gangguan");
-        console.error(err);
-      });
-  }
+  // async function getDashboardData(apiParams) {
+  //   setIsLoading(true);
+  //   await dispatch(getDashboard(apiParams)).then((res) => {
+  //     setIsLoading(false);
+  //     var temp = res.payload.data || null
+  //   })
+  //     .catch((err) => {
+  //       setIsLoading(false);
+  //       toastAlert("error", "Proses mendapatkan data user sedang gangguan");
+  //       console.error(err);
+  //     });
+  // }
 
-  useEffect(() => {
-    if (!noValue(username)) {
-      let apiParams = `?page=1&limit=999999&toDate=${moment(new Date()).format('YYYY-MM-DD')}&fromDate=2023-01-01&username=${username}`;
-      getDashboardData(apiParams)
-    }
-  }, [username]);
+  // useEffect(() => {
+  //   if (!noValue(username)) {
+  //     let apiParams = `?page=1&limit=999999&toDate=${moment(new Date()).format('YYYY-MM-DD')}&fromDate=2023-01-01&username=${username}`;
+  //     getDashboardData(apiParams)
+  //   }
+  // }, [username]);
 
   return (
     <Admin>
