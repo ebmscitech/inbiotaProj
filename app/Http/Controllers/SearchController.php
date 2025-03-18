@@ -648,11 +648,11 @@ class SearchController extends Controller
 
     public function showDetail(Request $request, $id, $searchBy): JsonResponse
     {
-        // $isAuthorize = $this->checkHeader($request);
+        $isAuthorize = $this->checkHeader($request);
 
-        // if($isAuthorize == false){
-        //     return response()->json(['message' => 'Unauthorized'], 401);
-        // }
+        if($isAuthorize == false){
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
 
         Log::info('----showDetail BEGIN----');
 
