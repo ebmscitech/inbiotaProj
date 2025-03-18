@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class commontable extends Model
 {
     use HasFactory;
-    protected $table = 'COMMON_TABLE';
-    protected $primaryKey = ['CD_NM', 'CLAS_CD1'];
+    protected $table = 'common_table';
+    protected $primaryKey = null;
     public $incrementing = false;
     public $timestamps = false;
+    protected $keyType = 'string';
 
     protected $fillable = [
         'CD_NM',
@@ -46,5 +47,11 @@ class commontable extends Model
     public function getIncrementing()
     {
         return false;
+    }
+
+    public function setKeysForSaveQuery($query)
+    {
+        return $query->where('CD_NM', $this->getAttribute('CD_NM'))
+                     ->where('CLAS_CD1', $this->getAttribute('CLAS_CD1'));
     }
 }

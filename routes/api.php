@@ -7,6 +7,7 @@ use App\Http\Controllers\ZatController;
 use App\Http\Controllers\BioController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,3 +33,5 @@ Route::get('/search/parameter', [\App\Http\Controllers\SearchController::class, 
 Route::get('/search/search', [\App\Http\Controllers\SearchController::class, 'searchApi']);
 
 Route::get('/search/{id}/{searchBy}', [SearchController::class, 'showDetail']);
+
+// Route::middleware('auth:api')->get('/indexadmin', [HomeController::class, 'indexadmin']);

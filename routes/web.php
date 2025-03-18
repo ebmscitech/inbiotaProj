@@ -36,6 +36,7 @@ Route::get('/searchEngine', [SearchController::class, 'search']);
 
 //Detail Search Data
 Route::get('/searchEngineT/{data}', [SearchController::class, 'showT']);
+
 Route::get('/searchEngineZ/{data}', [SearchController::class, 'showZ']);
 
 //Create Email Message
@@ -54,6 +55,7 @@ Route::post('/accSignup', [HomeController::class, 'accSignup']);
 // sampe sini
 //Create Data Inbiota
 Route::get('/inputData', [HomeController::class, 'page7']);
+
 //Kirim ke database
 // Route::post('/sendPData', [DataInbiotaController::class, 'pageInputData']);
 
@@ -69,7 +71,7 @@ Route::get('/listSubscriber', [EmailsubController::class, 'indexS']);
 //Delete Data Subscription
 Route::delete('/listSubscriber/{data}', [EmailsubController::class, 'destroyS']);
 
-Route::get('/indexadmin', [HomeController::class, 'indexadmin'])->middleware('auth');
+Route::get('/indexadmin', [HomeController::class, 'indexadmin'])->middleware(['auth_api']);
 
 // CRUD Substance Data
 Route::resource('zat', ZatController::class);

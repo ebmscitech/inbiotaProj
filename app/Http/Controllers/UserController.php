@@ -6,6 +6,7 @@ use App\Http\Requests\UserLoginRequest;
 use App\Http\Requests\UserRegisterRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -36,26 +37,28 @@ class UserController extends Controller
         return (new UserResource($user))->response()->setStatusCode(201);
     }
 
-    public function login(UserLoginRequest $request): UserResource
+    public function login(UserLoginRequest $request): JsonResponse
     {
-        Log::info('USER LOGIN API START!!!');
         $data = $request->validated();
         $user = User::where('username', $data['username'])->first();
-        Log::info('User Query:', [$user]);
-        Log::info('Password Match:', [Hash::check($data['password'], $user->password)]);
+
         if (!$user || !Hash::check($data['password'], $user->password)) {
-            throw new HttpResponseException(response([
-                'errors' => [
-                    'message' => [
-                        'The username or password is incorrect'
-                    ]
-                ]
-            ], 401));
+            return response()->json([
+                'errors' => ['message' => ['Invalid username or password']]
+            ], 401);
         }
 
-        $user->token = Str::uuid()->toString();
+        $apiToken = Str::uuid()->toString();
+        $user->token = $apiToken;
         $user->save();
-        return new UserResource($user);
+
+        session(['api_token' => $apiToken]);
+
+        return response()->json([
+            'message' => 'Login successful',
+            'token' => $apiToken,
+            'redirect_url' => url('/indexadmin')
+        ], 200);
     }
 
     public function __construct()

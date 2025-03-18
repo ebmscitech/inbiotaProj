@@ -74,6 +74,7 @@ class HomeController extends Controller
         ]);
         dd($request->all());
     }
+    
     public function indexadmin(){
         return view('backoffice.indexAdmin');
     }
