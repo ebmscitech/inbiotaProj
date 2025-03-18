@@ -205,8 +205,29 @@ class SearchController extends Controller
 //        return (new SearchResource($result))->response()->setStatusCode(200);
     }
 
-    public function searchApi(SearchRequest $request): JsonResponse
+    public function searchApi(SearchRequest $request)
     {
+        $isAuthorize = $this->checkHeader($request);
+
+        if($isAuthorize == false){
+            return response()->json([
+                'message' => 'Unauthorized'
+            ], 401);
+        }
+
+        if($request['attribute'] == null){
+            return response()->json(['message' => 'Attribute is required'], 422);
+        }
+        if($request['search'] == null){
+            return response()->json(['message' => 'Search is required'], 422);
+        }
+        if($request['pageNo'] > 50 ){
+            return response()->json(['message' => 'Page number is too high'], 422);
+        }
+        if($request['row'] == null || $request['pageNo'] == null){
+            return response()->json(['message' => 'Row and Page number is required'], 422);
+        }
+
         $request = $request->validated();
         Log::info('----SearchController BEGIN----');
         $orderBy = $request['orderBy'];
@@ -215,16 +236,6 @@ class SearchController extends Controller
         $row = $request['row'];
         $pageNo = $request['pageNo'];
         $keyword = preg_split('/\s+/', $search, -1, PREG_SPLIT_NO_EMPTY);
-
-        if($attribute == null){
-            throw new Exception(422, 'Attribute is required');
-        }
-        if($search == null){
-            throw new Exception(422, 'Search is required');
-        }
-        if($pageNo > 50 ){
-            throw new Exception(422, 'Page number is too high');
-        }
 
         $query = tanaman::query();
         $query2 = zat::query();
@@ -262,8 +273,12 @@ class SearchController extends Controller
             ->get();
             if ($results->isEmpty()) {
                 return response()->json([
-                    'message' => 'No results found'
-                ], 404);
+                    'data' => [],
+                    'totalPage' => null,
+                    'curPage' => '',
+                    'totalCount' => null,
+                    'recCnt' => '',
+                ], 200);
             }
             $resultsFinal =[];
             foreach ($results as $result) {
@@ -322,8 +337,12 @@ class SearchController extends Controller
             $results = $data;
             if ($results->isEmpty()) {
                 return response()->json([
-                    'message' => 'No results found'
-                ], 404);
+                    'data' => [],
+                    'totalPage' => null,
+                    'curPage' => '',
+                    'totalCount' => null,
+                    'recCnt' => '',
+                ], 200);
             }
             $resultsFinal =[];
             foreach ($results as $result) {
@@ -371,8 +390,12 @@ class SearchController extends Controller
             $results = $data;
             if ($results->isEmpty()) {
                 return response()->json([
-                    'message' => 'No results found'
-                ], 404);
+                    'data' => [],
+                    'totalPage' => null,
+                    'curPage' => '',
+                    'totalCount' => null,
+                    'recCnt' => '',
+                ], 200);
             }
             $resultsFinal =[];
             foreach ($results as $result) {
@@ -525,6 +548,12 @@ class SearchController extends Controller
 
     public function showlist(IndividualSearchRequest $request): JsonResponse
     {
+        $isAuthorize = $this->checkHeader($request);
+
+        if($isAuthorize == false){
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+
         Log::info('List data is called');
         $data = $request->parameter;
 
@@ -617,8 +646,14 @@ class SearchController extends Controller
         }
     }
 
-    public function showDetail($id, $searchBy): JsonResponse
+    public function showDetail(Request $request, $id, $searchBy): JsonResponse
     {
+        // $isAuthorize = $this->checkHeader($request);
+
+        // if($isAuthorize == false){
+        //     return response()->json(['message' => 'Unauthorized'], 401);
+        // }
+
         Log::info('----showDetail BEGIN----');
 
         if (empty($id) || empty($searchBy)) {
@@ -785,4 +820,36 @@ class SearchController extends Controller
 
         return (new TanamanResourceDetail($results))->response()->setStatusCode(200);
     }
+
+    public function checkHeader(Request $request)
+    {
+        $output = false;
+
+        if (!$request->hasHeader('ClientId')) {
+            Log::warning("Can't found 'ClientId'");
+            return false;
+        }
+
+        $clientId = $request->header('ClientId');
+
+        if (empty($clientId)) {
+            Log::warning("Header 'ClientId' Invalid");
+            return false;
+        }
+
+        $chkCust = commontable::where('CD_NM', 'clientId')
+            ->where('CLAS_CD1', $clientId)
+            ->where('APCL_STR', '<=', now())
+            ->where('APCL_END', '>=', now());
+
+        Log::info("Current datetime (now()): " . now());
+        Log::info("Final check result: ". $chkCust->get()->count());
+
+        if ($chkCust->exists()) {
+            $output = true;
+        }
+
+        return $output;
+    }
+
 }
