@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\zat;
 use App\Models\Bio;
+use App\Models\User;
+use Illuminate\Support\Facades\Log;
 
 class HomeController extends Controller
 {
@@ -74,7 +76,7 @@ class HomeController extends Controller
         ]);
         dd($request->all());
     }
-    
+
     public function indexadmin(){
         return view('backoffice.indexAdmin');
     }
@@ -92,5 +94,26 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+
+    public function logout(Request $request)
+    {
+        $cookieHeader = $request->header('Cookie');
+
+        $token = $request->cookie('api_token');
+
+        if (!$token && $cookieHeader) {
+            preg_match('/api_token=([^;]+)/', $cookieHeader, $matches);
+            $token = $matches[1] ?? null;
+        }
+
+        $userExists = User::where('token', $token)->first();
+
+        if ($userExists) {
+            $userExists->token = null;
+            $userExists->save();
+        }
+
+        return redirect('http://145.223.19.73:3000/');
     }
 }

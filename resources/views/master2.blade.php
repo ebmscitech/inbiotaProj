@@ -165,13 +165,13 @@
                         </ul>
                     </li>
                     <li class="nav-item bg-danger">
-                        <a class="nav-link" href="{{ route('logout') }}"
+                        <a class="nav-link" href="/logoutMain"
                            onclick="event.preventDefault();
                              document.getElementById('logout-form').submit();">
                             Logout
                         </a>
 
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        <form id="logout-form" action="/logoutMain" method="GET" class="d-none">
                             @csrf
                         </form>
                     </li>
