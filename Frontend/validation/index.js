@@ -9,12 +9,16 @@ const oneWord = /^(?:(?:^| )\S+ *){1,}$/;
 const numberRegExp = /^([0]([.][0-9]+)?|[1-9]([0-9]+)?([.][0-9]+)?)$/;
 
 export const RegisterSchema = yup.object().shape({
-  full_name: yup.string().required("harus diisi"),
-  birth_place: yup.string().required("harus diisi"),
-  mobile_phone: yup.string().matches(phoneRegExp, 'tidak valid, contoh : 08xxxx').min(10, "Phone number must be at least 10 characters long").required("harus diisi"),
+  completeName: yup.string().required("harus diisi"),
+  homeTown: yup.string().required("harus diisi"),
+  phoneNo: yup.string().matches(phoneRegExp, 'tidak valid, contoh : 08xxxx').min(10, "Phone number must be at least 10 characters long").required("harus diisi"),
   email: yup.string().email("tidak valid").required("harus diisi"),
   username: yup.string().required("harus diisi"),
   password: yup.string().required("harus diisi"),
+  address: yup.string().required("harus diisi"),
+  birthDate: yup.date()
+    .max(new Date(), "Tanggal lahir tidak boleh di masa depan")
+    .required("Tanggal lahir harus diisi")
 });
 
 export const AspirasiSchema = yup.object().shape({

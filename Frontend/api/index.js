@@ -126,7 +126,7 @@ export const getSearch = get("api/search");
 
 //POST
 export const postAuth = postParam(
-  "api/auth"
+  "api/users"
 );
 export const postLogout = post(
   "api/auth/logout"

@@ -13,7 +13,7 @@ export default function RegisterModal({ dataCaleg }) {
 
     const handleClose = () => {
         dispatch(setIsRegisterModal(false))
-        router.push('/')
+        router.push('/auth/login')
     }
 
     return (
@@ -41,7 +41,7 @@ export default function RegisterModal({ dataCaleg }) {
                             Terima kasih.
                         </div>
                         <div className="text-xl font-bold pb-8 text-center">
-                            Admin akan segera menghubungi Anda
+                            Silahkan login 
                         </div>
                         <div className="grid w-1/3 self-center">
                             <ButtonPrimary type="button" addClass={"py-3 lg:py-4 px-5 lg:px-7"} onClick={() => handleClose()}>

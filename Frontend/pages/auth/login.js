@@ -34,9 +34,10 @@ export default function Login() {
     postAuth(values, '/login').then((res) => {
       setIsLoading(false)
       console.log("ini post login", res)
-      var temp = res.data.data || null
-      const tempAccount = res.data.data.account
-      toastAlert("success", "Berhasil login !")
+      var temp = res.data || null
+      setCookie("api_token", temp.token, 8)
+      document.cookie = `api_token=${temp.token}; Path=/; HttpOnly; Expires=${8}`;
+      toastAlert("success", temp.message)
       // handleClose()
       actions.resetForm({
         values: {
@@ -54,15 +55,16 @@ export default function Login() {
       //   id_user: tempAccount._id,
       //   role: tempAccount.role,
       // })
-      const dataToStore = {
-        username: tempAccount.username,
-        id_user: tempAccount._id,
-        role: tempAccount.role,
-        profile_picture: tempAccount.profile_picture,
-      };
-      setUserData(dataToStore)
-      setCookie("_asp_ud", tempAccount, 8)
-      router.push('/admin/dashboard')
+      // const dataToStore = {
+      //   username: tempAccount.username,
+      //   id_user: tempAccount._id,
+      //   role: tempAccount.role,
+      //   profile_picture: tempAccount.profile_picture,
+      // };
+      // setUserData(dataToStore)
+
+      // router.push('http://145.223.19.73:8000/indexadmin')
+      // router.push('/admin/dashboard')
       // setCookie("token", temp.token, 8)
     })
       .catch((err) => {
@@ -148,13 +150,6 @@ export default function Login() {
                             placeholder="Masukkan Password"
                             labelColor="text-white-500"
                           />
-                          <span onClick={togglePasswordVisibility} className={`cursor-pointer absolute right-5 ${errors.password ? "bottom-8" : values.password === "" ? "bottom-3" : "bottom-3"}`}>
-                            {!show ? (
-                              <EyeOff24Filled className={`absolute -right-2 bottom-1`} />
-                            ) : (
-                              <Eye24Filled className={`absolute -right-2 bottom-1`} />
-                            )}
-                          </span>
                         </div>
                         <div className="text-center grid w-full mt-6">
                           {!isLoading ? (

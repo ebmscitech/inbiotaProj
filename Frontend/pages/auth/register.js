@@ -13,7 +13,7 @@ import { RegisterSchema } from "@/validation/index.js";
 import Loader from "@/components/Loader/index.js";
 import { useRouter } from 'next/navigation'
 import { setIsRegisterModal } from "@/redux/auth.js";
-import { Eye24Filled, EyeOff24Filled } from "@fluentui/react-icons";
+import { Eye24Filled, EyeOff24Filled, NumberRowFilled } from "@fluentui/react-icons";
 import { postAuth } from "@/api/index";
 import toastAlert from "@/utils/alert";
 import DatePicker from "@/components/DatePicker";
@@ -28,7 +28,7 @@ export default function Register() {
   const router = useRouter()
   const store = useSelector((state) => state.global);
 
-  const [birthDate, setBirthDate] = useState(new Date());
+  const [birthDate, setBirthDate] = useState(null);
   const [listDapil, setListDapil] = useState([]);
   const [dapil, setDapil] = useState({
     value: "",
@@ -66,7 +66,7 @@ export default function Register() {
       setIsLoading(false)
       console.log("ini post register", res)
       dispatch(setIsRegisterModal(true))
-      toastAlert("success", "Berhasil daftar sebagai caleg !")
+      toastAlert("success", "Register successful")
     })
       .catch((err) => {
         setIsLoading(false)
@@ -89,12 +89,14 @@ export default function Register() {
             <Formik
               enableReinitialize={true}
               initialValues={{
-                full_name: "",
-                birth_place: "",
-                mobile_phone: "",
+                completeName: "",
+                homeTown: "",
+                phoneNo: "",
                 email: "",
                 username: "",
                 password: "",
+                address: "",
+                birthDate: null, // Add birthDate to initialValues
               }}
               validationSchema={RegisterSchema}
               onSubmit={onSubmit}
@@ -106,7 +108,7 @@ export default function Register() {
                       <div className="mb-5">
                         <Input
                           label={"Complete Name"}
-                          name="full_name"
+                          name="completeName"
                           type="text"
                           placeholder="Enter Complete Name"
                         />
@@ -128,7 +130,7 @@ export default function Register() {
                       <div className="mb-5">
                         <Input
                           label={"No Handphone"}
-                          name="mobile_phone"
+                          name="phoneNo"
                           type="text"
                           placeholder="Enter No Handphone"
                         />
@@ -145,8 +147,13 @@ export default function Register() {
                         <DatePicker
                           selected={birthDate}
                           dateFormat="dd/MM/yyyy"
-                          onChange={(date) => setBirthDate(date)}
+                          onChange={(date) => {
+                            setBirthDate(date);
+                            values.birthDate = date; // Update Formik's value
+                          }}
+                          placeholderText="Pilih Tanggal Lahir"
                         />
+                        {errors.birthDate && <div className="text-primary-400 text-sm">{errors.birthDate}</div>} {/* Display error */}
                       </div>
                     </div>
                   </div>
@@ -155,7 +162,7 @@ export default function Register() {
                       <div className="mb-5">
                         <Input
                           label={"Hometown"}
-                          name="home_town"
+                          name="homeTown"
                           type="text"
                           placeholder="Enter Hometown"
                         />
