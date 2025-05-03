@@ -15,6 +15,7 @@ import toastAlert from "@/utils/alert";
 import { useRouter } from "next/navigation.js";
 import { setCookie, setStorage, setUserData } from "@/utils/storage.js";
 import Inforial2 from "@/components/Inforial-2.js";
+import Cookies from 'js-cookie'
 
 export default function Login() {
   const router = useRouter()
@@ -35,9 +36,10 @@ export default function Login() {
       setIsLoading(false)
       console.log("ini post login", res)
       var temp = res.data || null
-      setCookie("api_token", temp.token, 8)
-      document.cookie = `api_token=${temp.token}; Path=/; HttpOnly; Expires=${8}`;
+      // setCookie("api_token", temp.token, 8)
+      // document.cookie = `api_token=${temp.token}; Path=/; HttpOnly; Expires=${8}`;
       toastAlert("success", temp.message)
+      Cookies.set('api_token', temp.token, { expires: 1 }) // 1 day
       // handleClose()
       actions.resetForm({
         values: {
