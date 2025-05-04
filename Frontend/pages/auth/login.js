@@ -36,38 +36,17 @@ export default function Login() {
       setIsLoading(false)
       console.log("ini post login", res)
       var temp = res.data || null
-      // setCookie("api_token", temp.token, 8)
-      // document.cookie = `api_token=${temp.token}; Path=/; HttpOnly; Expires=${8}`;
       toastAlert("success", temp.message)
       Cookies.set('api_token', temp.token, { expires: 1 }) // 1 day
-      // handleClose()
+      setStorage('HasLoged', true)
+      router.push('/')
       actions.resetForm({
         values: {
           username: "",
           password: "",
         },
       });
-      // setUserData({
-      //   username: tempAccount.username,
-      //   id_user: tempAccount._id,
-      //   role: tempAccount.role,
-      // });
-      // setStorage("userData", {
-      //   username: tempAccount.username,
-      //   id_user: tempAccount._id,
-      //   role: tempAccount.role,
-      // })
-      // const dataToStore = {
-      //   username: tempAccount.username,
-      //   id_user: tempAccount._id,
-      //   role: tempAccount.role,
-      //   profile_picture: tempAccount.profile_picture,
-      // };
-      // setUserData(dataToStore)
-
       // router.push('http://145.223.19.73:8000/indexadmin')
-      // router.push('/admin/dashboard')
-      // setCookie("token", temp.token, 8)
     })
       .catch((err) => {
         setIsLoading(false)
