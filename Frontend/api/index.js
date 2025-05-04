@@ -1,7 +1,5 @@
 import CONFIG from "../config/index";
-// import { getDiariumVersion, getToken, getTokenAPIM, getUserId } from "../utils/storage";
 import axios from "axios";
-// import { MD5 } from "crypto-js";
 
 const isDev = process.env.NODE_ENV !== "production" ? true : false
 
@@ -136,16 +134,7 @@ export const postByPath = postParam(
   "api"
 );
 //POST WITH FILE
-export const uploadPhoto = postMultipart(
-  `api/upload`
-);
 // Delete
-export const deleteTask = deletePost(
-  "gateway/activity"
-);
-export const deleteByAuth = deleteParam(
-  "api"
-);
 
 // Put / update / patch
 export const updateData = patchParam(
@@ -161,9 +150,7 @@ const API = {
   postByPath,
   postLogout,
   //post with file
-  uploadPhoto,
   //delete
-  deleteByAuth,
   //update
   updateData,
 };
