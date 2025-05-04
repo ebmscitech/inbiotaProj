@@ -9,11 +9,10 @@ import Input from "@/components/Fields/Input.js";
 import { LoginSchema } from "@/validation/index.js";
 import ButtonPrimary from "@/components/misc/ButtonPrimary.js";
 import Loader from "@/components/Loader/index.js";
-import { Eye24Filled, EyeOff24Filled } from "@fluentui/react-icons";
 import { postAuth } from "@/api/index.js";
 import toastAlert from "@/utils/alert";
 import { useRouter } from "next/navigation.js";
-import { setCookie, setStorage, setUserData } from "@/utils/storage.js";
+import { setStorage } from "@/utils/storage.js";
 import Inforial2 from "@/components/Inforial-2.js";
 import Cookies from 'js-cookie'
 
@@ -22,10 +21,6 @@ export default function Login() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [show, setShow] = useState(false);
-
-  const togglePasswordVisibility = () => {
-    setShow(!show);
-  };
 
   const onSubmit = async (values, actions) => {
     console.log("udah di validasi", values)
@@ -74,9 +69,6 @@ export default function Login() {
                   <hr className="mt-6 border-b-1 border-white-300" />
                 </div>
                 <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
-                  {/* <div className="text-blueGray-400 text-center mb-3 font-bold">
-                    <small>Or sign in with credentials</small>
-                  </div> */}
                   <Formik
                     enableReinitialize={true}
                     initialValues={{
@@ -97,32 +89,6 @@ export default function Login() {
                             labelColor="text-white-500"
                           />
                         </div>
-                        {/* <div className="relative w-full mb-3">
-                          <Input
-                            label={"Password"}
-                            name="password"
-                            type={show ? 'text' : 'password'}
-                            placeholder="Masukkan Password"
-                          />
-                          <span onClick={togglePasswordVisibility} className={`cursor-pointer absolute inline-block right-5 ${errors.password ? "bottom-9" : values.password === "" ? "bottom-3" : "bottom-3"}`}>
-                            {!show ? (
-                              <EyeOff24Filled />
-                            ) : (
-                              <Eye24Filled />
-                            )}
-                          </span>
-                        {/* <div>
-                          <label className="inline-flex items-center cursor-pointer">
-                            <input
-                              id="customCheckLogin"
-                              type="checkbox"
-                              className="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
-                            />
-                            <span className="ml-2 text-sm font-semibold text-blueGray-600">
-                              Remember me
-                            </span>
-                          </label>
-                        </div> */}
                         <div className="relative w-full mb-3">
                           <Input
                             label={"Password"}

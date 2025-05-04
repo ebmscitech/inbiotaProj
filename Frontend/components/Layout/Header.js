@@ -9,14 +9,13 @@ import ChangeAccountDropdown from "../Dropdowns/ChangeAppDropdown";
 const Header = () => {
   const pathname = usePathname();
   const [scrollActive, setScrollActive] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // NEW
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
       setScrollActive(window.scrollY > 20);
     });
 
-    // Safe access to localStorage
     const loggedIn = getStorage('HasLoged');
     setIsLoggedIn(loggedIn === true || loggedIn === "true");
   }, []);
