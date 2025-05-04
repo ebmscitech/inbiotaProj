@@ -58,6 +58,7 @@ const get = (api) => (param = "") => {
     headers: {
       "Access-Control-Allow-Origin": "*",
       "Content-type": "application/json",
+      "ClientId": "8ee35d248080a0f740eb4499698f0dcc60e90ff9"
       // Authorization: `Bearer ${token}`,
       // 'apikey': process.env.REACT_APP_API_KEY
     },
