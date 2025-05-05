@@ -73,10 +73,27 @@ function PlantList({ color, searchResults, type, attribute, keyword, setIsDetail
                                         {type?.value === 1 ? plant.Plant_Name : type?.value === 2 ? plant.BA_Name : type?.value === 3 ? plant.Chemical_Formula : plant.Chemical_Formula}
                                     </p>
                                 </td>
-                                <td className="p-4 border-b border-warning-200 py-5">
-                                    <p className="text-sm text-slate-500">
-                                        {type?.value === 1 ? truncate(plant.Geographical_Distribution, 30) : type?.value === 2 ? truncate(plant.BA_Details, 30) : type?.value === 3 ? truncate(plant.IUPAC_Name, 30) : truncate(plant.IUPAC_Name, 30)}
-                                        {/* {type?.value === 1 ? truncate(plant.Geographical_Distribution, 30) : truncate(plant.BA_Details, 30)} */}
+                                <td className="p-4 border-b border-warning-200 py-5 align-top">
+                                    <p className="text-sm text-slate-500 break-words whitespace-pre-wrap max-w-md text-justify">
+                                        {
+                                            (attribute?.label !== 'All Attributes'
+                                                ? plant[attribute?.label]
+                                                : type?.value === 1
+                                                    ? plant.Traditional_Uses
+                                                    : type?.value === 2
+                                                        ? plant.BA_Details
+                                                        : type?.value === 3
+                                                            ? plant.IUPAC_Name
+                                                            : plant.IUPAC_Name
+                                            ) ?? '-'
+                                        }
+                                        {/* {type?.value === 1
+                                            ? plant[attribute?.label]
+                                            : type?.value === 2
+                                                ? truncate(plant.BA_Details, 30)
+                                                : type?.value === 3
+                                                    ? truncate(plant.IUPAC_Name, 30)
+                                                    : ""} */}
                                     </p>
                                 </td>
                                 <td className="p-4 border-b border-warning-200 py-5">

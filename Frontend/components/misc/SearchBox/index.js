@@ -33,7 +33,7 @@ const SearchBox = () => {
             console.error("Please select a type, attribute order, and enter a keyword.");
             return;
         }
-
+        console.log('ini attribut order', atributeOrder)
         try {
             const response = await getSearch(`/search?attribute=${atributeOrder.value}&search=${keyword === "" ? "0" : keyword}&orderBy=${type.value}&row=10&pageNo=${currentPage}`);
             const result = response.data;

@@ -41,7 +41,6 @@ export default function Login() {
           password: "",
         },
       });
-      // router.push('http://145.223.19.73:8000/indexadmin')
     })
       .catch((err) => {
         setIsLoading(false)

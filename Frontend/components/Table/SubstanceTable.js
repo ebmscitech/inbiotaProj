@@ -17,7 +17,7 @@ const SubstanceTable = ({ phytochemical }) => {
                             <th className={tableCellStyle}>Details</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className='text-justify'>
                         <tr>
                             <td className={tableCellStyle}>Phytochemical</td>
                             <td className={tableCellStyle}>{phytochemical.Phytochemical}</td>
