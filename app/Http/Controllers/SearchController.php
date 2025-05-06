@@ -617,17 +617,27 @@ class SearchController extends Controller
                 }, $filteredColumns);
 
                 $columnNames = array_merge($columnNames, $includeColumn);
+
+                $mappings = DB::table('common_table')
+                    ->where('CD_NM', 'column')
+                    ->pluck('CLAS_CD2', 'CLAS_CD1')
+                    ->toArray();
+
+                Log::info('Mappings:', $mappings);
+
                 foreach ($columnNames as $index => $columnName) {
-                    $finalResults[]=[
+                    $label = $mappings[$columnName] ?? str_replace('_', ' ', $columnName); // fallback ke format biasa
+                    $resultArray[] = [
                         'id' => $index + 1,
-                        'result' => $columnName
+                        'result' => $label,
+                        'columnName' => $columnName
                     ];
                 }
 
                 $dataWthSts = [
                     'status' => 200,
                     'message' => 'success',
-                    'data' => $finalResults
+                    'data' => $resultArray
                 ];
 
                 return (new IndividualSearchResource($dataWthSts))->response()->setStatusCode(200);
