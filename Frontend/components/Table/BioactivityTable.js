@@ -24,7 +24,7 @@ const BioactivityTable = ({ bioactivity }) => {
                             <th className={tableCellStyle}>Details</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className='text-justify'>
                         <tr>
                             <td className={tableCellStyle}>Bioactivity Name</td>
                             <td className={tableCellStyle}>{bioactivity.BA_Name}</td>

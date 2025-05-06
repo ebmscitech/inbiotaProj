@@ -24,7 +24,7 @@ const PlantTable = ({ plant }) => {
                             <th className={tableCellStyle}>Details</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className='text-justify'>
                         <tr>
                             <td className={tableCellStyle}>Local Name</td>
                             <td className={tableCellStyle}>{plant.Local_Name}</td>
