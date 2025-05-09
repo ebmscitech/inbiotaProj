@@ -59,7 +59,8 @@ const SearchBox = () => {
             if (result.status === 200) {
                 const options = result.data.map(item => ({
                     value: item.id,
-                    label: item.result
+                    label: item.result,
+                    column_name: item.columnName
                 }));
                 if (parameter === "searchBy") {
                     setListType(options);

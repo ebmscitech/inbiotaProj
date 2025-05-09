@@ -14,6 +14,7 @@ function PlantList({ color, searchResults, type, attribute, keyword, setIsDetail
     const [selectedPlant, setSelectedPlant] = useState(null);
 
     useEffect(() => {
+        // console.log('ini attribute', attribute)
         if (searchResults) {
             setPlants(searchResults.data);
         }
@@ -76,19 +77,12 @@ function PlantList({ color, searchResults, type, attribute, keyword, setIsDetail
                                 <td className="p-4 border-b border-warning-200 py-5 align-top">
                                     <p className="text-sm text-slate-500 break-words whitespace-pre-wrap max-w-md text-justify">
                                         {
-                                            (attribute?.label !== 'All Attributes'
-                                                ? plant[attribute?.label]
-                                                : type?.value === 1
-                                                    ? plant.Traditional_Uses
-                                                    : type?.value === 2
-                                                        ? plant.BA_Details
-                                                        : type?.value === 3
-                                                            ? plant.IUPAC_Name
-                                                            : plant.IUPAC_Name
-                                            ) ?? '-'
+                                            (attribute?.column_name !== 'All Attributes'
+                                                ? plant[attribute?.column_name]
+                                                : '-') ?? '-'
                                         }
                                         {/* {type?.value === 1
-                                            ? plant[attribute?.label]
+                                            ? plant[attribute?.column_name]
                                             : type?.value === 2
                                                 ? truncate(plant.BA_Details, 30)
                                                 : type?.value === 3
