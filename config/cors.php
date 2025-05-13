@@ -19,7 +19,10 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['https://inbiota.id'],
+    'allowed_origins' => [
+    'http://145.223.19.73:3000',
+    'https://inbiota.id',
+    ],
 
     'allowed_origins_patterns' => [],
 
