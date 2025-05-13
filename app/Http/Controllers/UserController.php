@@ -57,7 +57,7 @@ class UserController extends Controller
         return response()->json([
             'message' => 'Login successful',
             'token' => $apiToken,
-            'redirect_url' => url('/indexadmin')
+            'redirect_url' => 'http://145.223.19.73:8000/indexadmin'
         ], 200);
     }
 
