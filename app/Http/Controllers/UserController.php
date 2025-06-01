@@ -67,7 +67,7 @@ class UserController extends Controller
         return response()->json([
             'message' => 'Login successful',
             'token' => $apiToken,
-            'redirect_url' => url('/indexadmin')
+            'redirect_url' => secure_url('/indexadmin')
         ])->cookie($cookie);
 
     }
