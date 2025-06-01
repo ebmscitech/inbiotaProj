@@ -3,7 +3,7 @@
     Substance Data
 @endsection
 @section('content1')
-    <link rel="stylesheet" href="{{asset('/adminlte/plugins/select2/css/select2.min.css')}}">
+    <link rel="stylesheet" href="{{secure_asset('/adminlte/plugins/select2/css/select2.min.css')}}">
     <!-- contact section -->
     <section class="content">
         <div class="container-fluid">
@@ -128,6 +128,6 @@
             $('.select2').select2()
         });
     </script>
-    <script src="{{asset('/adminlte/plugins/select2/js/select2.full.min.js')}}"></script>
+    <script src="{{secure_asset('/adminlte/plugins/select2/js/select2.full.min.js')}}"></script>
     <!-- end contact section -->
 @endsection

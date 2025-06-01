@@ -5,7 +5,7 @@
   <div class="container-fluid">
     <nav class="navbar navbar-expand-lg custom_nav-container ">
       <a href="/" style="text-decoration: none; display: flex; align-items: center;">
-        <img src="{{ asset('/INBIOTALogo.png') }}" alt="Logo" style="width: 150px; height: auto; margin-right: 10px;">
+        <img src="{{ secure_asset('/INBIOTALogo.png') }}" alt="Logo" style="width: 150px; height: auto; margin-right: 10px;">
       </a>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -132,19 +132,19 @@
             </h4>
             <div class="info_links">
               <a class="active" href="/">
-                <img src="{{asset('/InbiotaHtmlCss/images/nav-bullet.png')}}" alt="">
+                <img src="{{secure_asset('/InbiotaHtmlCss/images/nav-bullet.png')}}" alt="">
                 Home
               </a>
               <a class="" href="/docs">
-                <img src="{{asset('/InbiotaHtmlCss/images/nav-bullet.png')}}" alt="">
+                <img src="{{secure_asset('/InbiotaHtmlCss/images/nav-bullet.png')}}" alt="">
                 Docs
               </a>
               <a class="" href="/contact">
-                <img src="{{asset('/InbiotaHtmlCss/images/nav-bullet.png')}}" alt="">
+                <img src="{{secure_asset('/InbiotaHtmlCss/images/nav-bullet.png')}}" alt="">
                 Contact
               </a>
               <a class="" href="/signin">
-                <img src="{{asset('/InbiotaHtmlCss/images/nav-bullet.png')}}" alt="">
+                <img src="{{secure_asset('/InbiotaHtmlCss/images/nav-bullet.png')}}" alt="">
                 Sign In
               </a>
             </div>

@@ -3,7 +3,7 @@
     <div class="container-fluid">
       <nav class="navbar navbar-expand-lg custom_nav-container ">
         <a href="/" style="text-decoration: none; display: flex; align-items: center;">
-          <img src="{{ asset('/INBIOTALogo.png') }}" alt="Logo" style="width: 150px; height: auto; margin-right: 10px;">
+          <img src="{{ secure_asset('/INBIOTALogo.png') }}" alt="Logo" style="width: 150px; height: auto; margin-right: 10px;">
         </a>
         {{-- <a class="navbar-brand" href="/">
           <span>INBIOTA</span>

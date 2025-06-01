@@ -3,17 +3,17 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" href="{{asset('/InbiotaHtmlCss/images/fevicon.png')}}" type="image/gif" />
+  <link rel="icon" href="{{secure_asset('/InbiotaHtmlCss/images/fevicon.png')}}" type="image/gif" />
   <title>INBIOTA</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="{{asset('/adminlte/plugins/fontawesome-free/css/all.min.css')}}">
+  <link rel="stylesheet" href="{{secure_asset('/adminlte/plugins/fontawesome-free/css/all.min.css')}}">
   <!-- Select2 -->
-  <link rel="stylesheet" href="{{asset('/adminlte/plugins/select2/css/select2.min.css')}}">
+  <link rel="stylesheet" href="{{secure_asset('/adminlte/plugins/select2/css/select2.min.css')}}">
   <!-- Theme style -->
-  <link rel="stylesheet" href="{{asset('/adminlte/dist/css/adminlte.min.css')}}">
+  <link rel="stylesheet" href="{{secure_asset('/adminlte/dist/css/adminlte.min.css')}}">
 
   <style>
     /*header section*/
@@ -29,27 +29,27 @@
         -ms-flex-direction: column;
             flex-direction: column;
   }
-  
+
   .sub_page .hero_area {
     min-height: auto;
   }
-  
+
   .headers_section .container-fluid {
     padding-right: 25px;
     padding-left: 25px;
   }
-  
+
   .navbar-brand span {
     font-weight: bold;
     color: #ffffff;
     font-size: 24px;
     text-transform: uppercase;
   }
-  
+
   .custom_nav-container {
     padding: 10px 0;
   }
-  
+
   .custom_nav-container .navbar-nav .nav-item .nav-link {
     padding: 3px 15px;
     margin: 10px 15px;
@@ -57,7 +57,7 @@
     text-align: center;
     text-transform: uppercase;
   }
-  
+
   .custom_nav-container .nav_search-btn {
     width: 35px;
     height: 35px;
@@ -66,11 +66,11 @@
     color: #ffffff;
     margin: 0 20px;
   }
-  
+
   .custom_nav-container .navbar-toggler {
     outline: none;
   }
-  
+
   .custom_nav-container .navbar-toggler {
     padding: 0;
     width: 37px;
@@ -78,7 +78,7 @@
     -webkit-transition: all 0.3s;
     transition: all 0.3s;
   }
-  
+
   .custom_nav-container .navbar-toggler span {
     display: block;
     width: 35px;
@@ -91,7 +91,7 @@
     border-radius: 5px;
     transition: all 0.3s;
   }
-  
+
   .custom_nav-container .navbar-toggler span::before, .custom_nav-container .navbar-toggler span::after {
     content: "";
     position: absolute;
@@ -104,52 +104,52 @@
     -webkit-transition: all 0.3s;
     transition: all 0.3s;
   }
-  
+
   .custom_nav-container .navbar-toggler span::after {
     top: 10px;
   }
-  
+
   .custom_nav-container .navbar-toggler[aria-expanded="true"] {
     -webkit-transform: rotate(360deg);
             transform: rotate(360deg);
   }
-  
+
   .custom_nav-container .navbar-toggler[aria-expanded="true"] span {
     -webkit-transform: rotate(45deg);
             transform: rotate(45deg);
   }
-  
+
   .custom_nav-container .navbar-toggler[aria-expanded="true"] span::before, .custom_nav-container .navbar-toggler[aria-expanded="true"] span::after {
     -webkit-transform: rotate(90deg);
             transform: rotate(90deg);
     top: 0;
   }
-  
+
   .custom_nav-container .navbar-toggler[aria-expanded="true"] .s-1 {
     -webkit-transform: rotate(45deg);
             transform: rotate(45deg);
     margin: 0;
     margin-bottom: -4px;
   }
-  
+
   .custom_nav-container .navbar-toggler[aria-expanded="true"] .s-2 {
     display: none;
   }
-  
+
   .custom_nav-container .navbar-toggler[aria-expanded="true"] .s-3 {
     -webkit-transform: rotate(-45deg);
             transform: rotate(-45deg);
     margin: 0;
     margin-top: -4px;
   }
-  
+
   .custom_nav-container .navbar-toggler[aria-expanded="false"] .s-1,
   .custom_nav-container .navbar-toggler[aria-expanded="false"] .s-2,
   .custom_nav-container .navbar-toggler[aria-expanded="false"] .s-3 {
     -webkit-transform: none;
             transform: none;
   }
-  
+
   .quote_btn-container {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -158,16 +158,16 @@
         -ms-flex-align: center;
             align-items: center;
   }
-  
+
   .quote_btn-container a {
     color: #ffffff;
     text-transform: uppercase;
   }
-  
+
   .quote_btn-container a span {
     margin-left: 5px;
   }
-  
+
   .custom_nav-container .navbar-nav .nav-item .nav-link {
     padding: 3px 15px;
     margin: 10px 15px;
@@ -175,7 +175,7 @@
     text-align: center;
     text-transform: uppercase;
   }
-  
+
   /*end header section*/
     /* info section */
 .info_sections {
@@ -354,15 +354,15 @@
 
 
 <!-- jQuery -->
-<script src="{{asset('/adminlte/plugins/jquery/jquery.min.js')}}"></script>
+<script src="{{secure_asset('/adminlte/plugins/jquery/jquery.min.js')}}"></script>
 <!-- Bootstrap 4 -->
-<script src="{{asset('/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{secure_asset('/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- Select2 -->
-<script src="{{asset('/adminlte/plugins/select2/js/select2.full.min.js')}}"></script>
+<script src="{{secure_asset('/adminlte/plugins/select2/js/select2.full.min.js')}}"></script>
 <!-- AdminLTE App -->
-<script src="{{asset('/adminlte/dist/js/adminlte.min.js')}}"></script>
+<script src="{{secure_asset('/adminlte/dist/js/adminlte.min.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="{{asset('/adminlte/dist/js/demo.js')}}"></script>
+<script src="{{secure_asset('/adminlte/dist/js/demo.js')}}"></script>
 
 <script>
     $(function () {
