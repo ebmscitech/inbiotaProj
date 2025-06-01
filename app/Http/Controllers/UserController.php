@@ -52,13 +52,24 @@ class UserController extends Controller
         $user->token = $apiToken;
         $user->save();
 
-        session(['api_token' => $apiToken]);
+        $cookie = cookie(
+            'api_token',
+            $apiToken,
+            60 * 24 * 7,
+            '/',
+            null,
+            false,
+            true,
+            false,
+            'Lax'
+        );
 
         return response()->json([
             'message' => 'Login successful',
             'token' => $apiToken,
-            'redirect_url' => url('/indexadmin')
-        ], 200);
+            'redirect_url' => 'http://145.223.19.73:8000/indexadmin'
+        ])->cookie($cookie);
+        
     }
 
     public function __construct()
