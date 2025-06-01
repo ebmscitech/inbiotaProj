@@ -57,7 +57,7 @@ class UserController extends Controller
             $apiToken,
             60 * 24 * 7,
             '/',
-            null,
+            '145.223.19.73',
             false,
             true,
             false,
@@ -69,7 +69,7 @@ class UserController extends Controller
             'token' => $apiToken,
             'redirect_url' => 'http://145.223.19.73:8000/indexadmin'
         ])->cookie($cookie);
-        
+
     }
 
     public function __construct()
