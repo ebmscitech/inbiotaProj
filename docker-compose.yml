@@ -8,7 +8,7 @@ services:
       - APP_DEBUG=false
       - APP_KEY=base64:rx3mTNB3LFAMtmv8JYwviFWJer8JcVABm9cU8MjI3KM=
       - SESSION_SECURE_COOKIE=false
-      - APP_URL=http://145.223.19.73:8000
+      - APP_URL=https://inbiota.duckdns.org
       - SESSION_DOMAIN=145.223.19.73
       - SESSION_SAME_SITE=Lax
       - DB_CONNECTION=mysql
