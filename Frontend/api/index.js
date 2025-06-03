@@ -69,10 +69,7 @@ const patchParam = (api) => (data, param = "") => {
     method: "PATCH",
     withCredentials: true,
     headers: {
-      "Access-Control-Allow-Origin": "*",
-      // "Content-type": "application/json",
-      // Authorization: `Bearer ${token}`,
-      // 'apikey': process.env.REACT_APP_API_KEY
+      "Access-Control-Allow-Origin": "*"
     },
   });
 };

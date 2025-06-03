@@ -32,7 +32,7 @@ export default function Login() {
       console.log("ini post login", res)
       var temp = res.data || null
       toastAlert("success", temp.message)
-      Cookies.set('api_token', temp.token, { expires: 1 }) // 1 day
+      Cookies.set('api_token', temp.token, { expires: 7 }) // 7 day
       setStorage('HasLoged', true)
       router.push('/')
       actions.resetForm({
