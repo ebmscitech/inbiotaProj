@@ -26,7 +26,7 @@
         </div>
         <div class="col-md-6 ">
           <div class="img-box">
-            <img src="{{asset('/InbiotaHtmlCss/images/about-img.png')}}" alt="">
+            <img src="{{secure_asset('/InbiotaHtmlCss/images/about-img.png')}}" alt="">
           </div>
         </div>
 

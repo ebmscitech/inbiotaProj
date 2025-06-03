@@ -51,19 +51,19 @@
             </h4>
             <div class="info_links">
               <a class="active" href="/">
-                <img src="{{asset('/InbiotaHtmlCss/images/nav-bullet.png')}}" alt="">
+                <img src="{{secure_asset('/InbiotaHtmlCss/images/nav-bullet.png')}}" alt="">
                 Home
               </a>
               <a class="" href="/docs">
-                <img src="{{asset('/InbiotaHtmlCss/images/nav-bullet.png')}}" alt="">
+                <img src="{{secure_asset('/InbiotaHtmlCss/images/nav-bullet.png')}}" alt="">
                 Docs
               </a>
               <a class="" href="/contact">
-                <img src="{{asset('/InbiotaHtmlCss/images/nav-bullet.png')}}" alt="">
+                <img src="{{secure_asset('/InbiotaHtmlCss/images/nav-bullet.png')}}" alt="">
                 Contact
               </a>
               <a class="" href="/login">
-                <img src="{{asset('/InbiotaHtmlCss/images/nav-bullet.png')}}" alt="">
+                <img src="{{secure_asset('/InbiotaHtmlCss/images/nav-bullet.png')}}" alt="">
                 Sign In
               </a>
             </div>

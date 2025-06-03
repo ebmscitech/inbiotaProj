@@ -4,7 +4,7 @@
 @endsection
 @section('content1')
     <!-- Select2 -->
-    <link rel="stylesheet" href="{{asset('/adminlte/plugins/select2/css/select2.min.css')}}">
+    <link rel="stylesheet" href="{{secure_asset('/adminlte/plugins/select2/css/select2.min.css')}}">
     <!-- contact section -->
     <section class="content">
         <div class="container-fluid">
@@ -135,5 +135,5 @@
         });
     </script>
     <!-- Select2 -->
-    <script src="{{asset('/adminlte/plugins/select2/js/select2.full.min.js')}}"></script>
+    <script src="{{secure_asset('/adminlte/plugins/select2/js/select2.full.min.js')}}"></script>
 @endsection

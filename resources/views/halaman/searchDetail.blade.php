@@ -108,7 +108,7 @@
         </tr>
         {{-- <tr>
           <td>Structure</td>
-          <td><img src="{{asset('imageInput/' . $tanaman->Structure)}}" alt=""></td>
+          <td><img src="{{secure_asset('imageInput/' . $tanaman->Structure)}}" alt=""></td>
         </tr> --}}
         </tbody>
         </table>

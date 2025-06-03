@@ -21,7 +21,7 @@
         <div class="row">
           <div class=" col-lg-10 mx-auto">
             <div class="img-box">
-              <img src="{{asset('/InbiotaHtmlCss/images/slider-img.png')}}" alt="">
+              <img src="{{secure_asset('/InbiotaHtmlCss/images/slider-img.png')}}" alt="">
             </div>
           </div>
         </div>
@@ -52,7 +52,7 @@
       </div>
       <div class="col-md-6 ">
         <div class="img-box">
-          <img src="{{asset('/InbiotaHtmlCss/images/about-img.png')}}" alt="">
+          <img src="{{secure_asset('/InbiotaHtmlCss/images/about-img.png')}}" alt="">
         </div>
       </div>
 
@@ -115,11 +115,11 @@
               </div>
               <br>
               <div>
-                  <img src="{{asset('/EBM-Logo.png')}}" alt="" class="image">
+                  <img src="{{secure_asset('/EBM-Logo.png')}}" alt="" class="image">
                   &nbsp;&nbsp;
-                  <img src="{{asset('/logoITB.png')}}" alt="" class="image">
+                  <img src="{{secure_asset('/logoITB.png')}}" alt="" class="image">
                   &nbsp;&nbsp;
-                  <img src="{{asset('/logopui.png')}}" alt="" class="image">
+                  <img src="{{secure_asset('/logopui.png')}}" alt="" class="image">
               </div>
             </h2>
         </div>

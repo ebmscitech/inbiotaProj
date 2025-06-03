@@ -52,13 +52,24 @@ class UserController extends Controller
         $user->token = $apiToken;
         $user->save();
 
-        session(['api_token' => $apiToken]);
+        $cookie = cookie(
+            'api_token',
+            $apiToken,
+            60 * 24 * 7,
+            '/',
+            'https://inbiota.duckdns.org/',
+            false,
+            true,
+            false,
+            'Lax'
+        );
 
         return response()->json([
             'message' => 'Login successful',
             'token' => $apiToken,
-            'redirect_url' => url('/indexadmin')
-        ], 200);
+            'redirect_url' => secure_url('/indexadmin')
+        ])->cookie($cookie);
+
     }
 
     public function __construct()

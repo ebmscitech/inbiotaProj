@@ -114,6 +114,6 @@ class HomeController extends Controller
             $userExists->save();
         }
 
-        return redirect('http://145.223.19.73:3000/');
+        return redirect('https://inbiota.id/');
     }
 }

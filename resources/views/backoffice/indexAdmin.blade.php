@@ -66,7 +66,7 @@ Introduction
       </div>
     </div>
     <!-- ./card -->
-    <form action="/">
+    <form action="https://inbiota.id">
       <button class="btn-success mb-8 btn-lg">
         Webpage
       </button>

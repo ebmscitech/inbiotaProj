@@ -110,7 +110,7 @@
                 </tr>
                 {{-- <tr>
                   <td>Structure</td>
-                  <td><img src="{{asset('imageInput/' . $dataSenyawa->Structure)}}" alt=""></td>
+                  <td><img src="{{secure_asset('imageInput/' . $dataSenyawa->Structure)}}" alt=""></td>
                 </tr> --}}
             </table>
 
