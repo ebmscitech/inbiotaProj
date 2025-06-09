@@ -14,17 +14,9 @@ class ApiLoginMiddleware
 {
     public function handle(Request $request, Closure $next): Response
     {
-        $cookieHeader = $request->header('Cookie');
-        Log::info('Raw Cookie Header:', ['cookie' => $cookieHeader]);
+        $token = $request->route('token');
 
-        $token = $request->cookie('api_token');
-
-        if (!$token && $cookieHeader) {
-            preg_match('/api_token=([^;]+)/', $cookieHeader, $matches);
-            $token = $matches[1] ?? null;
-        }
-
-        Log::info('Middleware API Token:', ['token' => $token]);
+        Log::info('Middleware API Token (from URL):', ['token' => $token]);
 
         $userExists = User::where('token', $token)->exists();
 

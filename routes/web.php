@@ -71,7 +71,7 @@ Route::get('/listSubscriber', [EmailsubController::class, 'indexS']);
 //Delete Data Subscription
 Route::delete('/listSubscriber/{data}', [EmailsubController::class, 'destroyS']);
 
-Route::get('/indexadmin', [HomeController::class, 'indexadmin'])->middleware(['auth_api']);
+Route::get('/indexadmin/{token}', [HomeController::class, 'indexadmin'])->middleware(['auth_api']);
 
 Route::get('/logoutMain', [HomeController::class, 'logout']);
 
