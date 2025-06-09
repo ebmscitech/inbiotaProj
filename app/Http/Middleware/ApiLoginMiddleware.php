@@ -14,9 +14,9 @@ class ApiLoginMiddleware
 {
     public function handle(Request $request, Closure $next): Response
     {
-        $token = $request->route('token');
+        $token = $request->route()?->parameter('token');
 
-        Log::info('Middleware API Token (from URL):', ['token' => $token]);
+        Log::info('Middleware APIToken (from URL):', ['token' => $token]);
 
         $userExists = User::where('token', $token)->exists();
 
