@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import Link from "next/link"
+import Cookies from 'js-cookie'
 
 export default function ChangeAccountDropdown() {
     const [isOpen, setIsOpen] = useState(false)
@@ -10,11 +11,13 @@ export default function ChangeAccountDropdown() {
     }
 
     useEffect(() => {
-        setRoles([
-            { name: "User", href: "/" },
-            { name: "Admin", href: "https://inbiota.duckdns.org/indexadmin" }
-            // { name: "Admin", href: "http://145.223.19.73:8000/indexadmin" }
-        ])
+        const token = Cookies.get('api_token')
+        if (token) {
+            setRoles([
+                { name: "User", href: "/" },
+                { name: "Admin", href: `https://inbiota.duckdns.org/indexadmin/${token}` }
+            ])
+        }
     }, [])
 
     return (
