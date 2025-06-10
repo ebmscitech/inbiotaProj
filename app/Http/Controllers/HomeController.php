@@ -80,10 +80,21 @@ class HomeController extends Controller
 
     public function indexadmin($token)
     {
+        $cookie = cookie(
+            'api_token',
+            $token,
+            60 * 24 * 7,
+            '/',
+            'https://inbiota.duckdns.org/',
+            false,
+            true,
+            false,
+            'Lax'
+        );
+
         return response()
             ->view('backoffice.indexAdmin')
-            ->cookie('api_token', $token, 0, '/', null, false, false, false);
-        // Parameter terakhir `false` = jangan enkripsi
+            ->cookie($cookie);
     }
 
     /**

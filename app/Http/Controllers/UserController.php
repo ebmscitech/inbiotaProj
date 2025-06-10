@@ -40,7 +40,9 @@ class UserController extends Controller
     public function login(UserLoginRequest $request): JsonResponse
     {
         $data = $request->validated();
-        $user = User::where('username', $data['username'])->first();
+        $user = User::where('username', $data['username'])
+                    ->where('sts', '1')
+                    ->first();
 
         if (!$user || !Hash::check($data['password'], $user->password)) {
             return response()->json([
