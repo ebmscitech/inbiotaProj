@@ -77,7 +77,8 @@ class HomeController extends Controller
         dd($request->all());
     }
 
-    public function indexadmin(){
+    public function indexadmin($token){
+        $response->cookie('api_token', $token, 0);
         return view('backoffice.indexAdmin');
     }
 
