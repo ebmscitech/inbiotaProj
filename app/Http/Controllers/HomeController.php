@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\zat;
 use App\Models\Bio;
 use App\Models\User;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Log;
 
 class HomeController extends Controller
@@ -77,9 +78,12 @@ class HomeController extends Controller
         dd($request->all());
     }
 
-    public function indexadmin($token){
-        $response->cookie('api_token', $token, 0);
-        return view('backoffice.indexAdmin');
+    public function indexadmin($token)
+    {
+        return response()
+            ->view('backoffice.indexAdmin')
+            ->cookie('api_token', $token, 0, '/', null, false, false, false);
+        // Parameter terakhir `false` = jangan enkripsi
     }
 
     /**
