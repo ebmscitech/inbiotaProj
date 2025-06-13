@@ -34,12 +34,11 @@ const Inforial4 = () => {
           <div className=" flex flex-col justify-center items-start row-start-2 sm:row-start-1">
             <div className="relative">
               <h1 className="text-3xl lg:text-4xl xl:text-5xl font-medium text-black-300 leading-normal">
-                <strong>Documents</strong>
+                <strong>Sources</strong>
               </h1>
             </div>
             <p className="text-black-500 text-[26px] font-medium mt-4 mb-6">
-              We collect anything data research about Bioactivity,
-              Phytochemical references in search engines.
+              We gather research data related to bioactivity and phytochemical references from various scientific sources.
             </p>
             <ButtonPrimary type='button' onClick={() => router.push('/docs')}
               addClass={"py-3 lg:py-4 px-10 lg:px-12"}>

@@ -20,49 +20,6 @@ const ContactInfo = () => {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false);
 
-  const onSubmit = async (values, actions) => {
-    console.log("ini submit")
-    // let data = {
-    //   role: "caleg",
-    //   partai: partai.value,
-    //   dapil: dapil.value,
-    //   birth_date: moment(birthDate).format('YYYY-MM-DD'),
-    //   lembaga: lembaga
-    // }
-    // let validatedData = {
-    //   ...data,
-    //   ...values,
-    // };
-    // if (
-    //   partai.value !== "" &&
-    //   dapil.value !== "" &&
-    //   lembaga !== ""
-    // ) {
-    //   console.log("udah di validasi", validatedData)
-    //   setIsLoading(true);
-
-    //   postAuth(validatedData, '/register').then((res) => {
-    //     setIsLoading(false)
-    //     console.log("ini post register", res)
-    //     dispatch(setIsRegisterModal(true))
-    //     toastAlert("success", "Berhasil daftar sebagai caleg !")
-    //   })
-    //     .catch((err) => {
-    //       setIsLoading(false)
-    //       console.log(err)
-    //       if (err.code === "ERR_BAD_REQUEST") {
-    //         toastAlert("error", err.response.data.message)
-    //       }
-    //       console.error(err)
-    //     })
-    // } else {
-    //   toastAlert(
-    //     "warning",
-    //     "Mohon untuk melengkapi dokumen terlebih dahulu !"
-    //   );
-    // }
-  };
-
   return (
     <div
       className="max-w-screen-xl mt-24 px-8 xl:px-16 mx-auto"

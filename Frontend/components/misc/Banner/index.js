@@ -23,51 +23,6 @@ const Banner = ({ isDetail = false }) => {
                             Kamu bisa melihat detail profile  caleg & membuat aspirasi kepada caleg terkait
                         </div>
                     </>}
-                {/* <ScrollAnimationWrapper
-                    className="w-full sm:w-10/12 grid max-h-28 mb-12 sm:mb-0 sm:max-h-28 grid-flow-row sm:grid-flow-row grid-cols-1 sm:grid-cols-3 sm:divide-x-2 divide-gray-100 z-10">
-                    <motion.div
-                        className="flex items-center h-6 self-center justify-center py-7 sm:py-6 w-full sm:w-auto mx-auto sm:mx-0"
-                        custom={{ duration: 2 }}
-                        variants={scrollAnimation}
-                    >
-                        <div className="flex mx-auto w-auto">
-                            <div className="flex border-b-[1px] items-center p-2">
-                                <Search20Filled className="mr-2" />
-                                <input type="text" placeholder="Cari Nama Caleg"
-                                    className=" focus:outline-none text-gray-700" />
-                            </div>
-                        </div>
-                    </motion.div>
-                    <motion.div
-                        className="flex items-center h-6 self-center justify-center py-7 sm:py-6 w-full sm:w-auto mx-auto sm:mx-0"
-                        custom={{ duration: 3 }}
-                        variants={scrollAnimation}
-                    >
-                        <div className="flex mx-auto w-auto ">
-                            <div className="flex border-b-[1px] items-center p-2">
-                                <Flag20Filled className="mr-2" />
-                                <input type="text" placeholder="Cari Nama Partai"
-                                    className=" focus:outline-none text-gray-700" />
-                            </div>
-                        </div>
-                    </motion.div>
-                    <motion.div
-                        className="flex items-center h-6 self-center justify-center py-7 sm:py-6 w-full sm:w-auto mx-auto sm:mx-0"
-                        custom={{ duration: 3 }}
-                        variants={scrollAnimation}
-                    >
-                        <div className="flex mx-auto w-auto">
-                            <div className="flex border-b-[1px] items-center p-2">
-                                <Location20Filled className="mr-2" />
-                                <input type="text" placeholder="Cari Dapil"
-                                    className=" focus:outline-none text-gray-700" />
-                            </div>
-                        </div>
-                    </motion.div>
-                </ScrollAnimationWrapper>
-                <div className="py-10 px-5 text-center w-full sm:w-2/12">
-                    <ButtonPrimary addClass={"py-3 lg:py-4 px-5 lg:px-7"}>Cari</ButtonPrimary>
-                </div> */}
             </div>
         </div>
     );

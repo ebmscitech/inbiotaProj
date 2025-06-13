@@ -31,9 +31,7 @@ const Inforial1 = () => {
               </h1>
             </div>
             <p className="text-white-500 text-[26px] font-medium mt-4 mb-6">
-              Inbiota is a database software which plants data with
-              compound containted in it. A breaktrough for natural
-              product research using AI to help finding data.
+              Inbiota is an intelligent database designed to organize and provide access to organism-based compound data. It is a breakthrough in natural product research, utilizing AI to streamline data discovery and analysis.
             </p>
             <ButtonPrimary type='button' onClick={() => router.push('/search')}
               addClass={"py-3 lg:py-4 px-10 lg:px-12"}>

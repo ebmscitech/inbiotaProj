@@ -29,18 +29,6 @@ export default function Register() {
   const store = useSelector((state) => state.global);
 
   const [birthDate, setBirthDate] = useState(null);
-  const [listDapil, setListDapil] = useState([]);
-  const [dapil, setDapil] = useState({
-    value: "",
-    label: "Pilih Dapil"
-  });
-  const [listPartai, setListPartai] = useState([]);
-  const [partai, setPartai] = useState({
-    value: "",
-    label: "Pilih Partai"
-  });
-
-  const [lembaga, setLembaga] = useState("");
   const [show, setShow] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
