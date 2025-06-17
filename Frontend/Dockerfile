@@ -16,8 +16,12 @@ RUN npx update-browserslist-db@latest
 # Copy the rest of the application code
 COPY . .
 
-# Build the Next.js application with increased memory limit
+# Set environment variables for build
 ENV NODE_OPTIONS="--max-old-space-size=4096"
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV NODE_ENV=production
+
+# Build the Next.js application
 RUN npm run build
 
 # Use a smaller image for production
