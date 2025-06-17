@@ -21,6 +21,5 @@ module.exports = {
   staticPageGenerationTimeout: 180,
   experimental: {
     workerThreads: false,
-    turbo: false,
   },
 }
