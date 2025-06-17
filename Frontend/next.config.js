@@ -18,14 +18,4 @@ module.exports = {
     ],
   },
   reactStrictMode: true,
-  output: 'standalone',
-  staticPageGenerationTimeout: 120,
-  experimental: {
-    instrumentationHook: false,
-    logging: {
-      build: true,
-      generateStaticParams: true,
-      error: true,
-    },
-  },
 }
