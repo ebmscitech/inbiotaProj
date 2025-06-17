@@ -10,10 +10,14 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install
 
+# Update browserslist database
+RUN npx update-browserslist-db@latest
+
 # Copy the rest of the application code
 COPY . .
 
-# Build the Next.js application
+# Build the Next.js application with increased memory limit
+ENV NODE_OPTIONS="--max-old-space-size=4096"
 RUN npm run build
 
 # Use a smaller image for production
