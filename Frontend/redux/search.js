@@ -1,17 +1,5 @@
 // ** Redux Imports
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-// import { getHome } from "../api";
-
-// export const getFindUser = createAsyncThunk(
-//     "search/getFindUser",
-//     async (params) => {
-//         const response = await getHome(
-//             `find-caleg?name=${params.name ? params.name : ""}&dapil=${params.dapil ? params.dapil : ""}&partai=${params.partai ? params.partai : ""}`
-//         );
-
-//         return response.data;
-//     }
-// );
 
 export const searchSlice = createSlice({
     name: "search",

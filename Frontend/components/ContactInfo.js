@@ -20,6 +20,10 @@ const ContactInfo = () => {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false);
 
+  const onSubmit = async (values, actions) => {
+    console.log("ini submit")
+  }
+
   return (
     <div
       className="max-w-screen-xl mt-24 px-8 xl:px-16 mx-auto"
