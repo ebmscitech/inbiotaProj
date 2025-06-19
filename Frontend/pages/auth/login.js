@@ -46,7 +46,7 @@ export default function Login() {
         setIsLoading(false)
         console.log(err)
         if (err.code === "ERR_BAD_REQUEST") {
-          toastAlert("error", err.response.data.message)
+          toastAlert("error", err.response.data.errors.message[0])
         }
         console.error(err)
       })
